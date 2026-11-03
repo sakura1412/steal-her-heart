@@ -1,0 +1,98 @@
+{
+  "scope": "Codex instruction-only project initialization, template alias, dimension library and documentation",
+  "verified_at": "2026-11-03T17:35:46.049413+08:00",
+  "python": "3.9.6",
+  "total_regression_tests": 317,
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q",
+      "exit_code": 0,
+      "output": "317 passed in 0.84s"
+    },
+    {
+      "command": ".venv/bin/python -m ruff check .",
+      "exit_code": 0,
+      "output": "All checks passed!"
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check .",
+      "exit_code": 0,
+      "output": "49 files already formatted"
+    },
+    {
+      "check": "skill-creator quick_validate",
+      "skills": [
+        "skills/competitor-research",
+        "skills/steal-her-heart"
+      ],
+      "status": "passed"
+    },
+    {
+      "check": "core dimension IDs match BASE_FIELDS and extensions have no collisions",
+      "core_fields": 21,
+      "extension_modules": 15,
+      "status": "passed"
+    },
+    {
+      "check": "template alias resolves to the existing packaged template",
+      "target": "../src/steal_her_heart/templates/profile.md",
+      "status": "passed"
+    },
+    {
+      "check": "command and skill YAML frontmatter and UI metadata",
+      "status": "passed"
+    },
+    {
+      "check": "Python source hashes unchanged from profile-configuration baseline",
+      "files_checked": 6,
+      "status": "passed"
+    },
+    {
+      "check": "Markdown local links, fences and trailing whitespace",
+      "local_links": 95,
+      "status": "passed"
+    }
+  ],
+  "independent_forward_testing": {
+    "method": "read-only instruction roleplay by an independent subagent; no tool-side business execution",
+    "cases": [
+      {
+        "request": "/init-project $ARGUMENTS; equipment repair service; industry unknown",
+        "observed": "Three questions, actual project name requested, industry options remain suggestions, no project files or network calls",
+        "status": "passed"
+      },
+      {
+        "request": "Show the recommended dimensions while the draft awaits confirmation",
+        "observed": "Reads and displays the draft, waits for explicit confirmation, does not treat a preview request as approval or start search",
+        "status": "passed"
+      }
+    ],
+    "not_an_end_to_end_research_run": true
+  },
+  "implementation_boundaries": {
+    "host_init_project_command_registered": false,
+    "python_batch_interview_implemented": false,
+    "python_discovery_executor_implemented": false,
+    "preview_to_python_lock_bridge_implemented": false,
+    "existing_review_guards_preserved": true,
+    "business_project_created": false,
+    "live_competitor_research": "not_run",
+    "analysis_and_reports": "not_run"
+  },
+  "source_sha256": {
+    "commands/init-project.md": "f014c6510f410d32bcd1960adf58b4898253a111acfaff359a8d50b7dd3d5783",
+    "templates/profile.md": "e012cec60111030a1608b410f43649f8fde6135f91900e3020e223dd8b841009",
+    "library/dimensions.md": "809a1fec80e5712afbf1a7f5287358a628438267a3e6b9af179f077fd251b241",
+    "skills/competitor-research/SKILL.md": "d8103c9f99fc1f9ae8a7e1efe3e7718106cb8c03d7eefee8f059ec3f0e3e9ec3",
+    "skills/competitor-research/agents/openai.yaml": "f4a5b7fc6a843550b4cbf18e97462f213adcf94bfe54a5edac33c3ebd6b9472e",
+    "AGENTS.md": "91b298dba9df9dfb312bb68dd620eefd5a2f27c53f951f1de10fa6d09270fd73",
+    "README.md": "ef77462e5321654bbe12cd1cd804be1ede42dbc09b375b6e8292fd558acbefcd",
+    "projects/README.md": "a8f04f9061c1ef50dd56bbe2e76e53bf8f1243c79a4f26f42c978a9490489722",
+    "skills/steal-her-heart/SKILL.md": "3d2747c59b45c79a977729665c6eccff061222923010012b7bc4000bf1db0f5d",
+    "skills/steal-her-heart/RULES.md": "bbc727bc00eb2924730e0234192c7f2fd2b1ef5f8a4f292a24094257f62be2f9",
+    "skills/steal-her-heart/TASK_SPEC.md": "848d3cdb6cb96d31c6ac22eaa64c994055cb738b75afb4b439dbace399241227",
+    "skills/steal-her-heart/references/project-initialization.md": "90e5d95681cbf39596d21abe94c2a23a6943e935fb05046f4f37d855b7f5f4fe",
+    "skills/steal-her-heart/references/research-workflow.md": "52afb6dcd4c32ba2cda2b4f72072db3135f2c1d4b27ed5ed159940e706fc7f50",
+    "skills/steal-her-heart/references/commands.md": "4f6d033f2074c81c8e6468dbd8d91ad5aa25de2c52c9fd044dacdd5577e974cd"
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "scope": "Project command and natural-language routing only",
+  "verified_at": "2026-11-03T16:03:40.981302+08:00",
+  "module_tests": 33,
+  "total_tests": 229,
+  "checks": [
+    {
+      "command": [
+        "-m",
+        "pytest",
+        "tests/test_command_router.py",
+        "-q"
+      ],
+      "exit_code": 0,
+      "output": ".................................                                        [100%]\n33 passed in 0.14s"
+    },
+    {
+      "command": [
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "exit_code": 0,
+      "output": "........................................................................ [ 31%]\n........................................................................ [ 62%]\n........................................................................ [ 94%]\n.............                                                            [100%]\n229 passed in 0.27s"
+    },
+    {
+      "command": [
+        "-m",
+        "ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "output": "All checks passed!"
+    },
+    {
+      "command": [
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "exit_code": 0,
+      "output": "32 files already formatted"
+    },
+    {
+      "command": [
+        "$CODEX_HOME/skills/.system/skill-creator/scripts/quick_validate.py",
+        "skills/steal-her-heart"
+      ],
+      "exit_code": 0,
+      "output": "Skill is valid!"
+    }
+  ],
+  "installed_cli_examples": [
+    {
+      "input": [
+        "/analyze",
+        "任意品牌"
+      ],
+      "result": {
+        "intent": {
+          "original_input": "/analyze 任意品牌",
+          "status": "parsed",
+          "action": "analyze",
+          "competitor": "任意品牌",
+          "period": null,
+          "audiences": [],
+          "question": null
+        },
+        "execution": "pending_module",
+        "message": "意图已识别；档案采集、更新与研究执行尚未实现。",
+        "output_path": null
+      }
+    },
+    {
+      "input": [
+        "/battlecard",
+        "Claude Code"
+      ],
+      "result": {
+        "intent": {
+          "original_input": "/battlecard Claude Code",
+          "status": "parsed",
+          "action": "battlecard",
+          "competitor": "Claude Code",
+          "period": null,
+          "audiences": [
+            "sales_rep"
+          ],
+          "question": null
+        },
+        "execution": "pending_module",
+        "message": "意图已识别；需研究资产、我方背景和报告生成器，当前尚未接入。",
+        "output_path": null
+      }
+    },
+    {
+      "input": [
+        "/brief",
+        "月报"
+      ],
+      "result": {
+        "intent": {
+          "original_input": "/brief 月报",
+          "status": "parsed",
+          "action": "brief",
+          "competitor": null,
+          "period": "monthly",
+          "audiences": [
+            "product_manager",
+            "sales_leader",
+            "sales_rep",
+            "operations"
+          ],
+          "question": null
+        },
+        "execution": "pending_module",
+        "message": "意图已识别；四类读者周报／月报生成器和研究资产查询尚未实现。",
+        "output_path": null
+      }
+    },
+    {
+      "input": [
+        "request",
+        "生成面向四类角色的周报"
+      ],
+      "result": {
+        "intent": {
+          "original_input": "生成面向四类角色的周报",
+          "status": "parsed",
+          "action": "brief",
+          "competitor": null,
+          "period": "weekly",
+          "audiences": [
+            "product_manager",
+            "sales_leader",
+            "sales_rep",
+            "operations"
+          ],
+          "question": null
+        },
+        "execution": "pending_module",
+        "message": "意图已识别；四类读者周报／月报生成器和研究资产查询尚未实现。",
+        "output_path": null
+      }
+    },
+    {
+      "input": [
+        "request",
+        "生成 Cursor 的销售一页纸"
+      ],
+      "result": {
+        "intent": {
+          "original_input": "生成 Cursor 的销售一页纸",
+          "status": "parsed",
+          "action": "battlecard",
+          "competitor": "Cursor",
+          "period": null,
+          "audiences": [
+            "sales_rep"
+          ],
+          "question": null
+        },
+        "execution": "pending_module",
+        "message": "意图已识别；需研究资产、我方背景和报告生成器，当前尚未接入。",
+        "output_path": null
+      }
+    }
+  ],
+  "collection_and_generation": "not_implemented",
+  "database_created": false,
+  "artifacts_created": false,
+  "host_slash_commands_registered": false,
+  "source_sha256": {
+    "src/steal_her_heart/command_router.py": "ce029dadaca10a8cce96cdace452d6ee38d708a0b36a1c659d464b7982b5a2e5",
+    "src/steal_her_heart/cli.py": "6b51aa7504ea1af34ae435459e80c2523e4a7ef07ce266903cbdbdf79b1b3322"
+  },
+  "publication_note": "Local skill-validator path was replaced with $CODEX_HOME for public distribution; test results and historical source fingerprints are unchanged."
+}

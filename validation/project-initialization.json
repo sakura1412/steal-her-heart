@@ -1,0 +1,75 @@
+{
+  "scope": "Stage 0 project interview, persistence and research-entry gates",
+  "verified_at": "2026-11-03T16:13:30.690416+08:00",
+  "module_tests": 28,
+  "total_tests": 257,
+  "checks": [
+    {
+      "command": [
+        "-m",
+        "pytest",
+        "tests/test_project_initialization.py",
+        "-q"
+      ],
+      "exit_code": 0,
+      "output": "............................                                             [100%]\n28 passed in 0.12s"
+    },
+    {
+      "command": [
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "exit_code": 0,
+      "output": "........................................................................ [ 28%]\n........................................................................ [ 56%]\n........................................................................ [ 84%]\n.........................................                                [100%]\n257 passed in 0.37s"
+    },
+    {
+      "command": [
+        "-m",
+        "ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "output": "All checks passed!"
+    },
+    {
+      "command": [
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "exit_code": 0,
+      "output": "36 files already formatted"
+    },
+    {
+      "command": [
+        "$CODEX_HOME/skills/.system/skill-creator/scripts/quick_validate.py",
+        "skills/steal-her-heart"
+      ],
+      "exit_code": 0,
+      "output": "Skill is valid!"
+    },
+    {
+      "check": "installed CLI stage 0 flow using offline fixture",
+      "status": "passed",
+      "before_initialization": "initialization_required",
+      "empty_competitors_accepted": true,
+      "after_initialization": "pending_module",
+      "task_snapshot_resume": "passed"
+    }
+  ],
+  "provenance_note": "CLI demonstration uses test fixtures, not actual user product information",
+  "real_model_test": "not_run",
+  "research_execution": "not_implemented",
+  "source_sha256": {
+    "src/steal_her_heart/project_initialization.py": "2eb133a38b31c73cc579b4ee4da334f37acca40a07d1da7cef79ba1202c87723",
+    "src/steal_her_heart/command_router.py": "c40d752b9c293adbf85ee0c34e4ac2a8f30965d5e8397b0ab15c7539c36b6c25",
+    "src/steal_her_heart/orchestrator.py": "efce75d699143f02f72c20e30f10a68a0d7b251819b40e0bb70864bb2aea5050",
+    "src/steal_her_heart/cli.py": "10bb6220ffe50d21576c8477eac56a4236351e3d18c9c7dc7db6c84ba3960bd8",
+    "src/steal_her_heart/schemas.py": "44c8fbe181470fb8bbb8f359b964d4f23a14b7bc43a070933e210e7a9cd48ead"
+  },
+  "publication_note": "Local skill-validator path was replaced with $CODEX_HOME for public distribution; test results and historical source fingerprints are unchanged."
+}

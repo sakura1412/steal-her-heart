@@ -1,0 +1,116 @@
+{
+  "scope": "Reader view specifications and evidence-bound Battlecard schema only",
+  "verified_at": "2026-11-03T10:41:47.589288+08:00",
+  "view_specs": [
+    {
+      "audience": "product_manager",
+      "title": "产品经理决策视图",
+      "sections": [
+        "能力对比矩阵（我方有／没有与领先／落后分开）",
+        "差距分析与机会点",
+        "AI等相关趋势的跟进情况",
+        "路线图建议"
+      ],
+      "layout": "report",
+      "priority": "standard"
+    },
+    {
+      "audience": "sales_leader",
+      "title": "销售领导决策视图",
+      "sections": [
+        "市场格局与竞品近期动向",
+        "定价对比与我方价格空间",
+        "赢单／丢单原因归纳",
+        "重点竞争对象与应避开的场景"
+      ],
+      "layout": "report",
+      "priority": "standard"
+    },
+    {
+      "audience": "sales_rep",
+      "title": "一页 Battlecard",
+      "sections": [
+        "对方三个主要卖点、客户可能怎么说、我们怎么回应",
+        "我方三个可证明的差异化优势",
+        "客户需求与适配性探测问题",
+        "不能说的话及安全替代表达"
+      ],
+      "layout": "one_page",
+      "priority": "core"
+    },
+    {
+      "audience": "operations",
+      "title": "运营行动视图",
+      "sections": [
+        "获客渠道、内容与活动打法",
+        "促销和定价策略变化",
+        "新手引导与客户成功动作",
+        "可借鉴的增长实验"
+      ],
+      "layout": "report",
+      "priority": "standard"
+    }
+  ],
+  "module_tests": 14,
+  "total_tests": 196,
+  "checks": [
+    {
+      "command": [
+        "-m",
+        "pytest",
+        "tests/test_audience_views.py",
+        "-q"
+      ],
+      "exit_code": 0,
+      "output": "..............                                                           [100%]\n14 passed in 0.05s"
+    },
+    {
+      "command": [
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "exit_code": 0,
+      "output": "........................................................................ [ 36%]\n........................................................................ [ 73%]\n....................................................                     [100%]\n196 passed in 0.23s"
+    },
+    {
+      "command": [
+        "-m",
+        "ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "output": "All checks passed!"
+    },
+    {
+      "command": [
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "exit_code": 0,
+      "output": "29 files already formatted"
+    },
+    {
+      "command": [
+        "$CODEX_HOME/skills/.system/skill-creator/scripts/quick_validate.py",
+        "skills/steal-her-heart"
+      ],
+      "exit_code": 0,
+      "output": "Skill is valid!"
+    }
+  ],
+  "real_model_test": "not_run",
+  "live_research": "not_run",
+  "report_generation": "not_implemented",
+  "one_page_render_validation": "not_run",
+  "semantic_validation": "not_implemented; ID consistency does not prove claim support",
+  "source_sha256": {
+    "src/steal_her_heart/audience_views.py": "b3c305a13a4c7d7a03daaa4e8676786fef6c68d810f96030de590f82979b7390",
+    "tests/test_audience_views.py": "4ea73a65aa234d8ca128d82f7636de4294b3f598ae35ff99acd6f18fa728fede"
+  },
+  "publication_note": "Local skill-validator path was replaced with $CODEX_HOME for public distribution; test results and historical source fingerprints are unchanged."
+}

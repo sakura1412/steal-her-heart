@@ -1,0 +1,125 @@
+{
+  "scope": "Industry-neutral core and configurable category dimensions only",
+  "verified_at": "2026-11-03T10:31:00.788475+08:00",
+  "template_id": "universal",
+  "template_version": 1,
+  "collection_schema_version": 2,
+  "default_field_count": 21,
+  "default_vertical_features": [],
+  "category_whitelist": false,
+  "examples": [
+    {
+      "industry": "制造",
+      "system_category": "ERP",
+      "custom_dimension": "生产排程",
+      "field_count": 22,
+      "shared_template": true
+    },
+    {
+      "industry": "物流",
+      "system_category": "WMS",
+      "custom_dimension": "库位与出入库",
+      "field_count": 22,
+      "shared_template": true
+    },
+    {
+      "industry": "企业管理",
+      "system_category": "HR",
+      "custom_dimension": "薪酬",
+      "field_count": 22,
+      "shared_template": true
+    },
+    {
+      "industry": "餐饮",
+      "system_category": "连锁品牌",
+      "custom_dimension": "服务体验",
+      "field_count": 22,
+      "shared_template": true
+    },
+    {
+      "industry": "消费电子",
+      "system_category": "硬件",
+      "custom_dimension": "续航",
+      "field_count": 22,
+      "shared_template": true
+    },
+    {
+      "industry": "自定义新行业",
+      "system_category": "新系统品类",
+      "custom_dimension": "新维度",
+      "field_count": 22,
+      "shared_template": true
+    }
+  ],
+  "template_tests": 27,
+  "brief_tests": 37,
+  "total_tests": 182,
+  "checks": [
+    {
+      "command": [
+        "-m",
+        "pytest",
+        "tests/test_collection_template.py",
+        "-q"
+      ],
+      "exit_code": 0,
+      "output": "...........................                                              [100%]\n27 passed in 0.06s"
+    },
+    {
+      "command": [
+        "-m",
+        "pytest",
+        "tests/test_brief_recognition.py",
+        "-q"
+      ],
+      "exit_code": 0,
+      "output": ".....................................                                    [100%]\n37 passed in 0.11s"
+    },
+    {
+      "command": [
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "exit_code": 0,
+      "output": "........................................................................ [ 39%]\n........................................................................ [ 79%]\n......................................                                   [100%]\n182 passed in 0.20s"
+    },
+    {
+      "command": [
+        "-m",
+        "ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "output": "All checks passed!"
+    },
+    {
+      "command": [
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "exit_code": 0,
+      "output": "26 files already formatted"
+    },
+    {
+      "command": [
+        "$CODEX_HOME/skills/.system/skill-creator/scripts/quick_validate.py",
+        "skills/steal-her-heart"
+      ],
+      "exit_code": 0,
+      "output": "Skill is valid!"
+    }
+  ],
+  "live_research": "not_run",
+  "automatic_domain_planning": "not_implemented",
+  "compatibility": "Old vertical collection objects rejected; task database remains schema 1",
+  "source_sha256": {
+    "src/steal_her_heart/collection_template.py": "c692e7fc63e0039f291335b81d8b16ada0ca6515aef63d482ad5b76d6b5d8c82",
+    "src/steal_her_heart/brief_recognition.py": "fda7f75028a9cb15423767a1ceca5db0b830dbb8bb8ce9e24304cae06e2921fc"
+  },
+  "publication_note": "Local skill-validator path was replaced with $CODEX_HOME for public distribution; test results and historical source fingerprints are unchanged."
+}

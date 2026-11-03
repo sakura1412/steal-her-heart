@@ -1,0 +1,24 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+outputs/
+.steal-her-heart/
+projects/**/.state/
+
+# Business projects remain local; publish only the workspace guide.
+/projects/*
+!/projects/README.md
+
+# Local secrets, databases, and operating-system metadata.
+.env
+.env.*
+!.env.example
+*.sqlite3
+*.sqlite3-*
+*.db
+.DS_Store

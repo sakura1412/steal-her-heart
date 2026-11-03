@@ -1,0 +1,4 @@
+interface:
+  display_name: "竞品研究 Agent"
+  short_description: "全行业项目初始化，分批访谈补齐背景，先确认维度再联网发现并确认四类候选竞品"
+  default_prompt: "使用 $competitor-research 创建竞品分析项目，每轮只问2～3题，先确认维度再发现并确认竞品。"
