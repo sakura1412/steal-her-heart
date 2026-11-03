@@ -24,6 +24,8 @@ $skill-installer 安装 https://github.com/sakura1412/steal-her-heart/tree/main/
 
 安装完成后可在下一轮调用。如果技能选择入口尚未刷新，重启 Codex 后再试。技能的发现与显式调用方式见 [OpenAI 官方说明](https://learn.chatgpt.com/docs/build-skills)。
 
+可独立安装的资源检查、实际安装校验与问答场景试用见 [直接调用验收](validation/direct-skill-installation.json)。
+
 ### 直接输入产品名称
 
 一次发送技能名和对象：
