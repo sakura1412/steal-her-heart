@@ -137,6 +137,8 @@ CommandResponse对无项目完整意图直接返回pending_module，缺参数则
 
 ### 默认单对象入口（本轮）
 
+可直接安装的运行包在 [codex-skills/steal-her-heart](../../codex-skills/steal-her-heart/SKILL.md)，包内提供维度库，不依赖源码目录或 Python。技能名为 steal-her-heart，当前文件对应的开发技能另名 steal-her-heart-dev，避免同名发现。运行时采用“调用技能 → 产品名 → 按需问答”；名称已给不重问，未给只问名称，重点问题可跳过。安装与 UI 刷新按宿主实际行为验证，不把文件创建说成当前聊天已加载。
+
 [competitor-research](../competitor-research/SKILL.md) 默认执行 [commands/analyze.md](../../commands/analyze.md)。名称足够明确时直接检索确认对象、选择适合维度、取证核查与分析；不前置我方产品、行业、市场、目的、读者或项目配置，不自动扩大其他对象，也不要求两次初始化确认。必要实体歧义和实质范围变化才询问。
 
 默认报告为竞品画像、研究结论、适用边界与建议验证的问题。没有我方背景不输出我方优势、领先落后或赢输；用户主动要求对照时仅补必要信息。Codex可按上下文处理裸名称；Python依然只解析明确命令与支持句式，不猜任意字符串。

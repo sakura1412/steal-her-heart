@@ -1,11 +1,13 @@
 ---
-name: steal-her-heart
+name: steal-her-heart-dev
 description: 开发和验收 Steal Her Heart Python 竞品研究 CLI Agent，按模块实现规划、取证、验证、分析、报告和研究记忆。用于该项目的工程任务；不将本开发技能当作已可执行的在线竞品调研工具。
 ---
 
 # Steal Her Heart — Codex 开发入口
 
 版本：0.9.0；日期：2026-11-03。本次增量：默认只需竞品名称，项目与我方背景可选；调整路由、无项目任务与恢复以及 Codex 分析指令。项目档案兼容和项目评审锁保留，不提前接入 Python 网络、分析或报告。
+
+直接调用的交付在 [codex-skills/steal-her-heart](../../codex-skills/steal-her-heart/SKILL.md)：安装一次后用 `$steal-her-heart 产品名`，名称未给先问名称，后续按需进行可跳过的重点问答。本轮仅打包与安装 Codex 运行技能，不改变 Python 执行器的实现状态。
 
 ## 开始前
 
@@ -69,4 +71,6 @@ Battlecard我方回应前仅补必要信息，普通竞品画像不因缺我方�
 
 ## 加载与来源
 
-当前文件在仓库 `skills/steal-her-heart/`，使用显式路径读取。自动发现可将整个目录安装到 `.agents/skills/steal-her-heart/`；当前没有完成这项安装。Skill 发现方式依据 [OpenAI 官方文档](https://learn.chatgpt.com/docs/build-skills)，本项目状态与模块协议是自己的设计。
+当前文件在仓库 `skills/steal-her-heart/`，仅用于开发，技能名为 steal-her-heart-dev，保留旧目录以兼容已有引用。不要把它安装为运行时入口。可直接调用的运行时包是 [codex-skills/steal-her-heart](../../codex-skills/steal-her-heart/SKILL.md)，安装后用 `$steal-her-heart 产品名`。
+
+开发者如需单独发现本开发技能，使用 `.agents/skills/steal-her-heart-dev/` 等独立名称；当前未完成这项安装。Skill 发现方式依据 [OpenAI 官方文档](https://learn.chatgpt.com/docs/build-skills)，本项目状态与模块协议是自己的设计。

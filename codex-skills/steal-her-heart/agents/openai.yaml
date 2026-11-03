@@ -1,0 +1,4 @@
+interface:
+  display_name: "Steal Her Heart"
+  short_description: "直接输入产品名称，按需问答并开展有来源的全行业竞品分析，无需项目背景或代码操作"
+  default_prompt: "使用 $steal-her-heart 帮我分析竞品。若我尚未提供产品名称，先问名称，再按需要问答；已有名称就直接采用。"

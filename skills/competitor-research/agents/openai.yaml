@@ -1,4 +1,4 @@
 interface:
-  display_name: "竞品研究 Agent"
-  short_description: "输入竞品名称即可开始全行业研究，按实际来源取证和分析，我方背景与项目配置可选"
-  default_prompt: "使用 $competitor-research 分析我给出的竞品名称，仅澄清必要的对象歧义，直接开始有来源的研究。"
+  display_name: "竞品研究（仓库兼容入口）"
+  short_description: "旧仓库入口转交Steal Her Heart技能，按产品名称研究并问答，我方背景可选"
+  default_prompt: "使用 $competitor-research 兼容入口调用Steal Her Heart，先采用产品名称，再按需问答。"

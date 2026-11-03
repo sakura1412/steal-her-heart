@@ -1,38 +1,54 @@
 # Steal Her Heart
 
-**输入一个竞品名称，开始有来源、可追溯的竞品研究。**
+**在 Codex 中直接调用，输入产品名称，再通过问答完成有来源的竞品研究。**
 
 An industry-agnostic competitor research agent for Python and Codex. Start with a competitor's name; your own product or project context is optional.
 
-你可以研究软件、硬件、消费品牌、工业品、本地生活或专业服务。无需先介绍“我们的产品”、创建项目，或填写一整份背景表。Agent 根据研究对象识别行业、选择适合的维度，并围绕实际来源形成画像与结论；只有名称确实有歧义时，才补问必要信息。
+你可以研究软件、硬件、消费品牌、工业品、本地生活或专业服务。先输入想分析的名称，Agent 再按需要询问重点、识别行业、选择适合的维度，并围绕实际来源形成画像与结论。无需先介绍“我们的产品”、创建项目，或填写一整份背景表。
 
-> **项目状态：开发中的工程原型。** Codex 的分析指令已提供，实际研究依赖宿主可用的联网与文件工具。Python 已实现无项目入口、离线需求识别、命令路由、状态机和本地存储；真实搜索、抓取、实质核查、分析与报告生成仍待接通。Python 返回 `pending_module` 不代表已经完成研究。
+> **项目状态：Codex 运行技能与开发中的 Python 工程原型。** 可独立安装的 Codex Skill 已提供，实际研究依赖宿主可用的联网与文件工具。Python 已实现无项目入口、离线需求识别、命令路由、状态机和本地存储；真实搜索、抓取、实质核查、分析与报告生成仍待接通。Python 返回 `pending_module` 不代表已经完成研究。
 
 [开始使用](#开始使用) · [当前能力](#当前能力) · [工作流](#工作流) · [可选项目模式](#可选项目模式) · [开发路线](#开发路线)
 
 ## 开始使用
 
-### 在 Codex 中分析一个竞品
+### 安装一次
 
-在 Codex 中打开本仓库，发送：
-
-```text
-读取 skills/competitor-research/SKILL.md，分析 Notion。
-```
-
-也可以在加载指令后说：
+在 Codex 中发送：
 
 ```text
-/analyze Notion
-帮我分析海底捞
-分析某硬件品牌，重点看维修与售后
+$skill-installer 安装 https://github.com/sakura1412/steal-her-heart/tree/main/codex-skills/steal-her-heart
 ```
 
-**竞品名称就是起点。** 行业、我方产品、市场、目的、读者和项目名均不必先填写。你主动提供的关注点会直接采用；没有额外要求时，输出通用竞品概览，并注明实际覆盖的地区、版本、日期和资料边界。
+安装的是 [Steal Her Heart 运行技能](codex-skills/steal-her-heart/SKILL.md)，自带研究规则和维度资源。日常使用无需先克隆本仓库、读取文件或安装 Python；仓库中的 `skills/steal-her-heart/` 是开发规范，不是这里要安装的运行包。
 
-这个入口是仓库内的 [Codex Skill](skills/competitor-research/SKILL.md) 与 [分析指令](commands/analyze.md)，尚未注册为宿主内置快捷命令。对象没有歧义时直接继续，不先执行 `/init-project` 或候选名单确认。宿主没有联网工具时会说明缺口，不把模型记忆当成本次事实。
+安装完成后可在下一轮调用。如果技能选择入口尚未刷新，重启 Codex 后再试。技能的发现与显式调用方式见 [OpenAI 官方说明](https://learn.chatgpt.com/docs/build-skills)。
 
-### 运行 Python 原型
+### 直接输入产品名称
+
+一次发送技能名和对象：
+
+```text
+$steal-her-heart Notion
+```
+
+也可以从 Codex 的技能选择入口选用 **Steal Her Heart**，再输入产品名称。没有提供名称时，Agent 只先问“你想分析哪个产品？”；已经给了名称，就不会重复询问。
+
+后续按聊天补充重点，例如：
+
+```text
+用户：Notion
+Agent：这次想先看整体概览、产品能力，还是定价？也可以说“按默认开始”。
+用户：整体概览，重点讲商业模式。
+```
+
+这是交互示例。重点问答可以跳过，用户说“默认”“开始”就继续；用户已附带的重点直接采用，只有确实影响识别的名称歧义才需要先澄清。在同一次研究对话中，可以继续追问“再展开定价”或“把结论整理成表格”，无需重复提供文件路径。
+
+**产品名称就是起点。** 行业、我方产品、市场、目的、读者和项目名均不必先填写。没有额外要求时，输出通用竞品概览，并注明实际覆盖的地区、版本、日期和资料边界。
+
+技能使用当前 Codex 环境实际提供的工具。不要求先执行 `/init-project` 或候选名单确认；宿主没有联网工具时会说明缺口，不把模型记忆当成本次事实。原仓库的 [分析指令](commands/analyze.md) 保留兼容路由，正常使用以安装后的技能为入口。
+
+### Python 工程原型（开发者）
 
 需要 Python **3.9+**，建议开发使用 **3.11+**。以下适用于 macOS／Linux：
 
@@ -56,7 +72,8 @@ Windows PowerShell 可用 `.venv\Scripts\Activate.ps1` 激活环境，再运行�
 
 | 能力 | 状态 | 现在的实际行为 |
 |---|---|---|
-| 仅竞品名开始分析 | Codex 指令就绪、Python 路由已实现 | 不要求我方产品或项目初始化；必要时澄清目标 |
+| 直接调用 Codex 技能 | 安装包已提供 | 一次安装后使用 `$steal-her-heart 产品名`，或选技能后输入名称 |
+| 仅产品名开始分析 | Codex 指令就绪、Python 路由已实现 | 不要求我方产品或项目初始化，按需问答且可采用默认重点 |
 | ResearchBrief 识别 | 已实现，离线规则 | 明确句式识别对象、维度和目的，歧义返回问题 |
 | 无项目任务与恢复 | 已实现基础 | 保存 `project_context=None` 的任务，当前停在 `UNDERSTANDING` |
 | 命令与自然语言路由 | 已实现 | 解析三类任务，缺对象或周期时澄清，完整请求返回待接入状态 |
@@ -72,7 +89,7 @@ Windows PowerShell 可用 `.venv\Scripts\Activate.ps1` 激活环境，再运行�
 
 ```mermaid
 flowchart TD
-    A[输入竞品名称] --> B{对象有歧义?}
+    A[调用技能并输入产品名称] --> B{对象有歧义?}
     B -->|有| C[仅澄清必要的身份信息]
     C --> D[检索确认行业与对象]
     B -->|无| D
@@ -85,6 +102,8 @@ flowchart TD
 ```
 
 用户点名的对象就是本次范围，不自动扩大为多竞品采集，不额外设置“维度确认＋候选确认”初始化门槛。需要增加其他对象或实质改变范围时，再请用户选择。
+
+研究重点可通过少量问答逐步明确，也可以直接采用默认概览。名称和重点已经给出时，不重复访谈；问答不会变成必须先填完的项目表格。
 
 默认报告可覆盖定位与客群、核心产品／服务、交付方式、价格与商业模式、价值主张、口碑、近期动态和适用边界；Agent 按行业调整，不强制每个对象都有 AI、API、移动端或软件版本。
 
@@ -114,11 +133,12 @@ CLI 退出码：`0` 为本次操作成功，`1` 为执行或存储错误，`2` �
 
 ## 可选项目模式
 
-需要长期跟踪一组对象、保存特定读者与关注点，或反复做我方产品对比时，可以创建项目：
+这是克隆并打开本仓库后的高级工程功能，适用于长期跟踪一组对象、保存特定读者与关注点，或反复做我方产品对比。普通技能调用不需要它。
+
+在仓库上下文中，可以让 Codex 按 [可选初始化指令](commands/init-project.md) 创建项目：
 
 ```text
-读取 skills/competitor-research/SKILL.md，
-为我的长期研究执行 /init-project my-product。
+按 commands/init-project.md，为我的长期研究创建 my-product 项目。
 ```
 
 聊天按 [可选初始化指令](commands/init-project.md) 每轮问 2～3 题；Python 终端仍一次一题：
@@ -142,11 +162,16 @@ steal-her-heart --project-name my-product /analyze Notion
 ```text
 steal-her-heart/
 ├── AGENTS.md                  仓库规则
-├── commands/analyze.md        默认单对象分析指令
+├── codex-skills/
+│   └── steal-her-heart/       可独立安装的 Codex 运行技能
+│       ├── SKILL.md           直接调用与问答规则
+│       ├── agents/            技能显示与默认调用提示
+│       └── references/        随技能提供的维度资源
+├── commands/analyze.md        仓库兼容分析入口
 ├── commands/init-project.md   可选项目初始化
 ├── library/                   全行业维度推荐库
 ├── templates/profile.md       可选项目背景模板
-├── skills/                    Codex 研究入口与开发规范
+├── skills/                    仓库兼容入口与 Agent 开发规范
 ├── src/steal_her_heart/        Python CLI、Schema 和基础实现
 ├── research/                  Codex 实际研究后保存的本地报告与来源
 ├── projects/                  可选业务项目及上下文
@@ -170,6 +195,7 @@ steal-her-heart/
 
 - [x] Schema、状态机、Registry、SQLite 与 Orchestrator 基础。
 - [x] 无项目单对象入口、离线需求识别与命令路由。
+- [x] 可独立安装的 Codex 技能，直接输入名称与按需问答。
 - [x] 可选项目档案、十一题访谈、中断续接与旧格式兼容。
 - [x] 单对象 Codex 分析指令、通用维度库与项目评审 API。
 - [ ] 接入 Python Planner 与真实搜索、抓取、证据提取。
