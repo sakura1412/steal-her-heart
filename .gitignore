@@ -13,6 +13,7 @@ projects/**/.state/
 # Business projects remain local; publish only the workspace guide.
 /projects/*
 !/projects/README.md
+/research/
 
 # Local secrets, databases, and operating-system metadata.
 .env

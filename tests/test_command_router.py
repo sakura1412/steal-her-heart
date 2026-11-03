@@ -101,6 +101,54 @@ def test_parsed_request_is_not_reported_as_generated_output(initialized_project)
         )
 
 
+@pytest.mark.parametrize(
+    "text,target",
+    [
+        ("/analyze Notion", "Notion"),
+        ("帮我分析海底捞", "海底捞"),
+        ("/analyze 任意硬件品牌", "任意硬件品牌"),
+    ],
+)
+def test_named_competitor_is_enough_without_own_product_configuration(text, target):
+    result = route_request(TaskRequest(user_input=text))
+    assert result.intent.action == "analyze" and result.intent.competitor == target
+    assert result.execution == "pending_module"
+    assert result.initialization_question is None and result.output_path is None
+    assert result.configured_readers == () and result.reader_requirements is None
+
+
+def test_only_explicit_incomplete_project_context_enables_initialization_gate():
+    request = TaskRequest(user_input="/analyze Notion")
+    assert route_request(request).execution == "pending_module"
+    selected = route_request(request, initialization_question="请补齐指定项目的 profile.md。")
+    assert selected.execution == "initialization_required"
+    assert selected.initialization_question == "请补齐指定项目的 profile.md。"
+    assert selected.configured_readers == ()
+
+
+@pytest.mark.parametrize("text", ["/analyze", "/battlecard", "/brief"])
+def test_missing_request_arguments_ask_about_the_request_without_starting_interview(text):
+    response = route_request(TaskRequest(user_input=text))
+    assert response.execution == "needs_clarification"
+    assert response.intent.question and response.initialization_question is None
+
+
+@pytest.mark.parametrize("text", ["/battlecard Notion", "/brief 周报"])
+def test_other_research_intents_do_not_require_a_full_own_product_profile(text):
+    response = route_request(TaskRequest(user_input=text))
+    assert response.execution == "pending_module"
+    assert response.initialization_question is None
+    assert response.output_path is None and response.configured_readers == ()
+    assert response.reader_requirements is None
+
+
+def test_raw_name_in_api_remains_distinct_from_explicit_cli_analyze_entry():
+    # The Codex skill can interpret a name in chat. The deterministic API still
+    # requires an action, so greetings and arbitrary text do not become research.
+    response = route_request(TaskRequest(user_input="Notion"))
+    assert response.execution == "unsupported" and response.intent.action is None
+
+
 def test_registry_checks_capability_and_schema():
     registry = ToolRegistry()
     registry.register(RequestRoutingTool())

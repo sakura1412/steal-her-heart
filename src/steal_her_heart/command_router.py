@@ -1,11 +1,11 @@
-"""Map project commands and supported natural requests to the same typed intent."""
+"""Route competitor research requests with optional own-product context."""
 
 import re
 from typing import Annotated, Literal, Optional
 
 from pydantic import Field, model_validator
 
-from .project_initialization import QUESTIONS, require_project
+from .project_initialization import require_project
 from .schemas import (
     Contract,
     Identifier,
@@ -133,7 +133,7 @@ def parse_request(request: TaskRequest) -> CommandIntent:
                 period=period,
                 question=None if period else "需要生成周报还是月报？请指定 周报 或 月报。",
             )
-        return _intent(original, None, question="支持 /analyze、/battlecard、/brief 三种项目命令。")
+        return _intent(original, None, question="支持 /analyze、/battlecard、/brief 三种研究命令。")
     text = re.sub(r"^(?:请帮我|帮我|请|麻烦|please)\s*", "", text, flags=re.I)
     # Compound or qualified requests are not silently reduced to the first action.
     if re.search(r"[\n\r;；]|然后|同时|并且|并生成|顺便|不要|不生成", text):
@@ -187,37 +187,46 @@ def route_request(
     initialization_question: Optional[str] = None,
 ) -> CommandResponse:
     intent = parse_request(request)
-    if intent.action is not None and project is None:
+    if intent.status != "parsed":
+        return CommandResponse(intent=intent, execution=intent.status, message=intent.question)
+    # Only a caller that explicitly selected an incomplete project requests this gate.
+    # An absent optional context must never start an own-product interview by itself.
+    if project is None and initialization_question is not None:
         return CommandResponse(
             intent=intent,
             execution="initialization_required",
-            message="请先完成阶段0项目访谈，再启动研究任务。",
-            initialization_question=initialization_question or QUESTIONS["product"],
+            message="所选项目配置尚未就绪；可补齐该项目，或不带项目参数直接研究竞品。",
+            initialization_question=initialization_question or "请补齐所选项目配置。",
         )
-    if intent.status != "parsed":
-        return CommandResponse(intent=intent, execution=intent.status, message=intent.question)
-    require_project(project)
-    readers = project.readers if intent.action in {"brief", "battlecard"} else ()
+    if project is not None:
+        project = require_project(project)
+    readers = project.readers if project and intent.action in {"brief", "battlecard"} else ()
     values = intent.model_dump()
     values["audiences"] = tuple(reader.id for reader in readers)
     intent = CommandIntent.model_validate(values)
     missing = {
-        "analyze": "意图已识别；档案采集、更新与研究执行尚未实现。",
-        "battlecard": "意图已识别；需研究资产、我方背景和报告生成器，当前尚未接入。",
-        "brief": "意图已识别；配置读者的周报／月报生成器和研究资产查询尚未实现。",
+        "analyze": "已识别研究对象，无需我方产品背景；采集、更新与研究执行尚未实现。",
+        "battlecard": (
+            "已识别销售一页纸请求；可先整理竞品画像，"
+            "我方优势和回应需相关背景及双方证据。采集和报告生成尚未接入。"
+        ),
+        "brief": (
+            "已识别周报／月报请求，无需我方产品背景；"
+            "生成前需明确研究资产、对象及时间范围。资产查询和报告生成尚未接入。"
+        ),
     }
     return CommandResponse(
         intent=intent,
         execution="pending_module",
         message=missing[intent.action],
         configured_readers=readers,
-        reader_requirements=project.readers_and_priorities,
+        reader_requirements=project.readers_and_priorities if project else None,
     )
 
 
 class RequestRoutingTool(Tool):
     name = "route_request"
-    description = "Parse project commands or natural language; no collection or generation"
+    description = "Parse research requests with optional project context; no research execution"
     input_model = TaskRequest
     output_model = CommandResponse
     required_capabilities = frozenset({"request_routing"})

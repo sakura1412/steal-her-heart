@@ -1,12 +1,12 @@
 # Steal Her Heart — TASK_SPEC
 
-版本：0.8.0；任务持久化 schema_version：1；采集对象 schema_version：2；Battlecard schema_version：1；日期：2026-11-03。
+版本：0.9.0；任务持久化 schema_version：1；采集对象 schema_version：2；Battlecard schema_version：1；日期：2026-11-03。
 
-本次变更：新增 [Codex 聊天初始化指令](../../commands/init-project.md) 及维度库资源，按每轮2～3题、维度预确认、联网候选确认组织。只交付指令与资源，Python 11题访谈、旧 JSON／9题兼容和 review API 的名单优先 guard 不变；不实现网络、分析或报告执行。
+本次变更：默认 [单对象入口](../../commands/analyze.md) 仅需竞品名，我方背景与项目可选。Python路由不再把所有任务前置拦截到访谈，run/resume允许无项目快照并保持上下文一致。显式项目的11题、旧档案兼容和review API名单／锁约束保留；不接入网络、分析或报告执行。
 
 ## 1. 基线与决策来源
 
-用户材料指定产品名称、Python CLI、六个能力模块、Pydantic、状态机、Evidence／Analysis 分离、研究记忆及分阶段开发。最新聊天初始化顺序为访谈、维度推荐确认、联网四类候选确认，再提示 /analyze；采集前名单与维度均须有效确认并绑定锁，后续核查、分析与配置读者输出不变。旧“泛化首次计划批准”不能替代两项确认。
+用户材料指定产品名称、Python CLI、六个能力模块、Pydantic、状态机、Evidence／Analysis分离与分阶段开发。最新明确修正默认使用方式：只输入想分析的竞品名称，无须知道我方项目。早期“所有分析必须先访谈和两道初始化确认”不再适用于默认单对象；这些约束仅在用户主动选择项目／批量研究时保留。
 
 原文架构图及两处工具／交互表格缺失，状态图混入渲染 CSS；本规范依据文字恢复可实现设计，不宣称复原原图。原文“2天／3天”是用户材料中的建议，未评估工期，不作为交付承诺。
 
@@ -53,25 +53,25 @@ flowchart TD
   B -->|是| C[确认研究对象]
   B -->|否| D[制定计划]
   C --> D
-  D --> E[首次计划或范围变化时确认]
-  E --> F[检索与提取证据]
+  D --> F[检索与提取证据]
   F --> G{验证质量}
   G -->|PASS| H[分析事实与差异]
   H --> I[组织报告并归档]
   G -->|RESEARCH_MORE 且有预算| J[反馈缺口并修订计划]
   J --> K{范围实质变化?}
   K -->|否| F
-  K -->|是| E
+  K -->|是| E[确认范围变化或项目评审]
+  E --> D
   G -->|到限或无进展| L[失败结果与资料缺口]
 ```
 
-该图描述目标产品，不表示 Phase 1 已实现研究链路。状态跳转以 RULES 状态表和代码 guard 为准。
+该图描述目标产品，不表示 Python 已实现研究链路。默认单对象不强制首次计划批准；PLANNING→RESEARCHING 可直接迁移。主动 WAIT_CONFIRM 才校验确认记录；项目 review API 另外绑定名单和锁。状态迁移仍遵循代码guard，不能把聊天宿主研究当作Python已迁移执行。
 
 ## 5. 开发交付批次（不是产品运行阶段）
 
 | 阶段 | 交付 | 本轮范围 |
 |---|---|---|
-| 阶段0 项目访谈 | 运行时先收集背景并保存，未完成不能启动研究 | 已实现逐题访谈与闸门 |
+| 可选项目访谈 | 主动选择项目时保存背景与快照 | 已实现逐题访谈与显式项目闸门；默认单对象不依赖 |
 | Phase 1 骨架 | Schema、State Machine、Registry、Memory基础、Orchestrator、CLI | 实施并测试 |
 | Phase 2 Planner | 意图／行业／实体识别、分层发现、名单及维度确认的 CLI 交互 | 仅离线 ResearchBrief 识别已实施 |
 | Phase 3 Research | 搜索／抓取／提取／去重、来源快照、实质 Validator、反思补证、调用预算与恢复 | 只留契约 |
@@ -86,9 +86,9 @@ flowchart TD
 项目包为 src/steal_her_heart；不创建后续功能空实现，不连接模型、不搜索。
 
 - `hello`：经 Registry 调用诊断工具，输出 ToolResult，成功退出0，不写研究数据库。
-- `run "分析 Cursor"`：先过阶段0；完成后验证输入，创建 CREATED 的 Task＋Memory，事务迁移至 UNDERSTANDING，返回 TaskResult(outcome=pending_module)，退出3。
+- `run "分析 Cursor"`：无项目也可验证输入、创建Task＋Memory并迁移至UNDERSTANDING；project_context=None，返回pending_module、退出3。默认库为.steal-her-heart/memory.sqlite3或--db；显式项目使用其已校验背景。
 - `status task_id`：读取任务，返回实际状态；读取成功退出0。
-- `resume task_id`：先检查阶段0及快照一致性；CREATED 可推进到 UNDERSTANDING，已有 UNDERSTANDING 不再迁移；返回 pending_module、退出3，不新增搜索或模型调用。
+- `resume task_id`：检查当前可选上下文与快照一致，None只与None匹配，绑定项目不能丢弃或套给无项目任务。CREATED可推进UNDERSTANDING，已有状态不重迁移；返回pending_module、退出3，不新增搜索或模型调用。
 - 非法输入／未知任务退出2；存储或竞争错误退出1。研究完成的真实出口留待后续模块，不伪造 report.md。
 
 SQLite 同时保存快照与有序状态事件，用 revision 拒绝过期提交；不声称首阶段具有分布式租约、研究工具重放控制或长期知识检索。
@@ -119,7 +119,7 @@ CollectedField 的 pending/found/not_found/not_applicable 互斥。未找到显�
 
 ### 四类读者与 Battlecard 契约
 
-用户内容见 [audience-views.md](references/audience-views.md)，代码为 [audience_views.py](../../src/steal_her_heart/audience_views.py)。Audience 的四个值仅标识已有预设，ReaderViewSpec.audience、Battlecard.audience 和 ReaderProfile.id 均为开放标识。实际输出读取项目／锁定提案的 readers；未解析原始读者答复时保留缺口，不能默认四类。
+用户内容见 [audience-views.md](references/audience-views.md)，代码为 [audience_views.py](../../src/steal_her_heart/audience_views.py)。Audience 的四个值仅标识已有预设，ReaderViewSpec.audience、Battlecard.audience 和 ReaderProfile.id 均为开放标识。读者可省略，默认通用报告；显式配置时读取其readers，未解析原答保留缺口，不能默认四类或要求建项目。
 
 产品经理的“有／没有”和“领先／落后”是独立判断，须保留未知／不适用；销售领导的价格空间、赢输归因需我方价格及真实样本；运营增长建议须区分可观察事实与实验假设。详细输出字段与未来语义验收见读者规范，本次只定义内容契约，不实现这三类完整数据生成。
 
@@ -133,25 +133,31 @@ status=draft 必须披露缺口，可没有 Analysis；status=ready 要有我方
 
 规范见 [commands.md](references/commands.md)，实现 [command_router.py](../../src/steal_her_heart/command_router.py)。CommandIntent 含 original_input/status/action/competitor/period/audiences/question；action 为 analyze/battlecard/brief，period 为 weekly/monthly。单竞品任务必须有名称，brief 必须有周期；读者ID从结构化项目配置读取，未解析时为空并保留 reader_requirements 原答，不能默认四类。Battlecard 是格式要求，不强制读者ID为 sales_rep。保留原文，实体识别与研究范围仍由后续理解模块处理。
 
-CommandResponse 对已识别意图先检查阶段0，未完成为 initialization_required；完成后 parsed 才映射 pending_module，其余为澄清／不支持；产物路径不可伪造。CLI request 接受原文，直接 /analyze、/battlecard、/brief 也可用；recognize-brief 为识别器入口，旧 brief 保留兼容。所有路由调用经 Registry，不创建库或产物。周报／月报起止日期和档案范围在后续计划明确，不创建调度器。
+CommandResponse对无项目完整意图直接返回pending_module，缺参数则澄清；只有显式选择的项目未完成才initialization_required。Battlecard我方信息和brief资产范围由后续执行补齐，路由不创建没有提交接口的循环；产物路径不可伪造。CLI request 接受原文，直接 /analyze、/battlecard、/brief 也可用；recognize-brief 为识别器入口，旧 brief 保留兼容。所有路由调用经 Registry，不创建库或产物。周报／月报起止日期和档案范围在后续计划明确，不创建调度器。
 
-### 聊天初始化指令（本轮）
+### 默认单对象入口（本轮）
 
-[competitor-research](../competitor-research/SKILL.md) 路由到 [commands/init-project.md](../../commands/init-project.md)，读取 [templates/profile.md](../../templates/profile.md) 和 [library/dimensions.md](../../library/dimensions.md)。每轮2～3题、不会时给建议选项，补齐后保存项目档案；先维度预确认，再实际联网发现并确认四类候选。未提供真实项目名时先问名称，不创建 `$ARGUMENTS` 或默认业务项目。
+[competitor-research](../competitor-research/SKILL.md) 默认执行 [commands/analyze.md](../../commands/analyze.md)。名称足够明确时直接检索确认对象、选择适合维度、取证核查与分析；不前置我方产品、行业、市场、目的、读者或项目配置，不自动扩大其他对象，也不要求两次初始化确认。必要实体歧义和实质范围变化才询问。
 
-这是 Codex 依据指令使用宿主工具的流程；没有注册宿主 /init-project，也没有将联网、批量问答或聊天确认接入 Python。两项确认后告知可以请求 /analyze，同时说明当前采集执行能力。预确认不能当作最终 lock，详见运行规范中的兼容边界。
+默认报告为竞品画像、研究结论、适用边界与建议验证的问题。没有我方背景不输出我方优势、领先落后或赢输；用户主动要求对照时仅补必要信息。Codex可按上下文处理裸名称；Python依然只解析明确命令与支持句式，不猜任意字符串。
+
+实际Codex产物可存 research/<安全对象标识>/<运行标识>/，Python暂不生成报告。宿主工具执行和Python执行链明确区分；不能把指令存在、parsed或pending_module标成研究完成。
+
+### 可选项目初始化
+
+只有用户主动选择长期项目、固定读者／维度或我方对照配置时，才执行 [init-project](../../commands/init-project.md)，使用 [profile模板](../../templates/profile.md) 和 [维度库](../../library/dimensions.md)。聊天每轮2～3题，Python单题保存；名单／维度预确认与正式锁的兼容边界见运行规范，不放宽现有项目guard。
 
 ### 阶段0 项目上下文
 
-规范见 [project-initialization.md](references/project-initialization.md)，实现 [project_initialization.py](../../src/steal_her_heart/project_initialization.py)。这是 Python 产品运行阶段0，与完整聊天初始化和开发交付批次分开。ProjectInterview 保存 project_id、访谈版本与答案；InterviewStatus 表达 interviewing／ready、下一问题及完整上下文。新版本按用户模板逐问11项，完成时转为 ProjectContext，标 user_provided。industry 原文和 industries 多选列表并存；price_range 和 special_notes 可空，明确未知进 uncertainties；读者要求角色／关注点／期望格式，映射到开放 ReaderProfile 与 output_style；已知竞品可空。
+规范见 [project-initialization.md](references/project-initialization.md)，实现 [project_initialization.py](../../src/steal_her_heart/project_initialization.py)。这是显式选择的可选项目访谈，与默认单对象入口和开发交付批次分开。ProjectInterview 保存 project_id、访谈版本与答案；InterviewStatus 表达 interviewing／ready、下一问题及完整上下文。新版本按用户模板逐问11项，完成时转为 ProjectContext，标 user_provided。industry 原文和 industries 多选列表并存；price_range 和 special_notes 可空，明确未知进 uncertainties；读者要求角色／关注点／期望格式，映射到开放 ReaderProfile 与 output_style；已知竞品可空。
 
 CLI 提供 init-project（可 --interactive）、answer-project question_id answer、project-status；全局 --project 指定项目 SQLite 路径。事务保存，每次回答必须对应当前问题，已完成不重问，中断可继续。核心字段显式未知保持未就绪；读者缺列继续提问，不能自动填格式。非空及未知标记校验不是无限制语义理解。
 
-CommandResponse 增加 initialization_required 与 initialization_question。已识别任务先过阶段0再问任务参数，初始化后仍返回已有 pending_module。原文／任务字段不能携带或替换受信任项目上下文。CLI 缺上下文时不创建研究库；Orchestrator 也拒绝无背景调用。ResearchMemory 增加可空 project_context，新任务写快照，旧任务可读但无快照不得默认恢复。研究状态机不变。
+CommandResponse保留initialization_required与initialization_question供显式未完成项目使用，不用于默认单对象。ResearchMemory.project_context可空；无项目run可创建基础任务，恢复要求None或绑定背景保持完全一致。无背景旧快照不能自动套入某个项目。原文不能携带或替换受信项目上下文，状态集合与数据库schema不变。
 
 ### 新产品运行链与锁定契约
 
-以 [research-workflow.md](references/research-workflow.md) 为运行阶段事实源；聊天初始化先访谈、维度预确认，再联网发现和名单确认。最终维度与名单绑定锁定后才进入每对象一子代理采集、核查、分析和配置读者输出。与前述开发批次分开，不靠技术状态名代替业务评审。
+以 [research-workflow.md](references/research-workflow.md) 为运行规范源：默认单对象只需名称，范围内按对象设计维度并继续；下面的DiscoveryProposal、名单和维度锁属于可选项目／批量研究API，不能反过来要求所有单对象先建项目。
 
 [research_workflow.py](../../src/steal_her_heart/research_workflow.py) 的 DiscoveryProposal 保存背景摘要、实际搜索调用引用、四类候选及明确层级缺口；现状／不换为 alternative，不强制虚构候选。confirm_competitors 校验用户审阅摘要和选择ID，产生名单批准；受信界面仍需验证真实用户来源并持久化事件，批准函数不能暴露给模型。
 
@@ -163,15 +169,15 @@ Python 的实际联网发现、行业维度自动推荐、受信确认通道、�
 
 ### 产品项目文件工作区
 
-根目录 AGENTS.md 是仓库规则。实现 [project_workspace.py](../../src/steal_her_heart/project_workspace.py)，默认 projects/<project-name>/；CLI 使用 --project-name 和可选 --projects-root。初始化生成 profile.md、未锁定的 dimensions.md 及 .state/project.sqlite3；任务数据库默认 .state/memory.sqlite3，各产品独立。
+根目录AGENTS.md是仓库规则。[project_workspace.py](../../src/steal_her_heart/project_workspace.py) 仅在显式选择项目时使用projects/<project-name>/；CLI通过--project-name和可选--projects-root选择。初始化生成 profile.md、未锁定的 dimensions.md 及 .state/project.sqlite3；任务数据库默认 .state/memory.sqlite3，各产品独立。
 
 新 profile.md 以 [模板资产](../../src/steal_her_heart/templates/profile.md) 的 Markdown 产品字段、分析目的、三列读者表、竞品名单及特别说明为唯一业务源，不再另存隐藏业务 JSON。空字段和注释示例不构成用户答案；核心内容未完成时不就绪。旧单 JSON 配置块 profile 继续兼容读取、不覆盖，原始旧空稿允许访谈完成升级，既有手工修改保留。整个文件摘要注入 ProjectContext.profile_sha256，正文修改仍使旧任务／发现批准失效。读取前检查路径、文件、编码、大小和结构，不能以结构正确证明语义完整。
 
 手工产品字段支持续行，特别说明保留二级子标题与代码块原文。半填手工档案在初始化、状态及研究入口提示补全原文件，不另开无法落盘的访谈，也不自动合并访谈答案；读者角色或关注点明确未知仍不就绪。
 
-旧 --project SQLite路径 保留显式兼容模式，旧数据不自动迁移；当前只能使用已实现的骨架功能。新默认模式遵循项目文件布局。阶段2写维度时只允许替换初始化的原始占位稿，不能覆盖已有评审或锁文件。/init-project 是项目 CLI 别名，尚非宿主注册快捷命令。
+旧--project SQLite路径保留显式兼容，旧数据不自动迁移。无项目默认任务使用.steal-her-heart/，不读写projects/default；只有项目模式使用上述布局。阶段2写维度时只允许替换初始化的原始占位稿，不能覆盖已有评审或锁文件。/init-project 是项目 CLI 别名，尚非宿主注册快捷命令。
 
-输出要求：本次检索事实逐项链接与日期；官方、第三方和反馈分开；有依据的推断明确标记；每份分析必须回应 profile 目的及意义／建议；多视图复用事实。源码尚无真正研究或语义输出 Validator，不能把本次项目布局测试宣称为这些质量条款已自动验证。
+输出要求：本次检索事实逐项链接与日期；官方、第三方和反馈分开；有依据的推断明确标记；有用户目的时回应目的，无额外背景时给研究结论、边界与待验证问题；我方意义／优势仅在有相关背景时输出；多视图复用事实。源码尚无真正研究或语义输出 Validator，不能把本次项目布局测试宣称为这些质量条款已自动验证。
 
 ## 7. 验收
 
@@ -184,7 +190,7 @@ Python 的实际联网发现、行业维度自动推荐、受信确认通道、�
 | PROFILE-01 | 模板字段 | 可读模板保留用户字段；多行业原文及拆分值、价格、特别说明、读者格式不丢失 |
 | PROFILE-02 | 空稿与兼容 | 空模板／示例不就绪；旧9题及旧 JSON 保留缺口，不假装新增字段已回答 |
 | PROFILE-03 | 配置效力 | 不把文本约束保存说成已完成来源过滤、监管判定或实际输出 |
-| INIT-03 | 前置闸门 | 命令、自然语言、run/resume 未初始化不研究；任务保存上下文快照并校验一致 |
+| INIT-03 | 显式项目闸门 | 显式选择项目未完成时提示补齐；默认单对象不拦截；任务快照保持可选上下文一致 |
 | P1-01 | Schema | 未知字段、空输入、非法计数、循环依赖、范围外任务拒绝 |
 | P1-02 | State Machine | 10×10 状态对测试；非法跳转与终态继续拒绝；未 PASS 不能分析 |
 | P1-03 | 确认基础 | WAIT_CONFIRM 必须有待确认记录；恢复状态与确认 ID 绑定，伪造回复拒绝 |
@@ -193,7 +199,7 @@ Python 的实际联网发现、行业维度自动推荐、受信确认通道、�
 | P1-06 | Orchestrator | 输入保存于短期记忆；停止 UNDERSTANDING、pending_module；零搜索／LLM，零假报告 |
 | P1-07 | CLI | hello=0、run/resume=3、status=0、非法输入=2；重复恢复无新事件 |
 | P1-08 | 工具异常 | 超时有界；原始异常不暴露假密钥；坏输出不能成为成功 data |
-| P2-01 | Planner | 分层发现含替代路径、名单确认、维度设计及锁定端到端可验；当前仅契约与文件API |
+| P2-01 | Planner | 单对象按名称规划；可选批量模式另验发现、名单、维度与锁；当前仅识别、入口与文件API |
 | P2-B01 | 当前：实体提取 | 中英文多对象、别名去重、带引号的对象完整保留，不凭空增补竞品 |
 | P2-B02 | 当前：范围提取 | 显式行业与维度保留，非软件维度不强填 AI，词表推断／默认值标假设 |
 | P2-B03 | 当前：缺口 | 歧义、缺对象、不支持否定、空维度子句返回结构化问题，brief=null |
@@ -221,8 +227,13 @@ Python 的实际联网发现、行业维度自动推荐、受信确认通道、�
 | FLOW-02 | 当前：Python最终锁定 | 核心子集＋库扩展选择；名单批准在先；文件及提案确认后才产锁，聊天预确认不能绕过 |
 | FLOW-03 | 当前：任务准备 | 每对象一任务、同模板；背景、配置、文件或锁变化拒绝准备 |
 | FLOW-04 | 后续：执行 | 实际搜索／批准通道／子代理并行／核查分析输出须独立验收 |
-| CHAT-INIT-01 | 本轮：聊天指令 | 实际项目名、每轮2～3题与可选建议；先维度预确认、再联网四类候选确认；没有用户确认不能继续 |
-| CHAT-INIT-02 | 本轮：能力边界 | 指令和资源可读取；不伪造宿主注册、Python联网或最终锁；已有项目不被自动覆盖 |
+| CHAT-INIT-01 | 可选项目：聊天指令 | 实际项目名、每轮2～3题与可选建议；先维度预确认、再联网四类候选确认；没有用户确认不能继续 |
+| CHAT-INIT-02 | 可选项目：能力边界 | 指令和资源可读取；不伪造宿主注册、Python联网或最终锁；已有项目不被自动覆盖 |
+| ENTRY-01 | 默认入口 | 仅名称解析，无我方背景或profile仍pending_module；不伪造研究完成 |
+| ENTRY-02 | 无项目任务 | run保存None上下文，不创建default项目；正确db位置与无状态重复迁移 |
+| ENTRY-03 | 恢复边界 | None与绑定项目双向不可混用，绑定背景变化拒绝 |
+| ENTRY-04 | 显式配置 | 选择项目才读取档案；默认入口不受损坏default档案影响 |
+| ENTRY-05 | Codex指令 | 只必要消歧，自动常规维度、不强制初始化；无我方背景不编对照 |
 | P6-01 | Memory | 追问关联新任务，只复用仍有效资产；Claude 实体／新增范围确认；旧报告可追溯 |
 
 Phase 1 全部验收离线。后续语义夹具覆盖不同产业、资料缺失、冲突、价格条件、时效、同源转载和提示注入，真实服务测试独立标记。结构校验不能证明“全行业有效”。
@@ -231,4 +242,4 @@ Phase 1 全部验收离线。后续语义夹具覆盖不同产业、资料缺失
 
 安装及命令见项目 README。第一阶段交付需提供源文件、已解析依赖快照、上述离线验收、架构说明、运行示例与明确的未实现范围。完整 MVP 需 Phase 2–6 逐项验收，当前不能称已完成。
 
-ResearchBrief、Python 阶段0、评审契约、维度文件和任务准备已实现，本轮新增聊天初始化指令与资源；下一步接入预确认迁移、真实发现适配器、受信确认与持久执行协调器。P2-01 整体未完成，不能宣称研究全链路已跑通。模型与搜索服务尚未指定，不把 SDK 写死在 Orchestrator。
+ResearchBrief、可选项目访谈、评审契约、维度文件和任务准备已实现；本轮改为默认单对象无项目入口与可空上下文恢复。下一步接入单对象Planner和真实研究执行，再衔接可选项目批量评审与资产复用。P2-01 整体未完成，不能宣称研究全链路已跑通。模型与搜索服务尚未指定，不把 SDK 写死在 Orchestrator。

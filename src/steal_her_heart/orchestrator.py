@@ -29,7 +29,7 @@ class Orchestrator:
 
     def run_task(self, user_input: str) -> TaskResult:
         request = TaskRequest(user_input=user_input)
-        project = require_project(self.project)
+        project = require_project(self.project) if self.project is not None else None
         context = StateContext(user_input=request.user_input)
         memory = ResearchMemory(
             task_id=context.task_id,
@@ -41,10 +41,10 @@ class Orchestrator:
         return self.resume(context.task_id)
 
     def resume(self, task_id: UUID) -> TaskResult:
-        project = require_project(self.project)
+        project = require_project(self.project) if self.project is not None else None
         snapshot = self.memory.load(task_id)
         if snapshot.memory.project_context != project:
-            raise ValueError("Task project context is missing or differs; start a new task")
+            raise ValueError("Task project binding differs; reopen it with the original context")
         if snapshot.context.current_state == ResearchState.CREATED:
             snapshot = TaskSnapshot(
                 context=transition(snapshot.context, ResearchState.UNDERSTANDING),

@@ -12,7 +12,6 @@ from steal_her_heart.memory import MemoryStore
 from steal_her_heart.orchestrator import Orchestrator
 from steal_her_heart.project_initialization import (
     QUESTIONS,
-    ProjectInitializationRequired,
     ProjectInterview,
     ProjectStore,
     interview_status,
@@ -102,10 +101,12 @@ def test_interrupted_interview_restores_same_question_and_completed_profile(tmp_
 @pytest.mark.parametrize(
     "text", ["/analyze 任意品牌", "/battlecard 任意品牌", "/brief 周报", "生成面向四类角色的月报"]
 )
-def test_commands_require_initialization_before_execution(text, initialized_project):
+def test_research_commands_accept_optional_project_context(text, initialized_project):
     request = TaskRequest(user_input=text)
-    assert route_request(request).execution == "initialization_required"
-    assert route_request(request).initialization_question == QUESTIONS["product"]
+    standalone = route_request(request)
+    assert standalone.execution == "pending_module"
+    assert standalone.initialization_question is None
+    assert standalone.configured_readers == () and standalone.reader_requirements is None
     assert route_request(request, initialized_project).execution == "pending_module"
 
 
@@ -119,9 +120,9 @@ def test_cli_gate_does_not_create_research_or_project_database(tmp_path, capsys)
     assert not db.exists() and not project.exists()
 
 
-def test_initialization_precedes_task_parameter_questions(initialized_project):
+def test_missing_request_parameters_do_not_start_an_own_product_interview(initialized_project):
     request = TaskRequest(user_input="/brief")
-    assert route_request(request).execution == "initialization_required"
+    assert route_request(request).execution == "needs_clarification"
     assert route_request(request, initialized_project).execution == "needs_clarification"
 
 
@@ -175,14 +176,20 @@ def test_interactive_cli_asks_all_questions_and_keeps_empty_competitors(
     assert json.loads(capsys.readouterr().out)["status"] == "ready"
 
 
-def test_orchestrator_blocks_bypass_and_keeps_project_snapshot(tmp_path, initialized_project):
+def test_orchestrator_keeps_optional_project_snapshot_and_rejects_context_switch(
+    tmp_path, initialized_project
+):
     memory = MemoryStore(tmp_path / "task.sqlite3")
-    agent = Orchestrator(memory, ToolRegistry())
-    with pytest.raises(ProjectInitializationRequired):
-        agent.run_task("分析任意品牌")
+    standalone = Orchestrator(memory, ToolRegistry())
+    standalone_result = standalone.run_task("分析任意品牌")
+    assert memory.load(standalone_result.task_id).memory.project_context is None
     agent = Orchestrator(memory, ToolRegistry(), initialized_project)
+    with pytest.raises(ValueError):
+        agent.resume(standalone_result.task_id)
     result = agent.run_task("分析任意品牌")
     assert memory.load(result.task_id).memory.project_context == initialized_project
+    with pytest.raises(ValueError):
+        standalone.resume(result.task_id)
     changed = initialized_project.model_dump()
     changed["project_id"] = uuid4()
     with pytest.raises(ValueError):

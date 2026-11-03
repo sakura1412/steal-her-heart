@@ -1,46 +1,40 @@
 # Steal Her Heart
 
-**一个面向全行业的竞品研究 Agent 项目：先问清楚问题，再设计研究，最后用证据支持决策。**
+**输入一个竞品名称，开始有来源、可追溯的竞品研究。**
 
-An industry-agnostic competitor research agent built with Python and Codex skills. Interview first, confirm the scope, and keep facts separate from analysis.
+An industry-agnostic competitor research agent for Python and Codex. Start with a competitor's name; your own product or project context is optional.
 
-Steal Her Heart 把竞品研究拆成可以检查、确认和复用的步骤：了解项目背景、确定分析维度、发现竞争对象、采集证据、核查信息，再面向不同读者输出结论。它可以服务于软件、硬件、消费品牌、工业品、本地生活或专业服务；行业、研究维度和读者都来自项目配置。
+你可以研究软件、硬件、消费品牌、工业品、本地生活或专业服务。无需先介绍“我们的产品”、创建项目，或填写一整份背景表。Agent 根据研究对象识别行业、选择适合的维度，并围绕实际来源形成画像与结论；只有名称确实有歧义时，才补问必要信息。
 
-> **项目状态：开发中的工程原型。** Python 已实现项目访谈、离线需求识别、命令路由、状态机和本地存储；Codex 初始化指令与维度库已就绪。Python 的真实搜索、网页采集、并行研究、分析和报告生成尚未接通。
+> **项目状态：开发中的工程原型。** Codex 的分析指令已提供，实际研究依赖宿主可用的联网与文件工具。Python 已实现无项目入口、离线需求识别、命令路由、状态机和本地存储；真实搜索、抓取、实质核查、分析与报告生成仍待接通。Python 返回 `pending_module` 不代表已经完成研究。
 
-[快速开始](#快速开始) · [创建项目](#创建第一个项目) · [工作流](#工作流) · [命令](#命令与当前行为) · [开发路线](#开发路线) · [参与开发](#参与开发)
+[开始使用](#开始使用) · [当前能力](#当前能力) · [工作流](#工作流) · [可选项目模式](#可选项目模式) · [开发路线](#开发路线)
 
-## 它解决什么问题
+## 开始使用
 
-竞品研究容易出现三种情况：一开始就搜资料，却没明确决策目的；每个竞品使用不同字段，最后无法横向比较；报告有结论，却无法追溯来源。
+### 在 Codex 中分析一个竞品
 
-本项目围绕这些问题组织研究：
+在 Codex 中打开本仓库，发送：
 
-- **先明确项目。** 产品是什么、卖给谁、研究哪个市场、支持什么决策，由谁阅读。
-- **先确认范围。** 维度和对象清单分别经过用户确认，再进行大规模采集。
-- **同时看替代方案。** 对手可以是另一家产品，也可以是人工、自建、外包，以及客户继续沿用现状。
-- **共用事实，按读者输出。** 产品、销售、运营、投资人或其他角色使用同一份研究资产，各自看到相关的重点。
-- **保留证据边界。** 用户自述、官方宣称、第三方报道、用户反馈和分析判断分开记录。
+```text
+读取 skills/competitor-research/SKILL.md，分析 Notion。
+```
 
-它适合希望用 Codex 协作开发研究 Agent 的开发者，也适合想把竞品分析方法沉淀为项目配置的产品、销售、运营与研究人员。当前版本适合体验初始化、研究需求识别和工程基础；完整自动研究仍在开发中。
+也可以在加载指令后说：
 
-## 当前能做什么
+```text
+/analyze Notion
+帮我分析海底捞
+分析某硬件品牌，重点看维修与售后
+```
 
-| 能力 | 状态 | 现在的实际行为 |
-|---|---|---|
-| 项目访谈与独立工作区 | 已实现 | Python 逐题收集背景，保存 Markdown 配置和 SQLite 进度，中断后续接 |
-| ResearchBrief 识别 | 已实现，离线规则 | 从明确句式识别对象、维度和目的；歧义时返回澄清问题，不验证事实 |
-| 命令与自然语言路由 | 已实现 | 识别 `/analyze`、`/battlecard`、`/brief` 及部分等价句式，检查项目是否初始化 |
-| 状态机、工具注册与本地存储 | 已实现基础 | 校验状态迁移、工具参数和权限，保存任务快照及事件 |
-| Codex 分批初始化 | 指令就绪 | 每轮问 2～3 题，推荐维度并等待确认，再使用宿主可用的联网工具发现候选 |
-| 全行业维度库与读者配置 | 资源／契约就绪 | 21 个核心字段、15 个可选扩展模块，自定义行业、读者和输出格式 |
-| 名单批准、维度提案与锁定 | 离线 API 就绪 | 校验范围和内容摘要；尚未接入真实聊天确认及完整业务调度 |
-| 搜索、抓取、子代理采集与实质核查 | 待接入 | 尚无 Python 研究执行器 |
-| 分析、Battlecard、周报／月报生成 | 待接入 | 已有部分数据契约，尚不生成实际报告 |
+**竞品名称就是起点。** 行业、我方产品、市场、目的、读者和项目名均不必先填写。你主动提供的关注点会直接采用；没有额外要求时，输出通用竞品概览，并注明实际覆盖的地区、版本、日期和资料边界。
 
-## 快速开始
+这个入口是仓库内的 [Codex Skill](skills/competitor-research/SKILL.md) 与 [分析指令](commands/analyze.md)，尚未注册为宿主内置快捷命令。对象没有歧义时直接继续，不先执行 `/init-project` 或候选名单确认。宿主没有联网工具时会说明缺口，不把模型记忆当成本次事实。
 
-需要 Python **3.9+**，建议开发使用 **3.11+**。下面命令适用于 macOS／Linux；已有仓库时跳过前两行。
+### 运行 Python 原型
+
+需要 Python **3.9+**，建议开发使用 **3.11+**。以下适用于 macOS／Linux：
 
 ```bash
 git clone https://github.com/sakura1412/steal-her-heart.git
@@ -50,174 +44,142 @@ source .venv/bin/activate
 python -m pip install -e .
 
 steal-her-heart hello
+steal-her-heart /analyze Notion
 steal-her-heart recognize-brief "比较 Notion、飞书、Confluence 的价格与部署方式"
 ```
 
-Windows PowerShell 可使用 `.venv\Scripts\Activate.ps1` 激活环境，再运行相同的 Python 和 CLI 命令。
+Windows PowerShell 可用 `.venv\Scripts\Activate.ps1` 激活环境，再运行相同的 Python 和 CLI 命令。
 
-第一条诊断命令会返回 `Hello, Agent!`。第二条返回结构化研究需求，例如：
+`hello` 返回 `Hello, Agent!`；`/analyze Notion` 无需项目即可解析，当前返回 `pending_module`，不创建报告。`recognize-brief` 返回离线规则识别的对象、维度、目的与假设，不联网或验证事实；`ready` 仅表示识别得到可用结果。
 
-```json
-{
-  "status": "ready",
-  "brief": {
-    "competitors": ["Notion", "飞书", "Confluence"],
-    "dimensions": ["收费模式", "部署方式"]
-  }
-}
+## 当前能力
+
+| 能力 | 状态 | 现在的实际行为 |
+|---|---|---|
+| 仅竞品名开始分析 | Codex 指令就绪、Python 路由已实现 | 不要求我方产品或项目初始化；必要时澄清目标 |
+| ResearchBrief 识别 | 已实现，离线规则 | 明确句式识别对象、维度和目的，歧义返回问题 |
+| 无项目任务与恢复 | 已实现基础 | 保存 `project_context=None` 的任务，当前停在 `UNDERSTANDING` |
+| 命令与自然语言路由 | 已实现 | 解析三类任务，缺对象或周期时澄清，完整请求返回待接入状态 |
+| 状态机、工具 Registry、SQLite | 已实现基础 | 校验迁移、输入输出和权限，保存快照及事件 |
+| 通用维度与读者结构 | 资源／契约就绪 | 21 个核心字段、15 个可选扩展，读者可省略或自定义 |
+| 可选项目访谈与档案 | 已实现 | 逐题收集背景，保存 Markdown，兼容旧档案并支持续接 |
+| 项目评审与锁定 | 离线 API 就绪 | 校验名单、维度、背景和摘要，尚无完整聊天执行衔接 |
+| Python 搜索、采集、核查、分析、报告 | 待接入 | 没有自动运行完整研究的执行器 |
+
+## 工作流
+
+默认单对象研究采用下面的工作方式。Codex 可依据指令使用实际可用的宿主工具；Python 的取证到报告链路仍在开发。
+
+```mermaid
+flowchart TD
+    A[输入竞品名称] --> B{对象有歧义?}
+    B -->|有| C[仅澄清必要的身份信息]
+    C --> D[检索确认行业与对象]
+    B -->|无| D
+    D --> E[选择适合的研究维度]
+    E --> F[采集来源并提取证据]
+    F --> G[核查时效、覆盖、冲突与口径]
+    G -->|同范围补证| F
+    G -->|证据可支持| H[形成画像、研究结论与适用边界]
+    H --> I[报告、来源与待验证问题]
 ```
 
-上面是完整 JSON 响应中几个字段的摘示。两条命令都不需要 API Key、不联网，也不创建研究项目。`ready` 表示需求识别得到可用结果，不表示竞品身份已核验、计划已批准或研究已完成；词表推断会保存在 `assumptions` 中。
+用户点名的对象就是本次范围，不自动扩大为多竞品采集，不额外设置“维度确认＋候选确认”初始化门槛。需要增加其他对象或实质改变范围时，再请用户选择。
 
-## 创建第一个项目
+默认报告可覆盖定位与客群、核心产品／服务、交付方式、价格与商业模式、价值主张、口碑、近期动态和适用边界；Agent 按行业调整，不强制每个对象都有 AI、API、移动端或软件版本。
 
-### 方式一：在 Codex 聊天中引导创建
+**没有我方背景时，报告不会编造我方优势、领先／落后或赢输判断。** 输出研究结论、通用学习点和建议验证的问题。用户要求“与我们相比怎么样”或销售 Battlecard 时，只补问该对比需要的产品与场景信息，不要求先答完十一题。
 
-在 Codex 中打开本仓库，发送：
+## 命令与当前行为
+
+| 输入 | 目标用途 | 当前 Python 行为 |
+|---|---|---|
+| `/analyze 竞品名` | 分析单个对象并更新档案 | 无需项目，完整请求返回 `pending_module` |
+| `/battlecard 竞品名` | 复用竞品画像形成销售卡 | 返回 `pending_module`；生成我方回应和优势前需相关我方背景 |
+| `/brief 周报` 或 `/brief 月报` | 汇总已有研究资产 | 返回 `pending_module`；后续需明确周期与资产范围，无需我方产品 |
+| `/init-project` | 可选长期研究或我方对照配置 | Python 支持逐题访谈，聊天支持分批引导 |
+
+```bash
+steal-her-heart request "/analyze Notion"
+steal-her-heart request "帮我分析海底捞"
+steal-her-heart request "/battlecard 任意品牌"
+steal-her-heart /brief 月报
+```
+
+Python 路由支持明确命令与已有自然语言句式，不能把任意文本都猜成竞品名称。Codex 加载 Skill 后可以根据上下文处理裸名称。`recognize-brief` 是离线需求识别，`/brief` 是周期报告意图；旧命令 `brief` 仅是前者的兼容别名。
+
+`run`／`resume` 当前保存任务并停在 `UNDERSTANDING`。默认状态库为 `.steal-her-heart/memory.sqlite3`，可用 `--db` 指定；无项目任务不创建 `projects/default/`。绑定项目的任务恢复仍须使用一致的背景，不能把无项目与有项目上下文混用。
+
+CLI 退出码：`0` 为本次操作成功，`1` 为执行或存储错误，`2` 为输入无效，`3` 为需要澄清、等待后续模块等未完成状态。返回 `3` 不等于已生成报告。详细入口见 [命令规范](skills/steal-her-heart/references/commands.md)。
+
+## 可选项目模式
+
+需要长期跟踪一组对象、保存特定读者与关注点，或反复做我方产品对比时，可以创建项目：
 
 ```text
-读取当前仓库的 skills/competitor-research/SKILL.md，
-按其中流程执行 /init-project my-product。
+读取 skills/competitor-research/SKILL.md，
+为我的长期研究执行 /init-project my-product。
 ```
 
-将 `my-product` 换成实际项目名。Agent 会每轮提问 2～3 项，已回答的内容直接复用；答不上来时提供建议选项，由你选择。背景补齐后，先推荐并确认维度，再联网寻找并确认四类候选。
-
-这是仓库中的 Codex 指令入口，尚未注册为宿主内置 `/init-project` 快捷命令。候选发现依赖当前 Codex 环境实际提供的联网工具；工具不可用时应停止并说明，不能用模型记忆填名单。完整步骤见 [初始化指令](commands/init-project.md)。
-
-### 方式二：使用 Python 终端访谈
-
-激活虚拟环境后运行：
+聊天按 [可选初始化指令](commands/init-project.md) 每轮问 2～3 题；Python 终端仍一次一题：
 
 ```bash
 steal-her-heart --project-name my-product /init-project --interactive
 steal-her-heart --project-name my-product project-status
+steal-her-heart --project-name my-product /analyze Notion
 ```
 
-Python 当前**一次问一题**，覆盖名称描述、行业／业态、目标客群、市场、优势短板、价格、分析目的、读者及其关注点和期望格式、已知竞品、特别说明，共 11 项。价格、已知竞品和特别说明可留空；优势短板未知可明确写“待确认”。
+项目使用 `projects/<项目名>/profile.md`、dimensions.md 和独立 `.state/`，标准 [profile 模板](templates/profile.md) 继续保留。只有显式选择项目时才读取这些文件；项目不存在或档案未完成会提示处理该项目，不影响独立单对象入口。
 
-读者回答可以写成 `采购委员会 | 成本与供应风险 | 对比表`，多位读者可以分行或用分号分隔。角色没有白名单，不必选固定的四类人。
-
-Ctrl-C／EOF 会保留已提交答案；再次运行初始化命令继续。访谈完成会保存背景，**不会自动进行维度推荐、联网发现或研究**。也可手工填写 [profile 模板](templates/profile.md)；空稿不算完成，已有手工内容不会被初始化覆盖。详见 [项目初始化规范](skills/steal-her-heart/references/project-initialization.md)。
-
-项目按产品隔离，文件位于：
-
-```text
-projects/my-product/
-├── profile.md                 产品、市场、目的、读者和约束
-├── dimensions.md              初始化维度草稿；最终绑定范围后才锁定
-└── .state/
-    ├── project.sqlite3        访谈进度
-    └── memory.sqlite3         研究任务运行后创建的本地任务库
-```
-
-聊天候选发现后还会保存 `competitors.md`。这些是项目运行时产物，完整文件说明见 [projects/README.md](projects/README.md)。
-
-## 工作流
-
-下面展示目标业务流程。初始化由 Codex 指令引导；从最终范围绑定到报告的 Python 自动执行链路仍待接通。
-
-```mermaid
-flowchart TD
-    A[背景访谈：每轮 2～3 题] --> B[保存 profile.md]
-    B --> C[从维度库推荐字段与口径]
-    C --> D{用户确认维度}
-    D -->|调整| C
-    D -->|确认| E[联网发现四类候选]
-    E --> F{用户确认名单}
-    F -->|增删或更正| E
-    F -->|确认| G[绑定最终名单与维度，锁定范围]
-    G --> H[每个对象一个子代理，并行采集]
-    H --> I[核查来源、日期、覆盖与冲突]
-    I -->|同范围补证| H
-    I -->|通过| J[分析差异、机会与威胁]
-    J --> K[按项目读者输出]
-```
-
-四类候选是：**直接竞品、替代品、潜在进入者、行业标杆**。某一层没有找到合适对象时保留缺口，不凑数。所有对象采用同一组已确认字段。
-
-维度预确认只确认初步设计。Python 现有评审 API 仍要求在名单批准后生成绑定名单的最终维度提案和锁，聊天预确认到这些 API 的自动桥接尚未实现。不能把草案或一句“已确认”写成正式锁；范围或字段变化时，重新审阅受影响内容。完整规则见 [研究工作流](skills/steal-her-heart/references/research-workflow.md)。
-
-## 命令与当前行为
-
-下面三条是目标产品入口，当前只完成意图路由和初始化检查：
-
-| 输入 | 目标用途 | 当前行为 |
-|---|---|---|
-| `/analyze 竞品名` | 采集并更新单个竞品档案 | 已初始化后返回 `pending_module`，尚不采集 |
-| `/battlecard 竞品名` | 生成销售一页纸 | 已初始化后返回 `pending_module`，尚不生成卡片 |
-| `/brief 周报` 或 `/brief 月报` | 为配置读者生成周期简报 | 已初始化后返回 `pending_module`，尚不生成简报 |
-
-通过 Python CLI 传入原始请求：
-
-```bash
-steal-her-heart --project-name my-product request "/analyze 任意品牌"
-steal-her-heart --project-name my-product request "生成任意品牌的销售一页纸"
-steal-her-heart --project-name my-product request "/brief 月报"
-```
-
-未初始化时返回 `initialization_required`，缺少对象或周期时返回澄清问题。`recognize-brief` 是离线研究需求识别，`/brief` 是周报／月报意图；旧命令 `brief` 只是前者的兼容别名。周期简报请求不会创建定时任务。
-
-`run`／`resume` 目前只运行工程骨架，初始化完成后停在 `UNDERSTANDING` 并返回 `pending_module`。CLI 退出码 `0` 表示本次操作成功，`1` 表示执行或存储错误，`2` 表示输入无效，`3` 表示需要补充信息、等待确认或后续模块。因此返回 `3` 不等于研究已经失败。详见 [命令规范](skills/steal-her-heart/references/commands.md)。
+可选项目模式可推荐并确认维度，再发现并确认直接竞品、替代品、潜在进入者与标杆。其 Python review API 仍要求名单批准后生成最终提案和锁，不能把预确认草案冒充正式锁，也不能为运行默认分析伪造项目背景。详见 [项目文件说明](projects/README.md) 和 [研究工作流](skills/steal-her-heart/references/research-workflow.md)。
 
 ## 如何扩展
 
-项目采用一个 Orchestrator 协调多个能力模块。各模块通过 Pydantic Schema 传递数据，工具调用经过统一 Registry，状态变化由显式状态机约束。
+一个 Orchestrator 协调 Planner、Research、Validator、Analysis、Reporter 与 Memory。模块通过 Pydantic Schema 传递数据，Python 工具经过统一 Registry，状态变化由显式状态机约束。当前尚未接入真实模型提供方。
 
-| 模块 | 职责 |
-|---|---|
-| Planner | 理解请求、设计研究计划和补证任务 |
-| Research | 获取来源并提取证据 |
-| Validator | 检查来源支持、时效、覆盖和冲突 |
-| Analysis | 依据核查后的证据形成比较与判断 |
-| Reporter | 按读者组织已有结论，不创造新事实 |
-| Memory | 保存任务、来源、证据和历史资产；当前只实现基础快照与事件存储 |
-
-新增行业时，从 [维度库](library/dimensions.md) 选择或定义字段，无需把行业名称写进内核白名单。维度库中的组合是推荐起点，不代表每个项目必须采集全部字段。新增模型或工具时，应通过模块端口和 Registry 接入，保持主控职责集中。当前尚未接入真实模型提供方。
-
-主要目录：
+新增行业可从 [维度库](library/dimensions.md) 选择或定义字段，不必修改行业白名单。扩展读者视图共用证据；用户未选读者时保留通用报告。模型或工具适配通过模块端口接入，不让主控直接承担网页解析或事实推理。
 
 ```text
 steal-her-heart/
-├── AGENTS.md                   仓库工作规则
-├── commands/                   Codex 可读取的项目指令
-├── library/                    全行业维度推荐库
-├── templates/profile.md        指向包内同一份标准模板
-├── skills/
-│   ├── competitor-research/    聊天初始化入口
-│   └── steal-her-heart/        Agent 开发规范及模块参考
-├── src/steal_her_heart/         Python CLI、Schema 和基础实现
-├── projects/                   独立业务项目的运行目录
-├── tests/                      确定性离线测试
-└── validation/                 分阶段本地验收记录
+├── AGENTS.md                  仓库规则
+├── commands/analyze.md        默认单对象分析指令
+├── commands/init-project.md   可选项目初始化
+├── library/                   全行业维度推荐库
+├── templates/profile.md       可选项目背景模板
+├── skills/                    Codex 研究入口与开发规范
+├── src/steal_her_heart/        Python CLI、Schema 和基础实现
+├── research/                  Codex 实际研究后保存的本地报告与来源
+├── projects/                  可选业务项目及上下文
+├── tests/                     确定性离线测试
+└── validation/                分阶段本地验收记录
 ```
+
+`research/` 仅在实际生成产物后创建；Python 当前不生成这些报告。它与业务项目数据一样留在本地，不默认上传。
 
 ## 研究质量约束
 
-- 事实必须来自本次检索，附来源链接和获取日期；训练记忆只可提供查询线索。
-- 官方宣称、第三方资料和用户反馈分别标注；冲突不静默消除。
+- 事实来自本次检索，附来源链接和获取日期；训练记忆只提供查询线索。
+- 官方宣称、第三方资料、用户反馈和分析判断分开，冲突明确展示。
 - “未采集”“查找后未找到”“有理由不适用”分别记录；未知价格、能力和效果不推测补全。
-- 分析必须回应项目目的，说明“对我们意味着什么、建议怎么做”；推断标明依据和不确定性。
-- 多个读者视图共用事实资产，不分别采集出不同版本的事实。
+- 价格、版本、规模与动态保留地区、单位、日期等适用条件。
+- 无我方背景时不给虚构的我方对照；同一研究的不同读者视图共用事实。
 
-这些是实现与验收必须遵守的规则。当前 Schema 只能检查部分结构和引用关系；来源是否支持主张、语义是否正确、Battlecard 是否真正排成一页，还需要后续执行模块和真实验收。详细规则见 [AGENTS.md](AGENTS.md) 与 [读者视图规范](skills/steal-her-heart/references/audience-views.md)。
+这些规则需要实际取证与核查落实。Schema 只检查部分结构和引用关系，不能证明来源支持、语义正确或 Battlecard 已排成一页。完整约束见 [AGENTS.md](AGENTS.md)、[读者视图](skills/steal-her-heart/references/audience-views.md) 和开发规范。
 
 ## 开发路线
 
-- [x] 工程基础：Schema、状态机、Registry、SQLite 存储和 Orchestrator 骨架。
-- [x] 项目背景：可读 Markdown 配置、十一题访谈、中断续接及旧档案兼容。
-- [x] 离线需求识别、命令路由、通用采集字段和读者数据契约。
-- [x] Codex 初始化指令、维度推荐库、离线评审与锁定 API。
-- [ ] 完成 Planner、真实用户确认通道及初始化预确认到最终锁的衔接。
-- [ ] 接入搜索、网页抓取、证据提取、每对象子代理调度和累计预算控制。
-- [ ] 实现实质核查与有边界的自动补证。
-- [ ] 实现横向分析、Battlecard、配置读者报告及可读性验收。
-- [ ] 实现带版本与时效检查的跨任务研究资产复用。
+- [x] Schema、状态机、Registry、SQLite 与 Orchestrator 基础。
+- [x] 无项目单对象入口、离线需求识别与命令路由。
+- [x] 可选项目档案、十一题访谈、中断续接与旧格式兼容。
+- [x] 单对象 Codex 分析指令、通用维度库与项目评审 API。
+- [ ] 接入 Python Planner 与真实搜索、抓取、证据提取。
+- [ ] 实现有预算和恢复能力的研究执行、核查与补证。
+- [ ] 实现分析、Battlecard、通用／配置读者报告与版式验收。
+- [ ] 完成可选项目确认桥接、批量子代理调度和跨任务资产复用。
 
 ## 参与开发
 
-先阅读 [开发入口 SKILL.md](skills/steal-her-heart/SKILL.md)、[RULES.md](skills/steal-her-heart/RULES.md) 和 [TASK_SPEC.md](skills/steal-her-heart/TASK_SPEC.md)。按模块提交改动，说明解决的问题、可观察行为和验证方式；完成本模块检查后再推进下一模块。
-
-安装开发依赖并检查：
+先读 [开发 SKILL.md](skills/steal-her-heart/SKILL.md)、[RULES.md](skills/steal-her-heart/RULES.md) 与 [TASK_SPEC.md](skills/steal-her-heart/TASK_SPEC.md)。按模块实现并完成对应检查，再推进下一模块；不要把指令、Schema 或离线测试当成端到端研究已经完成。
 
 ```bash
 python -m pip install -e ".[dev]"
@@ -226,11 +188,9 @@ python -m ruff check .
 python -m ruff format --check .
 ```
 
-[requirements-dev.lock](requirements-dev.lock) 保存了本机 Python 3.9／macOS 的精确依赖快照；它不是带哈希的跨平台锁文件。在匹配环境中可先安装该文件，再以 `--no-deps --no-build-isolation` 安装本项目。其他 Python 版本应验证其依赖兼容性。
+[requirements-dev.lock](requirements-dev.lock) 是 Python 3.9／macOS 的精确依赖快照，不是带哈希的跨平台锁。在匹配环境可先安装该文件，再用 `--no-deps --no-build-isolation` 安装项目；其他环境应验证依赖兼容性。
 
-当前已记录的本地回归为 **317 项测试通过**。验收记录覆盖结构、闸门、存储、兼容读取及指令资源一致性，真实网页与模型的端到端研究尚未运行。可查看 [初始化指令验收](validation/init-project-flow.json)、[项目配置验收](validation/profile-configuration.json) 和 [ResearchBrief 验收](validation/phase2-brief.json)；更多记录位于 [validation/](validation/)。
-
-业务项目可能包含内部产品信息、价格和用户反馈。提交代码或公开演示前，请检查自己的 `projects/`、数据库、输出及来源快照，避免把内部资料或凭据加入仓库。
+[单对象入口验收](validation/standalone-entry.json) 记录当前入口调整；[validation/](validation/) 保留分阶段历史记录，包含初始化、配置、离线需求识别和框架校验。历史记录对应当时版本，不能替代当前代码回归或证明真实网页与模型研究已经跑通。默认忽略本地报告、业务项目、环境变量、数据库与输出。
 
 ## 许可证
 

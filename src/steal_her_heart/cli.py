@@ -25,10 +25,10 @@ from .tools import HelloTool, ToolRegistry
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(prog="steal-her-heart")
-    parser.add_argument("--db", type=Path, help="Override the project's task database path")
+    parser.add_argument("--db", type=Path, help="Override the task database path")
     parser.add_argument("--project", type=Path, help="Legacy SQLite interview path")
     parser.add_argument("--projects-root", type=Path, default=Path("projects"))
-    parser.add_argument("--project-name", default="default")
+    parser.add_argument("--project-name", help="Optionally bind to an existing product project")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("hello", help="Offline tool/schema diagnostic; performs no research")
     initialize = sub.add_parser(
@@ -64,11 +64,19 @@ def main(argv=None) -> int:
         child = sub.add_parser(command)
         child.add_argument("task_id", type=UUID)
     args = parser.parse_args(argv)
+    project_commands = {"init-project", "/init-project", "answer-project", "project-status"}
     try:
-        workspace = (
-            None if args.project else ProjectWorkspace(args.projects_root, args.project_name)
+        workspace = None
+        if args.project is None and (
+            args.project_name is not None or args.command in project_commands
+        ):
+            name = args.project_name if args.project_name is not None else "default"
+            workspace = ProjectWorkspace(args.projects_root, name)
+        project_store = (
+            ProjectStore(args.project)
+            if args.project is not None
+            else (ProjectStore(workspace.interview_path) if workspace else None)
         )
-        project_store = ProjectStore(args.project if args.project else workspace.interview_path)
         if args.db is None:
             args.db = (
                 workspace.path / ".state" / "memory.sqlite3"
@@ -78,7 +86,7 @@ def main(argv=None) -> int:
     except ValueError:
         print("项目标识无效或目录越界。", file=sys.stderr)
         return 2
-    if args.command in {"init-project", "/init-project", "answer-project", "project-status"}:
+    if args.command in project_commands:
         try:
             if workspace and args.command == "project-status":
                 profile = workspace.read_required().context
@@ -145,7 +153,7 @@ def main(argv=None) -> int:
         print(status.model_dump_json(indent=2))
         return 0 if status.status == "ready" else 3
     interview = None
-    if args.command in {
+    if project_store is not None and args.command in {
         "request",
         "analyze",
         "/analyze",
@@ -185,7 +193,13 @@ def main(argv=None) -> int:
         except (ValueError, OSError):
             print("项目 profile.md 或 dimensions.md 无效；未启动研究。", file=sys.stderr)
             return 2
-    if args.command in {"run", "resume"} and project is None:
+    if project_store is not None and project is None and workspace_question is None:
+        workspace_question = (
+            QUESTIONS[interview.next_field]
+            if interview and interview.next_field
+            else QUESTIONS["product"]
+        )
+    if args.command in {"run", "resume"} and project_store is not None and project is None:
         waiting = interview if interview and interview.context is None else ProjectInterview()
         status = interview_status(waiting)
         if workspace_question:
@@ -209,10 +223,7 @@ def main(argv=None) -> int:
         registry.register(
             RequestRoutingTool(
                 project,
-                workspace_question
-                or (
-                    QUESTIONS[interview.next_field] if interview and interview.next_field else None
-                ),
+                workspace_question,
             )
         )
         result = asyncio.run(
