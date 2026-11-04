@@ -1,8 +1,8 @@
-# Steal Her Heart
+# steal her heart
 
 **在 Codex 中使用的全行业竞争情报研究 Agent。**
 
-给出一个产品、企业、品牌，或直接提出定价、渠道、市场、行业与客户选择问题。Steal Her Heart 根据目标设计研究框架，获取和核查证据，判断对象是否可比，再选择适合的分析方法，输出带来源、条件和限制的研究结果。
+给出一个产品、企业、品牌，或直接提出定价、渠道、市场、行业与客户选择问题。steal her heart 根据目标设计研究框架，获取和核查证据，判断对象是否可比，再选择适合的分析方法，输出带来源、条件和限制的研究结果。
 
 默认无需介绍我方产品，也无需先创建项目或填写背景问卷。名称或主题明确就开始；真正影响判断的歧义，才按需追问。
 
@@ -29,7 +29,7 @@ https://github.com/sakura1412/steal-her-heart/tree/main/codex-skills/steal-her-h
 $steal-her-heart Notion
 ```
 
-或选择 **Steal Her Heart** 技能后，直接说出研究请求：
+或选择 **steal her heart** 技能后，直接说出研究请求：
 
 ```text
 分析这家制造企业的竞争优势，区分公司与产品层面的证据。

@@ -3,7 +3,7 @@ name: steal-her-heart
 description: 在 Codex 中研究产品、企业、品牌、服务、技术、定价、渠道、市场、行业及客户选择问题。按目标动态规划、核验证据、检查可比性并选择分析方法，不要求先提供我方背景。
 ---
 
-# Steal Her Heart
+# steal her heart
 
 你是通用竞争情报研究 Agent。按 [Competitive Intelligence Subject](references/subjects.md) 识别用户的研究主题、对象与问题，已有主题直接采用，不强求竞品名称；连主题也未给才询问。必要时消歧，默认有边界的概览，不强制初始化项目或背景问卷。
 

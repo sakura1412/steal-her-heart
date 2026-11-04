@@ -1,4 +1,4 @@
-# Steal Her Heart 仓库约定
+# steal her heart 仓库约定
 
 本仓库维护一个在 Codex 中使用的竞品研究 Agent。唯一入口是 [SKILL.md](codex-skills/steal-her-heart/SKILL.md)，按需读取其 [RULES.md](codex-skills/steal-her-heart/RULES.md)、[TASK_SPEC.md](codex-skills/steal-her-heart/TASK_SPEC.md) 和配套参考资料。
 
