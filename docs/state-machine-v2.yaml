@@ -1,0 +1,394 @@
+# 目标状态协议，不是运行配置；必须先实现迁移、守卫与恢复再启用。
+spec_version: 0.29.0
+state_model_version: 2
+status: design_only
+runtime_loader: false
+current_runtime_state_model: legacy_v1_unchanged
+semantics_document: state-machine-v2.md
+task:
+  initial: CREATED
+  states:
+  - name: CREATED
+    meaning: 任务创建
+    retry_policy: 不执行研究工具；持久化基础上下文后启动理解
+    terminal: false
+  - name: UNDERSTANDING
+    meaning: 理解研究需求
+    retry_policy: 允许有界重做理解调用；不猜对象、不以失败代替澄清
+    terminal: false
+  - name: WAITING_FOR_SCOPE
+    meaning: 等待范围或必要实体澄清
+    retry_policy: 不自动重试用户回答；仅处理绑定当前请求的真实回复
+    terminal: false
+  - name: PLANNING
+    meaning: 生成初始、补研或修订计划
+    retry_policy: 可有界重做规划；旧计划不可原地改写
+    terminal: false
+  - name: WAITING_FOR_APPROVAL
+    meaning: 等待指定计划批准
+    retry_policy: 不自动批准／重复创建确认；修改提案后重新绑定
+    terminal: false
+  - name: RESEARCHING
+    meaning: 执行本轮首次采集任务
+    retry_policy: 按子任务与调用策略恢复，不重新运行整份计划
+    terminal: false
+  - name: VALIDATING
+    meaning: 核查证据支持、时效和冲突
+    retry_policy: 仅重做受影响核查；输入变化使相关收据失效
+    terminal: false
+  - name: GAP_ANALYSIS
+    meaning: 评估覆盖与缺口并决定充分性
+    retry_policy: 可对同一输入重算；不得降低标准或删除分母
+    terminal: false
+  - name: SUPPLEMENTING
+    meaning: 执行已准入的定向补研计划
+    retry_policy: 按缺口任务有界恢复，补研轮和调用预算不重置
+    terminal: false
+  - name: ANALYZING
+    meaning: 形成比较、Claim 与条件性建议
+    retry_policy: 可有界重算；证据问题通过票据退核查，不强制继续生成
+    terminal: false
+  - name: GENERATING_REPORT
+    meaning: 生成版本化报告候选
+    retry_policy: 可有界重渲染；新稿须新 Report QA
+    terminal: false
+  - name: REPORT_QA
+    meaning: 独立全文质量检查及交付准入
+    retry_policy: 可有界重评同一草稿；内容修复走正式回边
+    terminal: false
+  - name: COMPLETED
+    meaning: 任务成功交付
+    retry_policy: 终态不可重试或重开
+    terminal: true
+  - name: FAILED
+    meaning: 不可继续的失败
+    retry_policy: 终态不可重试；有依据的新执行须关联历史及预算
+    terminal: true
+  - name: CANCELLED
+    meaning: 用户取消
+    retry_policy: 终态不可重试；不表示远端已撤销或既有费用退还
+    terminal: true
+  transitions:
+  - source: CREATED
+    target: UNDERSTANDING
+    event: start
+    guard: 基础上下文与调用意图已持久化，当前版本匹配
+  - source: UNDERSTANDING
+    target: PLANNING
+    event: brief_ready
+    guard: 对象与问题可规划，实际用户范围授权有效；不要求额外确认
+  - source: WAITING_FOR_SCOPE
+    target: UNDERSTANDING
+    event: identity_answered
+    guard: 真实回复绑定当前 scope_request 与版本；resume_target=UNDERSTANDING，仍需理解核对
+  - source: WAITING_FOR_SCOPE
+    target: PLANNING
+    event: scope_resolved
+    guard: 真实授权或修订绑定当前请求；resume_target=PLANNING；有效身份／范围齐全
+  - source: PLANNING
+    target: WAITING_FOR_APPROVAL
+    event: approval_required
+    guard: 明确策略或用户要求审阅具体计划，保存 plan_hash/scope_hash/policy_hash 和目标执行阶段
+  - source: PLANNING
+    target: RESEARCHING
+    event: initial_plan_admitted
+    guard: initial 计划有效、依赖能力预算及项目锁通过；无待完成的计划批准
+  - source: PLANNING
+    target: SUPPLEMENTING
+    event: supplement_plan_admitted
+    guard: supplement 计划绑定真实缺口或返工票据，范围／资源及批准条件满足
+  - source: WAITING_FOR_APPROVAL
+    target: RESEARCHING
+    event: initial_plan_approved
+    guard: 真实批准绑定当前确认与计划指纹，execution_target=RESEARCHING；重新核预算／锁
+  - source: WAITING_FOR_APPROVAL
+    target: SUPPLEMENTING
+    event: supplement_plan_approved
+    guard: 真实批准绑定当前补研计划，execution_target=SUPPLEMENTING；重新核预算／锁
+  - source: WAITING_FOR_APPROVAL
+    target: PLANNING
+    event: revision_requested
+    guard: 用户要求修改当前范围内计划，旧批准失效；不以拒绝自动当批准
+  - source: RESEARCHING
+    target: VALIDATING
+    event: batch_closed
+    guard: 本轮每个任务已返回或明确阻塞／失败，未决在途已被隔离；输入清单冻结
+  - source: SUPPLEMENTING
+    target: VALIDATING
+    event: supplement_batch_closed
+    guard: 补研结果及采用旧资产构成当前完整清单；未完成项保留，不只验证新增项
+  - source: VALIDATING
+    target: GAP_ANALYSIS
+    event: evidence_checks_recorded
+    guard: 本轮全部候选及缺失单元有核查／缺口记录；评估器未完成不能伪装充分
+  - source: GAP_ANALYSIS
+    target: ANALYZING
+    event: research_qa_pass
+    guard: 当前完整 Research QA 绑定范围／计划／资产／策略，全部必需单元充分，无未解冲突
+  - source: GAP_ANALYSIS
+    target: PLANNING
+    event: supplement_required
+    guard: 明确缺口、可行补研方向、有效授权和剩余额度；形成 supplement 计划请求
+  - source: ANALYZING
+    target: GENERATING_REPORT
+    event: analysis_checked
+    guard: 必需分析完成、新／变更 Claim 独立支持核查通过，全部输入仍有效
+  - source: ANALYZING
+    target: VALIDATING
+    event: evidence_defect
+    guard: 结构化上游缺陷票据绑定确切输入、影响和预算；使相关下游收据失效
+  - source: GENERATING_REPORT
+    target: REPORT_QA
+    event: draft_ready
+    guard: 完整不可变草稿及映射已生成，分析／引用输入匹配
+  - source: GENERATING_REPORT
+    target: ANALYZING
+    event: analysis_defect
+    guard: 生成前／过程中发现分析产物缺陷，票据绑定当前分析，非随意回退
+  - source: GENERATING_REPORT
+    target: VALIDATING
+    event: evidence_binding_defect
+    guard: 证据／核查输入失效，有上游缺陷票据和恢复预算，不能伪造草稿进 QA
+  - source: REPORT_QA
+    target: GENERATING_REPORT
+    event: presentation_rework
+    guard: 当前 QA 有可修复呈现问题，ReworkTicket 合法；旧草稿 PASS 不得复用
+  - source: REPORT_QA
+    target: ANALYZING
+    event: analysis_rework
+    guard: QA 缺陷根因在分析，Research QA 仍有效，票据／预算／输入匹配
+  - source: REPORT_QA
+    target: VALIDATING
+    event: evidence_recheck
+    guard: 已有材料支持、时效或冲突需重核，票据及当前输入匹配
+  - source: REPORT_QA
+    target: PLANNING
+    event: research_rework
+    guard: 缺证据／计划漏项已定位，票据与授权有效；生成 supplement 计划，不直接跳采集
+  - source: REPORT_QA
+    target: COMPLETED
+    event: publish_checked
+    guard: 当前完整 Report QA PASS、上游收据、确切工件读回与发布基线全部有效；无已生效取消，持久完成提交成功
+  global_transitions:
+  - sources:
+    - UNDERSTANDING
+    - PLANNING
+    - WAITING_FOR_APPROVAL
+    - RESEARCHING
+    - VALIDATING
+    - GAP_ANALYSIS
+    - SUPPLEMENTING
+    - ANALYZING
+    - GENERATING_REPORT
+    - REPORT_QA
+    target: WAITING_FOR_SCOPE
+    event: scope_or_identity_unresolved
+    guard: 必要身份／范围待真实答复，或用户改变范围；先停止新派发并隔离旧在途，保存请求及仅允许的返回阶段
+  - sources:
+    - CREATED
+    - UNDERSTANDING
+    - WAITING_FOR_SCOPE
+    - PLANNING
+    - WAITING_FOR_APPROVAL
+    - RESEARCHING
+    - VALIDATING
+    - GAP_ANALYSIS
+    - SUPPLEMENTING
+    - ANALYZING
+    - GENERATING_REPORT
+    - REPORT_QA
+    target: FAILED
+    event: unrecoverable_or_exhausted
+    guard: 有真实失败、耗尽或截止原因，已保存可保存的诊断；非用户取消，不用未找到替代错误
+  - sources:
+    - CREATED
+    - UNDERSTANDING
+    - WAITING_FOR_SCOPE
+    - PLANNING
+    - WAITING_FOR_APPROVAL
+    - RESEARCHING
+    - VALIDATING
+    - GAP_ANALYSIS
+    - SUPPLEMENTING
+    - ANALYZING
+    - GENERATING_REPORT
+    - REPORT_QA
+    target: CANCELLED
+    event: user_cancelled
+    guard: 可信用户取消事件与 expected_revision 原子登记，撤销派发与发布资格，记录在途清理及未决费用
+subtask:
+  initial: CREATED
+  states:
+  - name: CREATED
+    meaning: 任务规格已保存但未评估就绪
+    terminal: false
+  - name: BLOCKED
+    meaning: 依赖、权限或能力条件未满足
+    terminal: false
+  - name: READY
+    meaning: 全部派发条件满足，等待槽位
+    terminal: false
+  - name: ASSIGNED
+    meaning: 已原子认领，尚未确认 Worker 启动
+    terminal: false
+  - name: RUNNING
+    meaning: Worker 正在执行当前分配
+    terminal: false
+  - name: RESULT_READY
+    meaning: 结果已到，待身份／版本／工件接纳
+    terminal: false
+  - name: COLLECTED
+    meaning: 采集结果已接纳，不表示证据充分
+    terminal: true
+  - name: RETRY_WAIT
+    meaning: 已批准有界重试，等待 not_before
+    terminal: false
+  - name: DEFERRED
+    meaning: 暂不可执行，等待明确外部条件
+    terminal: false
+  - name: NEEDS_INPUT
+    meaning: 等待具体可行动的人工事项
+    terminal: false
+  - name: RECONCILING
+    meaning: 远端或租约结果不明，先对账
+    terminal: false
+  - name: FAILED
+    meaning: 本版本采集不可继续，保留诊断
+    terminal: true
+  - name: CANCELLED
+    meaning: 用户取消适用范围内的任务
+    terminal: true
+  - name: SUPERSEDED
+    meaning: 被明确新版本替代，旧产物归档
+    terminal: true
+  transitions:
+  - source: CREATED
+    target: READY
+    guard: 持久规格通过检查；按依赖／权限／能力决定是否就绪
+  - source: CREATED
+    target: BLOCKED
+    guard: 持久规格通过检查；按依赖／权限／能力决定是否就绪
+  - source: BLOCKED
+    target: READY
+    guard: 依赖和实际执行条件满足，核版本与预算
+  - source: READY
+    target: ASSIGNED
+    guard: 有空闲槽位，原子认领租约并预占预算
+  - source: READY
+    target: BLOCKED
+    guard: 依赖／授权／输入变化，未派发前撤销就绪
+  - source: ASSIGNED
+    target: RUNNING
+    guard: 可信启动回执绑定当前分配与 epoch
+  - source: ASSIGNED
+    target: READY
+    guard: 证实尚未发出外部工作且安全释放本次分配；未知不能走此边
+  - source: ASSIGNED
+    target: RECONCILING
+    guard: 启动／租约状态不明，保留预算占用
+  - source: RUNNING
+    target: RESULT_READY
+    guard: 收到绑定当前任务与分配的结果，尚未经接纳
+  - source: RUNNING
+    target: RECONCILING
+    guard: 超时／失联，远端执行可能未结束
+  - source: RUNNING
+    target: RETRY_WAIT
+    guard: 主控恢复决定有依据，结果确定性及安全重做条件已核查；保留历史消耗
+  - source: RUNNING
+    target: DEFERRED
+    guard: 主控恢复决定有依据，结果确定性及安全重做条件已核查；保留历史消耗
+  - source: RUNNING
+    target: NEEDS_INPUT
+    guard: 主控恢复决定有依据，结果确定性及安全重做条件已核查；保留历史消耗
+  - source: RESULT_READY
+    target: RETRY_WAIT
+    guard: 主控恢复决定有依据，结果确定性及安全重做条件已核查；保留历史消耗
+  - source: RESULT_READY
+    target: DEFERRED
+    guard: 主控恢复决定有依据，结果确定性及安全重做条件已核查；保留历史消耗
+  - source: RESULT_READY
+    target: NEEDS_INPUT
+    guard: 主控恢复决定有依据，结果确定性及安全重做条件已核查；保留历史消耗
+  - source: RECONCILING
+    target: RETRY_WAIT
+    guard: 主控恢复决定有依据，结果确定性及安全重做条件已核查；保留历史消耗
+  - source: RECONCILING
+    target: DEFERRED
+    guard: 主控恢复决定有依据，结果确定性及安全重做条件已核查；保留历史消耗
+  - source: RECONCILING
+    target: NEEDS_INPUT
+    guard: 主控恢复决定有依据，结果确定性及安全重做条件已核查；保留历史消耗
+  - source: RESULT_READY
+    target: COLLECTED
+    guard: 主控接纳完整逐项结果及有效工件，可含真实空结果／部分缺口；验证状态另存
+  - source: RECONCILING
+    target: RESULT_READY
+    guard: 账本／收据确认取得可定位结果，仍需接纳
+  - source: RETRY_WAIT
+    target: READY
+    guard: 对应重试时间／外部条件／真实回复满足；再核计划、授权、预算和依赖
+  - source: DEFERRED
+    target: READY
+    guard: 对应重试时间／外部条件／真实回复满足；再核计划、授权、预算和依赖
+  - source: NEEDS_INPUT
+    target: READY
+    guard: 对应重试时间／外部条件／真实回复满足；再核计划、授权、预算和依赖
+  - source: BLOCKED
+    target: DEFERRED
+    guard: 依赖阻塞需要明确外部条件或具体人工事项，主控持久化恢复决定，不伪装就绪
+  - source: BLOCKED
+    target: NEEDS_INPUT
+    guard: 依赖阻塞需要明确外部条件或具体人工事项，主控持久化恢复决定，不伪装就绪
+  global_transitions:
+  - sources:
+    - CREATED
+    - BLOCKED
+    - READY
+    - ASSIGNED
+    - RUNNING
+    - RESULT_READY
+    - RETRY_WAIT
+    - DEFERRED
+    - NEEDS_INPUT
+    - RECONCILING
+    target: FAILED
+    guard: 不可恢复或到限；有原因，失败终态不直接重试
+  - sources:
+    - CREATED
+    - BLOCKED
+    - READY
+    - ASSIGNED
+    - RUNNING
+    - RESULT_READY
+    - RETRY_WAIT
+    - DEFERRED
+    - NEEDS_INPUT
+    - RECONCILING
+    target: CANCELLED
+    guard: 可信取消生效，撤销当前租约资格并保留在途对账
+  - sources:
+    - CREATED
+    - BLOCKED
+    - READY
+    - ASSIGNED
+    - RUNNING
+    - RESULT_READY
+    - RETRY_WAIT
+    - DEFERRED
+    - NEEDS_INPUT
+    - RECONCILING
+    target: SUPERSEDED
+    guard: 明确替代任务／版本及指纹已保存，隔离旧结果，不重置预算
+execution_disposition:
+- active
+- deferred
+- needs_input
+- reconciling
+validation_status:
+- unchecked
+- checking
+- supported
+- insufficient
+- conflicted
+- error

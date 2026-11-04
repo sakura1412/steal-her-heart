@@ -1,0 +1,455 @@
+# 开发契约目录；不是运行配置，不注册工具或授予权限。
+# type 名称按配套文档解释，VNext 及其子类型均须后续实现与迁移。
+spec_version: 0.30.0
+contract_format_version: 1
+status: design_only
+effective_date: '2026-11-04'
+runtime_loader: false
+semantics_document: agent-contracts.md
+common_request: AgentInvocationVNext
+common_result: AgentResultVNext
+agents:
+- name: Orchestrator
+  objective: 控制任务调度、合法状态迁移、恢复和交付，不生成第二套业务计划。
+  input:
+  - name: request
+    type: AuthorizedRequest
+    required: true
+    constraint: 绑定真实用户指令；可无项目，不伪造背景或批准
+  - name: execution_context
+    type: ExecutionContext
+    required: true
+    constraint: 当前状态、修订、scope、policy、预算、权限及已有检查点；新任务允许尚无计划
+  - name: module_results
+    type: AgentResultVNext[]
+    required: false
+    constraint: 回调须核 invocation、输入版本、来源与依赖；空集仅用于首次启动
+  output:
+  - name: dispatch_decision
+    type: DispatchDecision
+    required: true
+    constraint: 本轮唯一可解释控制决定及守卫依据，可能为调用、等待、恢复或停止
+  - name: checkpoint
+    type: ExecutionCheckpoint
+    required: true
+    constraint: 可持久化执行、预算与调用记录；存储失败只能返回诊断，不能声称保存成功
+  - name: task_result
+    type: TaskResultVNext
+    required: false
+    constraint: 到外部返回边界时提供；最终成功须 QA、工件读回和发布检查，不同于模块结果
+  tools:
+    registry_tools: []
+    planned_capabilities: []
+    internal_services:
+    - dispatch_module
+    - commit_checkpoint
+    - decide_recovery
+    - publish_checked_artifact
+    model_role: null
+  rules:
+  - 唯一状态与恢复控制权威；消费契约化输出，不信模型自报完成
+  - 派发前校验范围、锁、依赖、能力与预算预占
+  - 按就绪任务分配可复用 Worker，原子认领/租约与父预算约束；结果先接纳再按阶段屏障送 Validator
+  - 目标遵守 state_model_version=2 的任务/子任务分层、两类确认及独立取消；当前 v1 未迁移前不执行新边
+  decision:
+  - 在有效计划内选择可运行工作项、并发槽位与终止条件
+  - 根据可信恢复策略决定有界恢复或请求具体输入
+  restrictions:
+  - 不替 Planner 拆业务任务，不提取网页事实，不生成结论
+  - 不绕合法状态边、不自批扩范围、不重置预算或重开终态
+  failure_handling:
+  - 拒绝越权、过期或结构不合法结果并记录原因
+  - 共享故障停止相应派发；延后和人工处置须先有持久化支持
+  completion_criteria:
+  - 一次控制调用结束时，决定及实际动作有可核对记录，未执行动作不标成功
+  - 研究任务只有完整质量与交付守卫通过才能 COMPLETED；其他返回不等于研究完成
+- name: PlannerAgent
+  objective: 识别研究要求并拆成可执行、可核查的初始或差量计划。
+  input:
+  - name: planning_request
+    type: PlanningRequest
+    required: true
+    constraint: action=understand/plan/replan；原文、模式和要求明确，歧义不猜身份
+  - name: scope_context
+    type: ScopeContext
+    required: true
+    constraint: 仅已授权对象与当前必需问题，项目锁仅在项目路径需要
+  - name: policy_budget
+    type: PlanningConstraints
+    required: true
+    constraint: 绑定模式策略、能力清单、总额度及补研预留
+  - name: industry_packs
+    type: IndustryPackSelection
+    required: false
+    constraint: 无包可用通用问题；有配置须核版本／适用性，不能凭配置推定行业事实
+  - name: reader_decisions
+    type: ReaderDecisionSpec[]
+    required: false
+    constraint: 由所选读者与关注点解析；未指定用通用概览，不能强制背景访谈
+  - name: prior_assets_and_gaps
+    type: PlanningHistory
+    required: false
+    constraint: 重规划时必需，包含原计划、缺口、变更与可用资产版本
+  output:
+  - name: planning_result
+    type: PlanningResult
+    required: true
+    constraint: 判别联合：澄清需求、Brief、计划提案或不可行原因；禁止同时伪造 ready 计划与未解歧义
+  - name: requirements_map
+    type: RequirementMap
+    required: false
+    constraint: 生成计划时必需；需求→对象×问题→任务→验收条件，包含必需性与适用依据
+  tools:
+    registry_tools: []
+    planned_capabilities: []
+    internal_services:
+    - read_bound_assets
+    model_role: planner
+  rules:
+  - 按目的解析行业字段必选／推荐／可选，包版本与读者决策进入范围摘要；不加载可执行包代码
+  - 保留原问题与授权，模式参考数不能截断明确维度
+  - 每个任务声明动作、依赖、允许工具、资源分配和结果标准
+  - 输出有界 ResearchTaskSpec 和依赖就绪条件；共同维度与专项深度区分，不把整个竞品名当任务
+  decision:
+  - 提出同范围任务顺序、来源策略、查询及差量动作
+  - 判断需要澄清或计划不可行，给具体理由
+  restrictions:
+  - 不直接搜索或执行任务，不自批名单、锁或新预算
+  - 不为 QA 通过删必需问题，不把领域词表当事实
+  failure_handling:
+  - 模式冲突、身份歧义或必要输入缺失返回定位明确的需求
+  - 模型／输出错误按统一协议返回；不降级成固定假计划
+  completion_criteria:
+  - 所选分支字段齐全且逻辑一致；计划分支无越界、孤立必需问题或循环依赖
+  - 计划为提案，须主控校验后执行；澄清与不可行输出不是已形成可执行计划
+- name: CompetitorDiscoveryAgent
+  objective: 在明确发现范围内建立有依据、去重、可编辑的竞品候选名单。
+  input:
+  - name: discovery_task
+    type: DiscoveryTask
+    required: true
+    constraint: 明确发现目的、种子实体与授权范围；默认单对象不自动触发
+  - name: seed_context
+    type: SeedContext
+    required: true
+    constraint: 定位、客群、场景、功能的已知与未知及来源；未知不能捏造
+  - name: source_constraints
+    type: SourceConstraints
+    required: true
+    constraint: 可信来源限制、工具能力、预算及当前策略
+  - name: previous_proposal
+    type: DiscoveryHistory
+    required: false
+    constraint: 修改名单时绑定旧提案、用户修订与身份记录
+  output:
+  - name: candidate_proposal
+    type: CandidateProposalVNext
+    required: true
+    constraint: 含去重候选实体、别名、多标签及逐标签情境／依据、纳入理由、独立身份依据、匹配分项及排除记录；允许真实空名单
+  - name: discovery_summary
+    type: DiscoverySummary
+    required: true
+    constraint: 四路查询及四类覆盖、调用账本、未知与失败；候选核查不等于正式研究 PASS
+  tools:
+    registry_tools:
+    - web_search
+    - web_fetch
+    planned_capabilities: []
+    internal_services:
+    - read_bound_assets
+    - append_candidate_assets
+    model_role: discovery
+  rules:
+  - 按定位、客群、场景、功能发现，保留不买／不换等非品牌替代
+  - 事实依据与关系推断、评分未知分开；候选身份读取保持有界
+  decision:
+  - 提出身份归一、类别、匹配分项和候选排除建议
+  - 在发现工作项允许的范围内选择查询和核验来源
+  restrictions:
+  - 不批准候选名单，不据提案开展完整多对象深采
+  - 不合并未消歧同名产品，不因无证据将未知评分当零
+  failure_handling:
+  - 失败、受限、无候选与未执行分别保存
+  - 未决身份与用户修订返回主控处理，不编造候选满足非空 Schema
+  completion_criteria:
+  - 已执行部分的身份／关系依据与范围可追溯，未完成四路／类别明确记录
+  - 可审阅名单须通过候选依据检查，正式研究仍等待真实选择；空结果不能冒充完整竞争格局
+- name: ResearchAgent
+  objective: 作为受限 Worker 执行独立研究任务，获取来源并返回可逐项接纳的待验证证据候选。
+  input:
+  - name: research_task
+    type: ResearchTaskSpec
+    required: true
+    constraint: 有界问题、research_task_id/version、plan/scope/policy、允许动作与依赖、来源要求及完成条件；不能仅传竞品名
+  - name: assignment
+    type: WorkerAssignment
+    required: true
+    constraint: dispatch/worker/lease_epoch、当前输入指纹、权限交集、预算预占、期限和允许追加位置；每次重新绑定
+  - name: competitor_profile
+    type: CompetitorIdentityContext
+    required: true
+    constraint: 已消歧身份引用；不要求已有完整画像或我方产品背景
+  - name: dimensions
+    type: ResearchUnitSpec[]
+    required: true
+    constraint: 本次获分配的对象×维度／子问题、必需性、源与证据要求
+  - name: source_constraints
+    type: SourceConstraints
+    required: true
+    constraint: 允许来源、访问方式、时效和提供方限制，不来自网页指令
+  - name: reusable_assets
+    type: AssetAdoption[]
+    required: false
+    constraint: 只读取已授权版本，沿用原获取日期；复用准入不由采集器自批
+  output:
+  - name: source_documents
+    type: SourceDocumentRef[]
+    required: true
+    constraint: 原 URL／工件、获取时间、内容散列、快照及定位；允许零项但须与结果一致
+  - name: evidence_records
+    type: EvidenceCandidateVNext[]
+    required: true
+    constraint: 引用 Source 精确版本及原文定位，verification_status=unvalidated；不是已验证事实
+  - name: collection_summary
+    type: ResearchTaskResult
+    required: true
+    constraint: 绑定任务/版本/dispatch/attempt；每个操作及子问题恰一结果，执行/发现状态分开，含来源、候选、缺口、预算及账本引用
+  tools:
+    registry_tools:
+    - web_search
+    - web_fetch
+    - extract_features
+    planned_capabilities:
+    - document_parser
+    - website_crawler
+    - news_search
+    - review_collector
+    - structured_extractor
+    internal_services:
+    - read_bound_assets
+    - append_candidate_assets
+    model_role: researcher
+  rules:
+  - 来源与事实候选分离；保留归属、限定、原日期和失败
+  - 外部调用经 Registry，现有 extract_features 仅显式摘录，不是语义提取器
+  - Worker 可跨任务复用，但每次隔离对象上下文与权限；同对象结果按任务追加，不互相覆盖
+  decision:
+  - 选择工作项准许的 URL／Adapter 与摘录；查询变体仅在工作项明确允许时使用
+  - 报告缺口及建议来源；是否重试／重规划由主控决定
+  restrictions:
+  - 不编造资料、不将推测写成事实，不修改范围／维度或自发补搜
+  - 不将候选设为 verified，不控制其他代理，不绕访问限制
+  - 不认领未分配任务、不写共享总档案、不因租约超时自行重派或切 Worker 绕限制
+  failure_handling:
+  - 按统一协议保存逐项结果，受限停止相关路径，原文不足不记未找到
+  - 部分成果保留；需补证交 Validator／Planner／主控，不给自己增加额度
+  completion_criteria:
+  - 本轮结束或让出执行时，每个分配项有与实际一致的状态，候选均可追到真实来源及定位
+  - 采集调用可以返回缺口，只有全部完成才标该批采集完成；Evidence 充分性由 Validator 判定
+  - 结果经主控核当前分配/版本/工件后才接纳，所有任务返回不替代完整 Research QA
+- name: ValidatorAgent
+  objective: 执行证据验证、覆盖评估、缺口分析，并独立核查新 Claim 的支持关系。
+  input:
+  - name: validation_request
+    type: ValidationRequestVNext
+    required: true
+    constraint: action=research_qa/claim_support；对应完整输入清单与当前 requirement/scope/plan/policy/as_of
+  - name: collection_and_assets
+    type: ValidationAssets
+    required: true
+    constraint: 采集状态、候选／证据、来源原文与版本；claim_support 分支另带 Claim 与支持／反证边
+  - name: prior_receipts
+    type: ValidationReceipt[]
+    required: false
+    constraint: 只可采用仍匹配输入的局部依据，不复制旧全局 PASS
+  output:
+  - name: validation_result
+    type: ValidationResultVNext
+    required: true
+    constraint: research_qa 返回逐格覆盖、冲突、缺口及 PASS/RESEARCH_MORE；claim_support 返回逐 Claim 判断；评估未完成不得 PASS
+  - name: verification_records
+    type: VerificationRecord[]
+    required: true
+    constraint: 每条判断有方法、原文依据、输入指纹、策略与不确定项
+  tools:
+    registry_tools: []
+    planned_capabilities: []
+    internal_services:
+    - read_bound_assets
+    - append_validation_records
+    - deterministic_checks
+    model_role: validator
+  rules:
+  - 检查支持含义、时效、独立来源、比较条件与冲突，不只查引用存在
+  - 覆盖分母来自版本化必需单元，不由成功获取的材料倒推
+  decision:
+  - 依据策略判断 supported/unsupported/uncertain、有效覆盖及补证缺口
+  - 对新 Claim 做独立判断并附依据
+  restrictions:
+  - 不联网补证、不修改计划或批准新范围，不删反证
+  - 不因官方标签或高 confidence 自动通过，不将工具故障当事实否定
+  failure_handling:
+  - 缺原文或调用失败记录未完成核查并交主控恢复，不伪造 PASS
+  - 研究内容不足可正常返回 RESEARCH_MORE；评估器执行失败按故障协议另记
+  completion_criteria:
+  - 评估调用完成需约定检查全部执行或明确未完成，不确定项可定位
+  - Research 准入仅当前完整 PASS 且无未解必需缺口；有效 RESEARCH_MORE 不是评估器崩溃或准入成功
+- name: AnalysisAgent
+  objective: 用当前已准入的证据回答研究问题，形成比较、机制解释与条件性决策建议。
+  input:
+  - name: analysis_request
+    type: AnalysisRequest
+    required: true
+    constraint: 目的、问题、方法、必需产物、模式、scope/plan/policy/as_of 与影响范围
+  - name: validated_assets
+    type: ValidatedAssetSet
+    required: true
+    constraint: 当前 Research QA 及精确 Evidence／Source 版本，含限制、反证与不可比原因
+  - name: industry_methods_and_reader_decisions
+    type: ResolvedAnalysisRequirements
+    required: true
+    constraint: 绑定当前范围的方法／字段版本及决策问题；通用概览允许无行业专属规则，不允许问题为空
+  - name: own_context
+    type: UserContextVersion
+    required: false
+    constraint: 只有用户要求我方对照才按需使用，标 user_provided，不作为外部已核验事实
+  - name: previous_analysis
+    type: AnalysisVersion
+    required: false
+    constraint: 增量重算时带旧依赖及变化集合
+  output:
+  - name: analysis
+    type: AnalysisVNext
+    required: true
+    constraint: 比较单元、可复算数字、Claim、机制、备选解释、建议前提／取舍／验证及局限
+  - name: claim_support_requests
+    type: ClaimSupportRequest[]
+    required: true
+    constraint: 新或变化 Claim 的证据支持／反证关系，待独立核查；无新 Claim 时可空
+  tools:
+    registry_tools: []
+    planned_capabilities: []
+    internal_services:
+    - read_bound_assets
+    - append_analysis_assets
+    - deterministic_checks
+    model_role: analyst
+  rules:
+  - 消费当前行业分析规则和读者决策问题；共用事实，新问题重评分析，不按角色重复采集
+  - 事实、推断、假设和用户背景区分；共同研究材料服务不同读者
+  - 数字保存单位、输入、公式与条件，未知保留未知
+  decision:
+  - 在任务要求内选择适用比较方法、提出有依据的解释与条件性行动
+  - 识别无法支持的结论或需补充的前提并报告
+  restrictions:
+  - 不联网，不伪造我方优势或实际赢输，不自批新 Claim
+  - 不把功能空白当需求或将样本推为总体，不擅自回退状态
+  failure_handling:
+  - 输入 QA 失配拒绝消费并报告；计算或模型失败按恢复协议
+  - 新证据缺口报告主控，遵守当前合法状态边，不能绕道报告阶段制造返工票据
+  completion_criteria:
+  - 必需分析产物、计算与引用完整，未支持部分明示；形成候选分析不代表 Claim 已获批准
+  - 进入 Reporter 前，新或变化 Claim 均须通过独立支持核查；必需目标未回答不算分析完成
+- name: ReporterAgent
+  objective: 将已核对分析组织为指定读者和格式的版本化报告草稿。
+  input:
+  - name: report_request
+    type: ReportRequest
+    required: true
+    constraint: 有效目的／维度、模式、读者／格式、as_of 与输出限制
+  - name: approved_analysis
+    type: CheckedAnalysis
+    required: true
+    constraint: 确切 Analysis 及适用的 Research QA／Claim 支持记录
+  - name: source_catalog
+    type: SourceCatalog
+    required: true
+    constraint: 与分析一致的来源、Evidence、Claim 版本和定位，不能只传 URL 列表
+  - name: revision_or_repair
+    type: ReportRevisionContext
+    required: false
+    constraint: 改稿时绑定旧草稿、更新差异或有效返工票据
+  output:
+  - name: draft
+    type: ReportDraftVNext
+    required: true
+    constraint: 不可变正文、草稿 ID／版本／散列、来源与必要更新说明
+  - name: segment_bindings
+    type: ReportClaimBinding[]
+    required: true
+    constraint: 段落、表格、列表中的重要表述映射到 Claim 版本；非业务文本有明确归类
+  tools:
+    registry_tools: []
+    planned_capabilities: []
+    internal_services:
+    - read_bound_assets
+    - write_draft_artifact
+    - deterministic_checks
+    model_role: reporter
+  rules:
+  - 保留归属、限定、数字和事实 as_of；不同读者共用同版事实
+  - 修稿形成新版本，不能继承旧稿的 Report QA
+  decision:
+  - 按指定读者和格式组织、压缩或重述已批准内容
+  - 修复属于呈现的遗漏、重复、错抄和引用映射
+  restrictions:
+  - 不新增事实、推理或策略，不删必需答案，不给自己发质量 PASS
+  - 不切换发布引用，不写任意路径，不以草稿生成宣布任务完成
+  failure_handling:
+  - 缺合格分析／来源则拒绝生成伪完整稿并报告
+  - 渲染／写入失败保留诊断和旧版，呈现修复受票据与预算约束
+  completion_criteria:
+  - 完整候选及映射可核对，内容与已批准分析一致，必需栏目有实质答案
+  - 仅完成草稿交接；交付必须另经 Report QA、实际工件读回与主控完成守卫
+- name: ReportQAAgent
+  objective: 独立评估完整候选报告是否忠实、充分且可追溯地回答当前研究目的。
+  input:
+  - name: qa_request
+    type: ReportQARequest
+    required: true
+    constraint: 有效用户目的与修订、维度、mode/policy/as_of、确切草稿散列与版本
+  - name: draft_and_bindings
+    type: ReportCandidate
+    required: true
+    constraint: 全文、摘要、表格、脚注、更新说明及 Claim 映射，不能仅传摘要
+  - name: assets_and_receipts
+    type: ReportQAAssets
+    required: true
+    constraint: 确切 Analysis／Claim／Evidence／Source 及适用上游核查
+  - name: prior_issues
+    type: ReportIssue[]
+    required: false
+    constraint: 返工需保留旧问题、修复历史和影响依赖
+  output:
+  - name: report_qa_result
+    type: ReportQAResult
+    required: true
+    constraint: 九项执行结果、完整问题集合及 PASS/REVISE/STOP，绑定全文与输入指纹
+  - name: issues
+    type: ReportIssue[]
+    required: true
+    constraint: 规则、片段、依据、实际与期望、根因责任方、修复验收及失效依赖；无违规时可空
+  tools:
+    registry_tools: []
+    planned_capabilities: []
+    internal_services:
+    - read_bound_assets
+    - append_validation_records
+    - deterministic_checks
+    model_role: report_qa
+  rules:
+  - 独立于生成调用，扫描未登记的事实和数字，九项全部必检
+  - 严重度用于修复顺序；均分不能抵消违规，未知或未执行不得 PASS
+  decision:
+  - 依据规则定位缺陷、判断严重度和根因，建议修复模块
+  - 依据逐项结果提出 PASS/REVISE/STOP，代码准入仍独立检查
+  restrictions:
+  - 不修改草稿／范围、不联网、不发恢复票据或迁移状态
+  - 不以 Reporter 自评替代检查，不降标准或删除缺陷以通过
+  failure_handling:
+  - 原文不足与评估执行失败分别记录；无法判断不当合格
+  - 可修复问题交主控根因分派，评估失败沿统一恢复协议，不能自发循环
+  completion_criteria:
+  - 当前全文九项均有可追溯结果，问题记录可定位且判定与逐项结果一致
+  - 只有当前完整 PASS 可用于交付守卫；REVISE/STOP 是有效评估结果但不批准交付
+state_model_reference: state-machine-v2.yaml
