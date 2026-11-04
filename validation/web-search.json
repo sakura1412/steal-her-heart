@@ -1,0 +1,127 @@
+{
+  "scope": "Independent no-key public web_search module, persistent search ledger and CLI diagnostic",
+  "verified_at": "2026-11-03T20:13:29.963499+08:00",
+  "status": "offline_verified_live_positive_path_blocked",
+  "baseline_commit": "fd2be971dd7be8cea508bcb1eb51d3da5da9797a",
+  "baseline_tests": 351,
+  "total_tests": 547,
+  "added_tests": 196,
+  "user_direction": "Prefer public search without an API key; stop explicitly on access restrictions.",
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q",
+      "exit_code": 0,
+      "result": "547 passed in 1.41s"
+    },
+    {
+      "command": ".venv/bin/python -m ruff check .",
+      "exit_code": 0,
+      "result": "All checks passed!"
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check .",
+      "exit_code": 0,
+      "result": "62 files already formatted"
+    },
+    {
+      "check": "git diff --check",
+      "exit_code": 0
+    },
+    {
+      "check": "Development skill quick_validate",
+      "result": "Skill is valid!"
+    }
+  ],
+  "live_probe": {
+    "date": "2026-11-03",
+    "provider_requests": 1,
+    "method": "Single pre-integration urllib GET with redirects disabled and transparent agent user-agent",
+    "endpoint": "https://html.duckduckgo.com/html/",
+    "query": "Python official documentation",
+    "http_status": 202,
+    "response_bytes": 14298,
+    "response_sha256": "759a61ed25610ff6e2c5d1fc4a6ca1789660acf49a283369f6d8e8e5a9e39447",
+    "challenge_detected": true,
+    "result_links_present": false,
+    "outcome": "Access restricted; provider requests stopped.",
+    "provider_requests_after_restriction": 0,
+    "retries_or_endpoint_fallbacks": 0,
+    "raw_challenge_published": false,
+    "final_adapter_live_run": "not_run_after_access_restriction",
+    "real_hit_acceptance": "not_verified",
+    "not_an_end_to_end_analysis": true
+  },
+  "offline_verification": {
+    "method": "Synthetic HTML, controlled providers, mocked sockets/streams and real local Python subprocesses without network access",
+    "test_files": {
+      "tests/test_search_html.py": 50,
+      "tests/test_search_ledger.py": 43,
+      "tests/test_web_search.py": 53,
+      "tests/test_search_http.py": 37,
+      "tests/test_search_cli.py": 13
+    },
+    "verified_behaviors": [
+      "Registry validates input/output and web_search capability before any reservation or network request.",
+      "Fixed HTTPS endpoint, no redirects, no automatic retries, first page only, one attempt per new request.",
+      "Search endpoint DNS is checked and pinned; TLS verification and provider SNI remain enabled for direct and configured proxy routes.",
+      "HTTP and proxy CONNECT access restrictions stop with SEARCH_ACCESS_RESTRICTED; no body or raw provider error is exposed.",
+      "Response body and worker output are bounded; process creation and network exchange share the deadline.",
+      "Timeout, cancellation and output overflow terminate and reap the network subprocess; it is not an AI subagent.",
+      "512-character UTF-8 queries are transmitted without JSON truncation; ASCII and C1 controls are rejected.",
+      "Only explicit no-results HTML returns an empty success; challenges and unknown layouts are errors.",
+      "Search hits are deduplicated, ranked and marked evidence_eligible=false; no Source or Evidence is generated.",
+      "Persistent intent and per-task quota are reserved atomically before provider execution; failed and uncertain attempts remain charged.",
+      "Completed success/error replays do not make new provider calls; altered, cross-task or unresolved request IDs are rejected.",
+      "CLI exposes task/request IDs even on failure; stdout is ToolResult JSON and stderr carries the IDs.",
+      "Other commands do not construct the search ledger or contact a search provider."
+    ],
+    "independent_review": {
+      "status": "no_remaining_blocking_issue_found_in_reviewed_transport_paths",
+      "fixed_findings": [
+        "Escaped Unicode input could exceed worker stdin limit.",
+        "Shielded process creation could outlive the request deadline.",
+        "Proxy CONNECT access restrictions were misclassified as network failures.",
+        "communicate collected full stdout before checking the output limit."
+      ],
+      "extra_checks": "Actual offline Python children were terminated and reaped on timeout and external cancellation."
+    },
+    "does_not_prove_current_provider_returns_real_hits": true
+  },
+  "implemented_limits": {
+    "max_results": 10,
+    "default_results": 5,
+    "max_response_bytes": 1048576,
+    "cli_timeout_s": 15,
+    "default_search_calls_per_task": 30,
+    "global_research_budget_implemented": false
+  },
+  "implementation_boundaries": {
+    "analyze": "pending_module; not wired to search",
+    "run_resume": "UNDERSTANDING; not wired to search",
+    "web_fetch": "not_implemented",
+    "source_snapshots_and_evidence_extraction": "not_implemented",
+    "research_subagent_scheduling": "not_implemented",
+    "substantive_validation_analysis_reporting": "not_implemented",
+    "global_fetch_llm_round_and_active_time_budgets": "not_implemented",
+    "business_research_or_report": "not_run",
+    "successful_offline_fixtures_are_not_live_provider_acceptance": true
+  },
+  "source_sha256": {
+    "README.md": "8f75e88595c1f91a50b1047be8c9e2d22f954073039b3a61896744799e909ead",
+    "skills/steal-her-heart/SKILL.md": "3f56e8df38555539a0d02764a179a8ab987938a9c167ee1a38ee30579b853bb0",
+    "skills/steal-her-heart/RULES.md": "609d257d60096ad5d8759d0b89cdb49ae6d3653cbd7cffbcdf3417a9084b835b",
+    "skills/steal-her-heart/TASK_SPEC.md": "f253a544211c4cf4f9375daba97680fbb7b87bffea2afb7c4a5b7d1b8deee004",
+    "skills/steal-her-heart/references/commands.md": "6adc0daf5daebe89c8486714074585c86493e81d3bdd6283acb59a05430c0148",
+    "src/steal_her_heart/tools.py": "c5007f62d28b5dead1bf7a15e4aa43dd4e40af38facb54c2fd103130d53e6424",
+    "src/steal_her_heart/cli.py": "d2c89ee51fac8880cc72bdaa35933d95b3af2ceb4f263b1f742b93069327dbf5",
+    "src/steal_her_heart/web_search.py": "ee05d5307ea1a946672310b406e850b8c091a5ad050f62808468845afa8319c6",
+    "src/steal_her_heart/_search_http.py": "cfe8f84ea5be726fb5cbdbfe78c24c3d296c06b5f98ed0b6659411f1af859a66",
+    "src/steal_her_heart/search_html.py": "c0b9a0c69d7b54c70687b41411bdf9d034ca9c70a2bc3550d7c3d3ff1e9c0e1e",
+    "src/steal_her_heart/search_ledger.py": "3276146c06e0b75b8349bba6d99ccf03bd9043fb067cc62a7bda244b2cfe4291",
+    "tests/test_web_search.py": "125f1915393db3e8c0a2adf4c67a0aa12f29d4b2b32ba5fbc0fa83deb22d432e",
+    "tests/test_search_http.py": "294346b66bbef3872eb47be08e9bdc3b7a1afb7f734bdb0cb7b8f78112a7af55",
+    "tests/test_search_html.py": "da0f1c5cfa573c4020cafe1c7336a630d97f394758a3e8fda921042302185155",
+    "tests/test_search_ledger.py": "97d9fff51ab5d69a3de07bc6ec29145be03944c7afc34e73955b827ccb7f8bd4",
+    "tests/test_search_cli.py": "e75a640c68f21d699634173a530287b01cbf440999d4cb30f6a3fc6b1cfe9be7"
+  }
+}

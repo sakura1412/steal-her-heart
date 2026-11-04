@@ -1,0 +1,143 @@
+{
+  "scope": "Independent public web_fetch, immutable Source snapshots, fetch quota and CLI",
+  "verified_at": "2026-11-03T21:18:03.240442+08:00",
+  "status": "offline_verified_and_one_public_example_page_verified",
+  "baseline_validation": "validation/web-search.json",
+  "baseline_tests": 547,
+  "total_tests": 792,
+  "added_tests": 245,
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q",
+      "exit_code": 0,
+      "result": "792 passed in 2.39s"
+    },
+    {
+      "command": ".venv/bin/python -m ruff check .",
+      "exit_code": 0,
+      "result": "All checks passed!"
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check .",
+      "exit_code": 0,
+      "result": "69 files already formatted"
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0
+    },
+    {
+      "check": "Development skill quick_validate",
+      "result": "Skill is valid!"
+    },
+    {
+      "check": "Changed Markdown local links and code fences",
+      "result": "passed",
+      "local_links": 77
+    }
+  ],
+  "offline_verification": {
+    "network_access": false,
+    "fixtures": "Controlled providers, synthetic HTML, fake sockets/HTTP handlers, local Python subprocesses",
+    "test_files": {
+      "tests/test_fetch_http.py": 130,
+      "tests/test_source_snapshots.py": 62,
+      "tests/test_web_fetch.py": 39,
+      "tests/test_fetch_cli.py": 14
+    },
+    "verified_behaviors": [
+      "Registry validates public URL input and web_fetch capability before budget or HTTP execution.",
+      "URL normalization is shared with the worker; DNS is checked and the public target address is pinned.",
+      "Default TLS verification and provider SNI are preserved; configured HTTP proxies use a pinned CONNECT target.",
+      "Proxy credentials stay in CONNECT and do not reach the destination GET; NO_PROXY direct routes are preserved.",
+      "No redirects, retries, JavaScript execution, login or API keys; HTTP and structural access challenges stop.",
+      "Only bounded HTML/XHTML/plain text and strict supported codecs become source material.",
+      "Raw body, normalized UTF-8 text and canonical manifest are persisted atomically; hashes and text reconstruction are checked on load.",
+      "Snapshot references cannot escape the configured root through traversal, symlink or non-regular files.",
+      "Blank pages, title-only/JavaScript shells, bad encodings and captcha structures cannot become a successful Source.",
+      "Acquisition time has a timezone; publication date remains null and source_name is only the hostname.",
+      "CLI returns a source receipt and bounded preview, facts_validated=false; it never returns Evidence, PASS or a report.",
+      "Default 60 attempts per task are reserved durably before HTTP; failures and unknown intents remain charged.",
+      "Search and fetch databases have distinct application identities; a wrong ledger is rejected without HTTP.",
+      "Completed requests replay locally with snapshot integrity checks; corruption does not trigger a replacement download.",
+      "Timeouts, cancellations and excessive output kill and reap the worker; a failed cancellation commit leaves a non-retriable unresolved intent.",
+      "Snapshot platform capability is checked before budget/network execution; unsupported platforms return a safe error.",
+      "Existing analyze/run/resume, schema, project approval and lock behavior remains covered by regression tests."
+    ],
+    "independent_review": "Transport owner cross-reviewed tool integration and ledger/snapshot replay; no remaining blocking issue was reported."
+  },
+  "live_example_page": {
+    "url": "https://example.com/",
+    "attempts": 1,
+    "cli_exit_code": 0,
+    "status": "ok",
+    "local_artifacts": ".steal-her-heart/fetch-validation/83b46bd6-f470-43a1-ac43-660c935a0914",
+    "source_url": "https://example.com/",
+    "title": "Example Domain",
+    "raw_bytes": 577,
+    "raw_sha256": "25ddf2c883e0d1958ea971d279a7e4f0fd446724ee3db7db19dadabd4a62e484",
+    "text_sha256": "6ad6a6c36f503337cfc798b55a07ce2ddce3f851b216701afc9695a374d4f30e",
+    "line_count": 1,
+    "snapshot_ref": "sha256:389053fcaa4ccb6773d292fc1253bfa8e2ee1e4ade0dc7bc97e0288190b48f86",
+    "fetched_at": "2026-11-03T13:15:39.176587Z",
+    "published_at": null,
+    "facts_validated": false,
+    "local_replay_exit_code": 0,
+    "local_replay_same_data": true,
+    "ledger_usage": [
+      1,
+      60
+    ],
+    "method": "Actual fetch CLI through Registry, public HTTP worker and SnapshotStore, followed by local replay",
+    "http_status_basis": "Success is accepted only for HTTP 200 by the worker.",
+    "body_published": false,
+    "not_a_competitor_analysis": true,
+    "not_proof_that_all_websites_are_supported": true
+  },
+  "search_provider_status": {
+    "previous_live_probe": "HTTP 202 verification page; stopped.",
+    "additional_search_provider_requests_this_module": 0,
+    "real_search_hits_verified": false,
+    "fetch_example_is_not_a_search_provider_fallback": true
+  },
+  "limits": {
+    "raw_bytes": 1048576,
+    "normalized_text_utf8_bytes": 1048576,
+    "preview_characters": 12000,
+    "cli_timeout_s": 15,
+    "search_calls_per_task": 30,
+    "fetch_calls_per_task": 60,
+    "global_research_budget": "not_implemented",
+    "snapshot_platforms": [
+      "macOS",
+      "Linux"
+    ],
+    "unsupported_snapshot_platform": "FETCH_SNAPSHOT_UNAVAILABLE before reservation or HTTP"
+  },
+  "remaining_modules": {
+    "evidence_extraction": "Not implemented; next module must ground each candidate quote and locator in a specific source/text version.",
+    "validator": "Contract only; source support, freshness, required-cell coverage and conflict logic still need semantic fixtures and runtime execution.",
+    "analysis": "Contract only; comparable cross-object claims and supported opportunities/threats still need implementation.",
+    "reporter": "Contract only; readable Battlecards, period reports and reader-specific views still need generation and layout acceptance.",
+    "confirmation_bridge": "Chat confirmation is not the final Python lock; trusted replies must bind proposal hashes and persist/read back the lock.",
+    "llm_and_prompts": "No real LLM provider or runtime prompt files; structured output, error/budget handling and multi-industry evaluation remain required.",
+    "orchestrator": "analyze remains pending_module; run/resume stop at UNDERSTANDING.",
+    "business_research": "No competitor facts, Evidence, analysis or report generated."
+  },
+  "source_sha256": {
+    "README.md": "8de9d769062059ea965633a7865e897874391db44c7d352a6742309c401946fd",
+    "skills/steal-her-heart/SKILL.md": "b5201acc4d03356cea9abd3b382f959fe0006d1a872f7e8ece61bdac531c078d",
+    "skills/steal-her-heart/RULES.md": "80d48c348c629a1d6ddf627393238131d885a1d6c867dd2e66a256231ac6710b",
+    "skills/steal-her-heart/TASK_SPEC.md": "3210ae7a24e8a09e18a9e927b572c05f75ec3e38820511a1d0729d39cfde0965",
+    "skills/steal-her-heart/references/commands.md": "0f8e45ebf0487b79daf2e38d3e0e32a6b42196b0116c9722157cf7bcced45a59",
+    "src/steal_her_heart/cli.py": "7519e9237dcd6a5cf911d2a656b6e9c6dca95b5cc6000fc1f9d7a3d208f50596",
+    "src/steal_her_heart/search_ledger.py": "bde413626c09573de9439cbbe1472ab89f1a05d82ec7822598016fcfa055529e",
+    "src/steal_her_heart/web_fetch.py": "990d04246887360c7d9969ddcaa6d30949c72915aaa37f6260fc20c7b693e6b5",
+    "src/steal_her_heart/_fetch_http.py": "5bbaf005fd635b3ccb6af9fc216a7e4839a10880d89eb907c380a6a18f3a1879",
+    "src/steal_her_heart/source_snapshots.py": "4b34a865fc4f65907162a2aaa045aed1a3a52a07a90cc005a9aea935df8fd3d0",
+    "tests/test_web_fetch.py": "bd55a8148dc2dbc9271639badd5f18e313864200bc33e207c41f30b06b3d4578",
+    "tests/test_fetch_http.py": "0df6d9ab23cb6c74d2fa7480b637e726741958b128bb1a0b01c113106dbb8a92",
+    "tests/test_source_snapshots.py": "dbe1bb04cc7bd4126a2b69c090c3c4390fe894ab97180752c26bf25bf55a0f76",
+    "tests/test_fetch_cli.py": "e8fcc11f76436e1c2a9f71ac3124e40ea5e748af4f3bae683731741aa3616105"
+  }
+}

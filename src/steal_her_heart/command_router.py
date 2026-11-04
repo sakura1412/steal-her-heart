@@ -5,9 +5,11 @@ from typing import Annotated, Literal, Optional
 
 from pydantic import Field, model_validator
 
+from .execution_readiness import pending_guidance
 from .project_initialization import require_project
 from .schemas import (
     Contract,
+    ExecutionGuidance,
     Identifier,
     ProjectContext,
     ReaderProfile,
@@ -62,6 +64,7 @@ class CommandResponse(Contract):
     configured_readers: tuple[ReaderProfile, ...] = ()
     reader_requirements: Optional[Text] = None
     output_path: Literal[None] = None
+    guidance: Optional[ExecutionGuidance] = None
 
     @model_validator(mode="after")
     def check_execution(self) -> "CommandResponse":
@@ -74,6 +77,8 @@ class CommandResponse(Contract):
             self.initialization_question is not None
         ):
             raise ValueError("Initialization gating must include the next interview question")
+        if self.guidance is not None and self.execution != "pending_module":
+            raise ValueError("Pending research guidance must not replace clarification or gating")
         return self
 
 
@@ -195,7 +200,10 @@ def route_request(
         return CommandResponse(
             intent=intent,
             execution="initialization_required",
-            message="所选项目配置尚未就绪；可补齐该项目，或不带项目参数直接研究竞品。",
+            message=(
+                "所选项目配置尚未就绪；可补齐该项目，或不带项目参数解析单对象请求。"
+                "Python 研究执行链路仍未就绪。"
+            ),
             initialization_question=initialization_question or "请补齐所选项目配置。",
         )
     if project is not None:
@@ -204,23 +212,14 @@ def route_request(
     values = intent.model_dump()
     values["audiences"] = tuple(reader.id for reader in readers)
     intent = CommandIntent.model_validate(values)
-    missing = {
-        "analyze": "已识别研究对象，无需我方产品背景；采集、更新与研究执行尚未实现。",
-        "battlecard": (
-            "已识别销售一页纸请求；可先整理竞品画像，"
-            "我方优势和回应需相关背景及双方证据。采集和报告生成尚未接入。"
-        ),
-        "brief": (
-            "已识别周报／月报请求，无需我方产品背景；"
-            "生成前需明确研究资产、对象及时间范围。资产查询和报告生成尚未接入。"
-        ),
-    }
+    guidance = pending_guidance(intent.action, competitor=intent.competitor, period=intent.period)
     return CommandResponse(
         intent=intent,
         execution="pending_module",
-        message=missing[intent.action],
+        message=guidance.summary,
         configured_readers=readers,
         reader_requirements=project.readers_and_priorities if project else None,
+        guidance=guidance,
     )
 
 

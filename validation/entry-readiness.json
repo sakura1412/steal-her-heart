@@ -1,0 +1,253 @@
+{
+  "scope": "Entry capability disclosure, separate Codex/Python path guidance and actionable pending responses",
+  "verified_at": "2026-11-03T23:47:29.479946+08:00",
+  "baseline_validation": "validation/evidence-candidates.json",
+  "baseline_tests": 898,
+  "total_tests": 952,
+  "added_tests": 54,
+  "test_files": {
+    "tests/test_execution_readiness.py": 16,
+    "tests/test_entry_cli.py": 38
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q",
+      "exit_code": 0,
+      "result": "952 passed in 3.10s"
+    },
+    {
+      "command": ".venv/bin/python -m ruff check .",
+      "exit_code": 0,
+      "result": "All checks passed!"
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check .",
+      "exit_code": 0,
+      "result": "77 files already formatted"
+    },
+    {
+      "check": "git diff --check",
+      "exit_code": 0
+    },
+    {
+      "check": "skill-creator quick_validate",
+      "skills": [
+        "codex-skills/steal-her-heart",
+        "skills/competitor-research",
+        "skills/steal-her-heart"
+      ],
+      "result": "all valid"
+    },
+    {
+      "check": "Changed Markdown links and code fences",
+      "result": "passed",
+      "local_links": 107
+    }
+  ],
+  "verified_behaviors": [
+    "Root, subcommand and alias help disclose the development-preview and unavailable research pipeline before project loading or side effects.",
+    "Pending analyze, battlecard and periodic brief have deterministic action-specific missing modules and concrete next steps.",
+    "Human guidance is written to stderr while stdout remains one JSON result, including actual interactive initialization prompts.",
+    "Missing target/period and explicit incomplete-project questions are preserved; they are not overwritten with pipeline guidance.",
+    "All three profile-ready exits say configuration only; no automatic dimension proposal, candidate discovery, scope lock or research starts.",
+    "run/status/resume provide the same deterministic guidance without new events, research calls or state migration; status still exits zero.",
+    "Human rendering escapes terminal control characters from target names without changing the request or JSON contract.",
+    "Runtime and compatibility Skill metadata disclose preview status; startup notice preserves names and does not add a continue confirmation.",
+    "Codex host assistance is conditional on actual available tools and source checks, and does not imply Python task or lock synchronization."
+  ],
+  "cli_smoke": {
+    "network_requests": 0,
+    "files_created": false,
+    "cases": [
+      {
+        "argv": [
+          "--help"
+        ],
+        "exit_code": 0,
+        "preview_help_visible": true
+      },
+      {
+        "argv": [
+          "analyze",
+          "--help"
+        ],
+        "exit_code": 0,
+        "preview_help_visible": true
+      },
+      {
+        "argv": [
+          "/analyze",
+          "示例产品"
+        ],
+        "exit_code": 3,
+        "stdout_json": true,
+        "execution": "pending_module",
+        "output_path": null,
+        "guidance_present": true,
+        "stderr_guidance_present": true,
+        "research_ready": false,
+        "missing_module_ids": [
+          "planner_execution",
+          "research_orchestration",
+          "semantic_extraction",
+          "evidence_validation",
+          "analysis_generation",
+          "report_generation",
+          "llm_runtime"
+        ],
+        "next_steps": [
+          "需要现在开展辅助研究：把下方提示发到 Codex，使用实际可用的联网工具取证并核查；该路径不连接 Python 任务，也不保证自动完成报告。",
+          "继续工程验证可查看 steal-her-heart recognize-brief --help；它只识别需求，不验证竞品事实。",
+          "无需重新初始化；重复执行 analyze 或 resume 不会补齐缺失模块。"
+        ]
+      },
+      {
+        "argv": [
+          "/battlecard",
+          "示例产品"
+        ],
+        "exit_code": 3,
+        "stdout_json": true,
+        "execution": "pending_module",
+        "output_path": null,
+        "guidance_present": true,
+        "stderr_guidance_present": true,
+        "research_ready": false,
+        "missing_module_ids": [
+          "planner_execution",
+          "research_orchestration",
+          "semantic_extraction",
+          "evidence_validation",
+          "analysis_generation",
+          "report_generation",
+          "llm_runtime",
+          "battlecard_view"
+        ],
+        "next_steps": [
+          "需要现在准备卡片：可在 Codex 辅助研究对方，并提供我方产品、销售场景和可核验资料；由实际证据形成草稿并人工核查。",
+          "没有我方背景时可先整理对方画像；我方优势、回应和赢输判断保留缺口，无需先填写完整项目访谈。",
+          "Python 当前没有可生成卡片的后续命令；重新初始化或重试不会生成产物。"
+        ]
+      },
+      {
+        "argv": [
+          "/brief",
+          "周报"
+        ],
+        "exit_code": 3,
+        "stdout_json": true,
+        "execution": "pending_module",
+        "output_path": null,
+        "guidance_present": true,
+        "stderr_guidance_present": true,
+        "research_ready": false,
+        "missing_module_ids": [
+          "planner_execution",
+          "research_orchestration",
+          "semantic_extraction",
+          "evidence_validation",
+          "analysis_generation",
+          "report_generation",
+          "llm_runtime",
+          "research_asset_query",
+          "periodic_reader_views"
+        ],
+        "next_steps": [
+          "先准备本周期的对象范围、具体起止日期、来源材料与获取日期；当前 Python 不会自动查找上次任务的证据或生成增量周报／月报。",
+          "若现在需要草稿，可把这些材料交给 Codex 辅助整理并核查来源；这不代表 Python 资产库或周期报告已接通。",
+          "已有项目档案可继续保留；无需重新初始化，重试 /brief 不会补齐缺失模块。"
+        ]
+      },
+      {
+        "argv": [
+          "/brief"
+        ],
+        "exit_code": 3,
+        "stdout_json": true,
+        "execution": "needs_clarification",
+        "output_path": null,
+        "guidance_present": false,
+        "stderr_guidance_present": false
+      },
+      {
+        "argv": [
+          "request",
+          "/unknown"
+        ],
+        "exit_code": 2,
+        "stdout_json": true,
+        "execution": "unsupported",
+        "output_path": null,
+        "guidance_present": false,
+        "stderr_guidance_present": false
+      }
+    ]
+  },
+  "independent_skill_trial": {
+    "method": "Read-only three-scenario roleplay with actual Skill/UI/README text and no network/tools/facts generated",
+    "cases": [
+      {
+        "request": "Named target with directly start, no network available",
+        "observed": "Disclose preview, reuse name, provide uncollected outline only; no fabricated facts or repeat confirmation."
+      },
+      {
+        "request": "CLI init-project ready; ask whether dimensions/discovery and weekly report are complete",
+        "observed": "Explain profile-only completion; request explicit period/source material for limited host assistance, without claiming Python report readiness."
+      },
+      {
+        "request": "Chat dimensions confirmed; ask whether Python is locked",
+        "observed": "Do not infer lock; require valid proposal/API save and readback matching the current scope."
+      }
+    ],
+    "limitation": "Static behavior trial, not an end-to-end research or report quality test."
+  },
+  "installed_skill_update": {
+    "status": "updated_and_byte_matched_repository_package",
+    "changed_files": [
+      "SKILL.md",
+      "agents/openai.yaml"
+    ],
+    "unchanged_reference": "references/dimensions.md",
+    "original_installed_files_matched_pre_edit_repository": true,
+    "invocation_policy_changed": false,
+    "live_app_picker_refresh_verified": false
+  },
+  "compatibility": {
+    "execution_and_outcome_values": "unchanged",
+    "output_and_report_path_guards": "unchanged",
+    "exit_codes": "pending/clarification/initialization 3; unsupported 2; profile-ready and status reads 0",
+    "guidance": "Optional output addition; new models read old payloads, older extra-forbid consumers must upgrade.",
+    "task_snapshot_and_memory_schema_version": 1,
+    "database_migration": false
+  },
+  "research_execution": {
+    "new_network_or_llm_calls": 0,
+    "business_report_generated": false,
+    "analyze_battlecard_brief": "pending_module",
+    "run_resume": "UNDERSTANDING",
+    "codex_python_automatic_bridge": false
+  },
+  "source_sha256": {
+    "AGENTS.md": "f92312d280585663ba35895da57dcec22d703a24b4bb23f47ca7cff1fabd83e9",
+    "README.md": "4f77946b549a6d40253dda733fd0b4e93ca5208390cb3af4be30784be758a5e2",
+    "commands/analyze.md": "1fc7d6b8ae3fcfb9055b622f2ae37b820c8f51e9949322d135ad752e73fd8631",
+    "commands/init-project.md": "3b0d31dfd3cfb3227457aba1e2adcd5e43c025ef928c848a589f536ae41dbfc6",
+    "codex-skills/steal-her-heart/SKILL.md": "46162529acd2b8b2a0895e8afdbc0ca6d4971e25f7447768abd9fe782e727681",
+    "codex-skills/steal-her-heart/agents/openai.yaml": "d5169e9713033619f43b28028f3bd30fc12101bb492ec8c96f6786dd7052237e",
+    "skills/competitor-research/SKILL.md": "18d299008ba7ebde38f5f8230d8c9cd3e729aa734982e7413f01c89016967313",
+    "skills/competitor-research/agents/openai.yaml": "1ab3b20093087fad8959181379cc62d54124f2a70e3c5fac32ba55c4e06e1955",
+    "skills/steal-her-heart/SKILL.md": "3c1b0c8ed233b32984bf8ae12af242ed88e71a7d61fbef1d5dd010827a1fabf7",
+    "skills/steal-her-heart/RULES.md": "2c777f1fb1052de57d37be6e8d1134c1fdb9a669423a4272f1969ebcb3294418",
+    "skills/steal-her-heart/TASK_SPEC.md": "634fbac44493398089d5b01c92a2d2aabebbb9f3731d32e4e8da9152996e5d0a",
+    "skills/steal-her-heart/references/commands.md": "72caf3ab6ffd71e21ff53db3423a978ea4d9a1eb4a7018ba1ff4abfcc4b42e43",
+    "skills/steal-her-heart/references/research-workflow.md": "f03c0dcc2ee4c4e63c24c24cd4b375710d012524339a96c002fd7d548197ef06",
+    "skills/steal-her-heart/references/project-initialization.md": "8e290c1151f27661163e307b2ab530a639e9d5329a21811ccf77de2614900592",
+    "src/steal_her_heart/cli.py": "71126d5f5e9c4b2a5e5d184593ccc652935025a4b7125599a99b87cb411e8907",
+    "src/steal_her_heart/command_router.py": "d0a3772d47c14a7f71668f8bf71bb512d82cf2baee04f1bb35303283eeaeaba4",
+    "src/steal_her_heart/orchestrator.py": "5c3f719525735ed3f3fae938686124a10af0056251244c938bdcbaa843763199",
+    "src/steal_her_heart/schemas.py": "d36710b59aed842a609d316b1f86d7eab081d6379097c803777051adf9de3949",
+    "src/steal_her_heart/execution_readiness.py": "c1b0829d695d83b860bc05b580ec1889bf800592d5dd862c67e60d36ddec6fc9",
+    "tests/test_entry_cli.py": "14042352ce5dd90e64bba12d996b422691329ae4e9934a9b593b18c0b8599180",
+    "tests/test_execution_readiness.py": "4685c0d5eb93aeb2ce4dbbc4e049274dfd65418a0e59865ac71de02e1e3b79a2"
+  }
+}

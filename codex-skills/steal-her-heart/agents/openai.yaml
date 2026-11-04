@@ -1,4 +1,4 @@
 interface:
-  display_name: "Steal Her Heart"
-  short_description: "直接输入产品名称，按需问答并开展有来源的全行业竞品分析，无需项目背景或代码操作"
-  default_prompt: "使用 $steal-her-heart 帮我分析竞品。若我尚未提供产品名称，先问名称，再按需要问答；已有名称就直接采用。"
+  display_name: "Steal Her Heart（开发预览）"
+  short_description: "开发预览：Python研究链未就绪；初始化与工程验证，Codex辅助研究需联网核查"
+  default_prompt: "使用 $steal-her-heart，先说明开发预览的能力边界与所用路径，再采用我给出的产品名称辅助研究；没有名称再问名称。"

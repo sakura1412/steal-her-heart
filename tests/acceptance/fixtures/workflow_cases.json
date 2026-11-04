@@ -1,0 +1,60 @@
+{
+  "simulation_only": true,
+  "cases": {
+    "complete": {
+      "request": "比较合成工具甲、合成工具乙的价格",
+      "observations": [
+        {"competitor": "合成工具甲", "dimension": "收费模式", "field_id": "prices", "classification": "found", "pages": [
+          {"url": "https://example.com/synthetic/alpha", "quote": "SYNTHETIC Alpha Standard: USD 12 per seat per month; US; tax excluded."}
+        ]},
+        {"competitor": "合成工具乙", "dimension": "收费模式", "field_id": "prices", "classification": "found", "pages": [
+          {"url": "https://example.com/synthetic/beta", "quote": "SYNTHETIC Beta Standard: USD 18 per seat per month; US; tax excluded."}
+        ]}
+      ],
+      "validator_oracle": {"verdict": "PASS", "coverage": 1, "gaps": [], "conflicts": []}
+    },
+    "not_found": {
+      "request": "比较合成工具甲、合成工具乙的价格",
+      "observations": [
+        {"competitor": "合成工具甲", "dimension": "收费模式", "field_id": "prices", "classification": "found", "pages": [
+          {"url": "https://example.com/synthetic/alpha", "quote": "SYNTHETIC Alpha Standard: USD 12 per seat per month; US; tax excluded."}
+        ]},
+        {"competitor": "合成工具乙", "dimension": "收费模式", "field_id": "prices", "classification": "not_found", "pages": []}
+      ],
+      "validator_oracle": {"verdict": "RESEARCH_MORE", "coverage": 0.5, "gaps": ["SYNTHETIC: no price source for 合成工具乙"], "conflicts": []}
+    },
+    "not_applicable": {
+      "request": "分析合成个人工具的功能、代表客户",
+      "observations": [
+        {"competitor": "合成个人工具", "dimension": "核心功能", "field_id": "core_offering", "classification": "found", "pages": [
+          {"url": "https://example.com/synthetic/personal-feature", "quote": "SYNTHETIC personal utility stores notes locally."}
+        ]},
+        {"competitor": "合成个人工具", "dimension": "代表客户", "field_id": "reference_customers", "classification": "not_applicable", "pages": [
+          {"url": "https://example.com/synthetic/personal-scope", "quote": "SYNTHETIC fixture: personal-only distribution; organizational reference customers are outside this fixture's scope."}
+        ]}
+      ],
+      "validator_oracle": {"verdict": "PASS", "coverage": 1, "gaps": [], "conflicts": []}
+    },
+    "conflict": {
+      "request": "分析合成工具甲的价格",
+      "observations": [
+        {"competitor": "合成工具甲", "dimension": "收费模式", "field_id": "prices", "classification": "found", "pages": [
+          {"url": "https://example.com/synthetic/alpha-one", "quote": "SYNTHETIC Alpha Standard: USD 12 per seat per month; US; tax excluded."},
+          {"url": "https://example.com/synthetic/alpha-two", "quote": "SYNTHETIC Alpha Standard: USD 15 per seat per month; US; tax excluded."}
+        ]}
+      ],
+      "validator_oracle": {"verdict": "RESEARCH_MORE", "coverage": 1, "gaps": [], "conflicts": ["SYNTHETIC oracle: same-scope prices conflict; production semantic detection is not implemented."]}
+    },
+    "resolved_by_fixture": {
+      "request": "分析合成工具甲的价格",
+      "observations": [
+        {"competitor": "合成工具甲", "dimension": "收费模式", "field_id": "prices", "classification": "found", "pages": [
+          {"url": "https://example.com/synthetic/alpha-old", "quote": "SYNTHETIC old version, effective 2025-01-01: USD 12 per seat per month; US; tax excluded."},
+          {"url": "https://example.com/synthetic/alpha-new", "quote": "SYNTHETIC new version, effective 2026-11-01: USD 15 per seat per month; US; tax excluded."}
+        ]}
+      ],
+      "resolution_note": "SYNTHETIC: the fixture explicitly distinguishes versions; no automatic conflict resolution was performed.",
+      "validator_oracle": {"verdict": "PASS", "coverage": 1, "gaps": [], "conflicts": []}
+    }
+  }
+}

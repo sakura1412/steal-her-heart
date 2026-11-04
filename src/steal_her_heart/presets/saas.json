@@ -1,0 +1,905 @@
+{
+  "id": "saas",
+  "version": 1,
+  "title": "SaaS／工具类推荐研究组合",
+  "template": {
+    "id": "saas",
+    "version": 1,
+    "industry": "软件与数字服务（仅显式选择时采用）",
+    "system_category": "SaaS／工具类推荐组合",
+    "core_field_ids": [
+      "positioning",
+      "target_customers",
+      "reference_customers",
+      "core_offering",
+      "delivery_usage",
+      "offer_variants",
+      "prices",
+      "billing",
+      "trial_experience",
+      "value_proposition",
+      "limitations",
+      "positive_reviews",
+      "negative_reviews",
+      "recurring_complaints",
+      "recent_changes"
+    ],
+    "fields": [
+      {
+        "id": "positioning",
+        "module": "基本盘",
+        "label": "定位",
+        "nature": "fact",
+        "requires_own_product": false,
+        "requires_time_window": false,
+        "allow_not_applicable": false
+      },
+      {
+        "id": "target_customers",
+        "module": "基本盘",
+        "label": "目标客户／用户与使用场景",
+        "nature": "fact",
+        "requires_own_product": false,
+        "requires_time_window": false,
+        "allow_not_applicable": false
+      },
+      {
+        "id": "reference_customers",
+        "module": "基本盘",
+        "label": "代表客户／典型使用者",
+        "nature": "fact",
+        "requires_own_product": false,
+        "requires_time_window": false,
+        "allow_not_applicable": true
+      },
+      {
+        "id": "core_offering",
+        "module": "产品与服务",
+        "label": "核心产品、能力或服务内容",
+        "nature": "fact",
+        "requires_own_product": false,
+        "requires_time_window": false,
+        "allow_not_applicable": false
+      },
+      {
+        "id": "delivery_usage",
+        "module": "产品与服务",
+        "label": "交付、使用或服务方式",
+        "nature": "fact",
+        "requires_own_product": false,
+        "requires_time_window": false,
+        "allow_not_applicable": false
+      },
+      {
+        "id": "offer_variants",
+        "module": "价格与商业模式",
+        "label": "产品／服务／版本划分",
+        "nature": "fact",
+        "requires_own_product": false,
+        "requires_time_window": false,
+        "allow_not_applicable": false
+      },
+      {
+        "id": "prices",
+        "module": "价格与商业模式",
+        "label": "价格／报价",
+        "nature": "fact",
+        "requires_own_product": false,
+        "requires_time_window": false,
+        "allow_not_applicable": true
+      },
+      {
+        "id": "billing",
+        "module": "价格与商业模式",
+        "label": "计费／交易与商业模式",
+        "nature": "fact",
+        "requires_own_product": false,
+        "requires_time_window": false,
+        "allow_not_applicable": false
+      },
+      {
+        "id": "trial_experience",
+        "module": "价格与商业模式",
+        "label": "试用／体验／售后政策",
+        "nature": "fact",
+        "requires_own_product": false,
+        "requires_time_window": false,
+        "allow_not_applicable": true
+      },
+      {
+        "id": "value_proposition",
+        "module": "竞争与市场表现",
+        "label": "差异化卖点／价值主张",
+        "nature": "fact",
+        "requires_own_product": false,
+        "requires_time_window": false,
+        "allow_not_applicable": false
+      },
+      {
+        "id": "limitations",
+        "module": "竞争与市场表现",
+        "label": "局限与适用边界",
+        "nature": "inference",
+        "requires_own_product": false,
+        "requires_time_window": false,
+        "allow_not_applicable": false
+      },
+      {
+        "id": "positive_reviews",
+        "module": "用户口碑",
+        "label": "好评点",
+        "nature": "review",
+        "requires_own_product": false,
+        "requires_time_window": false,
+        "allow_not_applicable": false
+      },
+      {
+        "id": "negative_reviews",
+        "module": "用户口碑",
+        "label": "差评点",
+        "nature": "review",
+        "requires_own_product": false,
+        "requires_time_window": false,
+        "allow_not_applicable": false
+      },
+      {
+        "id": "recurring_complaints",
+        "module": "用户口碑",
+        "label": "高频抱怨",
+        "nature": "review",
+        "requires_own_product": false,
+        "requires_time_window": false,
+        "allow_not_applicable": false
+      },
+      {
+        "id": "recent_changes",
+        "module": "近期动态",
+        "label": "近期产品／服务／经营变化",
+        "nature": "fact",
+        "requires_own_product": false,
+        "requires_time_window": true,
+        "allow_not_applicable": false
+      },
+      {
+        "id": "feature_breadth",
+        "module": "SaaS专项",
+        "label": "关键任务与工作流覆盖广度",
+        "nature": "fact",
+        "requires_own_product": false,
+        "requires_time_window": false,
+        "allow_not_applicable": false
+      },
+      {
+        "id": "feature_depth",
+        "module": "SaaS专项",
+        "label": "关键任务能力深度与限制",
+        "nature": "fact",
+        "requires_own_product": false,
+        "requires_time_window": false,
+        "allow_not_applicable": false
+      },
+      {
+        "id": "api_maturity",
+        "module": "SaaS专项",
+        "label": "开放API成熟度",
+        "nature": "fact",
+        "requires_own_product": false,
+        "requires_time_window": false,
+        "allow_not_applicable": true
+      },
+      {
+        "id": "integration_maturity",
+        "module": "SaaS专项",
+        "label": "集成生态与维护成熟度",
+        "nature": "fact",
+        "requires_own_product": false,
+        "requires_time_window": false,
+        "allow_not_applicable": true
+      },
+      {
+        "id": "free_conversion_path",
+        "module": "SaaS专项",
+        "label": "免费策略、激活与付费触发",
+        "nature": "fact",
+        "requires_own_product": false,
+        "requires_time_window": false,
+        "allow_not_applicable": true
+      },
+      {
+        "id": "data_portability",
+        "module": "SaaS专项",
+        "label": "数据导入导出、迁移与删除事实",
+        "nature": "fact",
+        "requires_own_product": false,
+        "requires_time_window": false,
+        "allow_not_applicable": false
+      },
+      {
+        "id": "switching_cost_analysis",
+        "module": "SaaS专项",
+        "label": "切换成本与数据锁定判断",
+        "nature": "inference",
+        "requires_own_product": false,
+        "requires_time_window": false,
+        "allow_not_applicable": false
+      },
+      {
+        "id": "release_cadence",
+        "module": "SaaS专项",
+        "label": "迭代节奏与发布影响判断",
+        "nature": "inference",
+        "requires_own_product": false,
+        "requires_time_window": true,
+        "allow_not_applicable": false
+      },
+      {
+        "id": "security_governance",
+        "module": "SaaS专项",
+        "label": "企业治理、安全与服务保障",
+        "nature": "fact",
+        "requires_own_product": false,
+        "requires_time_window": false,
+        "allow_not_applicable": true
+      },
+      {
+        "id": "review_sample_context",
+        "module": "SaaS专项",
+        "label": "评价样本与采集边界",
+        "nature": "review",
+        "requires_own_product": false,
+        "requires_time_window": true,
+        "allow_not_applicable": false
+      }
+    ]
+  },
+  "sources": [
+    {
+      "id": "official_site",
+      "label": "已确认官网的定位与产品页",
+      "source_type": "official",
+      "entry_url": null,
+      "discovery_hint": "先核对对象身份与官网，再从导航定位产品页，不根据名称猜官网或产品路径。",
+      "access_mode": "public_page",
+      "notes": [
+        "官方宣称须保留归属，不等于效果已验证。"
+      ]
+    },
+    {
+      "id": "product_docs",
+      "label": "产品文档、帮助中心与工作流教程",
+      "source_type": "official",
+      "entry_url": null,
+      "discovery_hint": "从已确认官网找到实际功能说明、限制、权限与操作步骤，记录原始页面URL。",
+      "access_mode": "public_page",
+      "notes": [
+        "未提及不代表不支持；演示与文档不等于实测。"
+      ]
+    },
+    {
+      "id": "pricing",
+      "label": "公开定价、版本对比与报价说明",
+      "source_type": "official",
+      "entry_url": null,
+      "discovery_hint": "从已确认官网定位公开价目和版本限制，缺公开报价时保留缺口。",
+      "access_mode": "public_page",
+      "notes": [
+        "每次记录地区、币种、税费、周期、席位／用量、最低购买量及折扣条件。",
+        "不得用历史缓存或搜索摘要直接当当前价格。"
+      ]
+    },
+    {
+      "id": "onboarding_help",
+      "label": "试用、免费版、上手与升级帮助",
+      "source_type": "official",
+      "entry_url": null,
+      "discovery_hint": "定位免费版／试用、激活步骤、额度限制和升级说明；本配置不授权注册或付费体验。",
+      "access_mode": "public_page",
+      "notes": [
+        "观察到的升级入口不是实际转化率。"
+      ]
+    },
+    {
+      "id": "api_docs",
+      "label": "开发者门户与API文档",
+      "source_type": "official",
+      "entry_url": null,
+      "discovery_hint": "从已确认官方站点寻找API参考、鉴权、限流、webhook、版本与SDK说明。",
+      "access_mode": "public_page",
+      "notes": [
+        "没有找到API文档只能记缺口，不能据此断言没有API。",
+        "需额外授权的控制台或接口不自动访问。"
+      ]
+    },
+    {
+      "id": "integration_directory",
+      "label": "集成目录与伙伴维护说明",
+      "source_type": "official",
+      "entry_url": null,
+      "discovery_hint": "核对连接器目录及单项集成文档，区分原生、第三方、自建与实际维护方。",
+      "access_mode": "public_page",
+      "notes": [
+        "集成数量不是可用性或覆盖深度的替代指标。"
+      ]
+    },
+    {
+      "id": "migration_export",
+      "label": "导入导出、迁移、备份与删除文档",
+      "source_type": "official",
+      "entry_url": null,
+      "discovery_hint": "从官方帮助和开发文档查格式、对象范围、导出频次、附件／关系与迁移工具。",
+      "access_mode": "public_page",
+      "notes": [
+        "数据可导出不代表能完整迁移到另一系统。"
+      ]
+    },
+    {
+      "id": "terms_privacy",
+      "label": "合同、取消与数据保留公开条款",
+      "source_type": "official",
+      "entry_url": null,
+      "discovery_hint": "定位当前适用地区的公开服务、取消订阅、数据保留和删除说明。",
+      "access_mode": "public_page",
+      "notes": [
+        "条款不是法律意见；适用范围和版本不明时保留限制。"
+      ]
+    },
+    {
+      "id": "changelog",
+      "label": "官方Changelog、发布说明与公告",
+      "source_type": "official",
+      "entry_url": null,
+      "discovery_hint": "从官网核对实际发布记录与日期，声明观察窗口和是否完整。",
+      "access_mode": "public_page",
+      "notes": [
+        "发布条目数不能直接推出研发效率、发布质量或全部客户可用。"
+      ]
+    },
+    {
+      "id": "security_status",
+      "label": "安全／信任中心、治理帮助与状态页",
+      "source_type": "official",
+      "entry_url": null,
+      "discovery_hint": "依据客户任务选择SSO、权限审计、备份、SLA、状态记录等适用信息。",
+      "access_mode": "public_page",
+      "notes": [
+        "不要求所有工具都有企业治理功能或特定认证；认证适用主体／产品／范围需核实。"
+      ]
+    },
+    {
+      "id": "g2",
+      "label": "G2产品评价公开入口",
+      "source_type": "user_review",
+      "entry_url": "https://www.g2.com/",
+      "discovery_hint": "先核对实际产品评价页与产品身份；按日期、星级及公开角色／规模信息分层记录。",
+      "access_mode": "manual_or_authorized_export",
+      "notes": [
+        "当前未实现G2采集器；只使用可访问公开页或用户有权提供的导出。",
+        "遇验证、登录或限流立即停止，不能换入口绕过。",
+        "保留评价原链、发表／更新时间、获取日期、星级、角色、规模与激励／验证标签；未知显式记录。"
+      ]
+    },
+    {
+      "id": "capterra",
+      "label": "Capterra产品评价公开入口",
+      "source_type": "user_review",
+      "entry_url": "https://www.capterra.com/",
+      "discovery_hint": "核对产品评价页与适用版本，分层记录公开评价和样本范围。",
+      "access_mode": "manual_or_authorized_export",
+      "notes": [
+        "当前未实现Capterra采集器；访问限制或登录要求明确停止。",
+        "激励与非激励评价分开记录；平台验证不等于体验可泛化。",
+        "跨平台重复内容／同一评价不能当多份独立证据。"
+      ]
+    },
+    {
+      "id": "github_releases",
+      "label": "厂商公开仓库的发行页（若存在）",
+      "source_type": "official",
+      "entry_url": "https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases",
+      "discovery_hint": "仅在确认仓库归属和产品相关性后查实际Releases；入口文档只说明机制，不是竞品发行记录。",
+      "access_mode": "public_page",
+      "notes": [
+        "只对确有公开仓库的对象适用，不把开源仓库release等同SaaS生产环境上线。"
+      ]
+    },
+    {
+      "id": "g2_partner_api",
+      "label": "G2合作伙伴评论分发API说明",
+      "source_type": "third_party",
+      "entry_url": "https://documentation.g2.com/partners/docs/get-started-with-g2-review-syndication/",
+      "discovery_hint": "此入口只解释授权方式，不是已接入的数据接口；仅有专用伙伴密钥及授权时另行评估。",
+      "access_mode": "authenticated_api",
+      "notes": [
+        "官方说明要求专用API key；本项目没有调用该API，不将其列为免密采集器。"
+      ]
+    },
+    {
+      "id": "capterra_methodology",
+      "label": "Capterra评价验证与激励说明",
+      "source_type": "third_party",
+      "entry_url": "https://www.capterra.com/resources/how-we-verify-reviews/",
+      "discovery_hint": "阅读平台方法说明以解释验证与激励标签；不把平台流程当成每条评价真实性的项目核验。",
+      "access_mode": "public_page",
+      "notes": [
+        "平台方法说明不是被分析产品的口碑事实来源。"
+      ]
+    }
+  ],
+  "dimensions": [
+    {
+      "field_id": "positioning",
+      "priority": "P0",
+      "questions": [
+        "产品解决什么任务，官方如何描述其定位？"
+      ],
+      "required_source_ids": [
+        "official_site"
+      ],
+      "comparison_conditions": [
+        "对象身份、地区、交付方式"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "明确标注官方宣称；没有实际客户效果证据时不写成已验证成效。"
+      ]
+    },
+    {
+      "field_id": "target_customers",
+      "priority": "P0",
+      "questions": [
+        "主要角色、企业规模与核心场景是什么？"
+      ],
+      "required_source_ids": [
+        "official_site",
+        "product_docs"
+      ],
+      "comparison_conditions": [
+        "角色、组织规模、行业、地区"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "区分目标客群宣传与真实客户构成，未公开占比不估计。"
+      ]
+    },
+    {
+      "field_id": "core_offering",
+      "priority": "P0",
+      "questions": [
+        "核心供给及主要工作流是什么？"
+      ],
+      "required_source_ids": [
+        "official_site",
+        "product_docs"
+      ],
+      "comparison_conditions": [
+        "相同用户任务、产品版本、许可"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "给出可定位的任务步骤或产品说明，不只抄功能清单。"
+      ]
+    },
+    {
+      "field_id": "delivery_usage",
+      "priority": "P0",
+      "questions": [
+        "云端、桌面、浏览器、私有部署等如何交付和使用？"
+      ],
+      "required_source_ids": [
+        "product_docs"
+      ],
+      "comparison_conditions": [
+        "部署模式、终端、地区、版本"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "明确公开支持范围；未知部署方式保留缺口。"
+      ]
+    },
+    {
+      "field_id": "offer_variants",
+      "priority": "P0",
+      "questions": [
+        "版本层级和各层关键限制如何划分？"
+      ],
+      "required_source_ids": [
+        "pricing",
+        "product_docs"
+      ],
+      "comparison_conditions": [
+        "版本名称、地区、时间、许可范围"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "记录版本差异的原始说明，不把高价版能力归给免费版。"
+      ]
+    },
+    {
+      "field_id": "prices",
+      "priority": "P0",
+      "questions": [
+        "各版本公开价格及触发额外费用的条件是什么？"
+      ],
+      "required_source_ids": [
+        "pricing"
+      ],
+      "comparison_conditions": [
+        "币种、地区、含税口径、月／年、席位／用量、起购量、折扣"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "非公开价格写缺口；不能把年付折合价与按月付款无条件比较。"
+      ]
+    },
+    {
+      "field_id": "billing",
+      "priority": "P0",
+      "questions": [
+        "按席位、功能、用量、额度还是混合模式收费？"
+      ],
+      "required_source_ids": [
+        "pricing",
+        "terms_privacy"
+      ],
+      "comparison_conditions": [
+        "账单周期、计费单位、超额、续费、取消"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "计费规则与价格数值分别有来源，未公开的超额费不猜测。"
+      ]
+    },
+    {
+      "field_id": "trial_experience",
+      "priority": "P0",
+      "questions": [
+        "免费试用持续多久，是否需要信用卡，结束后如何处理？"
+      ],
+      "required_source_ids": [
+        "pricing",
+        "onboarding_help"
+      ],
+      "comparison_conditions": [
+        "地区、版本、试用期限、账号要求、到期处理"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "区分永久免费与限时试用；没有进行注册体验时只记录公开政策。"
+      ]
+    },
+    {
+      "field_id": "feature_breadth",
+      "priority": "P0",
+      "questions": [
+        "同一组关键用户任务覆盖哪些步骤，哪些需别的系统完成？"
+      ],
+      "required_source_ids": [
+        "product_docs"
+      ],
+      "comparison_conditions": [
+        "相同任务清单、角色、许可、部署模式"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "用任务×步骤矩阵记录支持、受限和未知，不用功能数量代替覆盖广度。"
+      ]
+    },
+    {
+      "field_id": "feature_depth",
+      "priority": "P0",
+      "questions": [
+        "关键任务能做到哪一步，权限、批量、自动化、例外处理和上限是什么？"
+      ],
+      "required_source_ids": [
+        "product_docs",
+        "pricing"
+      ],
+      "comparison_conditions": [
+        "相同任务、对象规模、角色、版本和数据条件"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "每项限制附文档位置；未经实测不声称性能或实际完成率。"
+      ]
+    },
+    {
+      "field_id": "free_conversion_path",
+      "priority": "P0",
+      "questions": [
+        "免费层额度、激活步骤、升级触发和付费入口如何设计？"
+      ],
+      "required_source_ids": [
+        "pricing",
+        "onboarding_help"
+      ],
+      "comparison_conditions": [
+        "永久免费／限时试用、额度、角色、升级触发与地区"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "只描述可观察路径；没有授权内部数据时转化率、流失率和收入贡献一律未知。"
+      ]
+    },
+    {
+      "field_id": "value_proposition",
+      "priority": "P1",
+      "questions": [
+        "官方重点强调哪些价值，分别由什么材料支撑？"
+      ],
+      "required_source_ids": [
+        "official_site",
+        "product_docs"
+      ],
+      "comparison_conditions": [
+        "目标角色、场景、对照条件"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "宣传表述明确归属；缺效果验证时不升级成优势结论。"
+      ]
+    },
+    {
+      "field_id": "limitations",
+      "priority": "P1",
+      "questions": [
+        "基于已取得材料，适用边界和未解决问题有哪些？"
+      ],
+      "required_source_ids": [
+        "product_docs",
+        "g2",
+        "capterra"
+      ],
+      "comparison_conditions": [
+        "同任务、版本、地区、用户样本"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "判断引用事实或样本依据，未提及不写成没有，单条抱怨不泛化。"
+      ]
+    },
+    {
+      "field_id": "positive_reviews",
+      "priority": "P1",
+      "questions": [
+        "不同星级、角色和规模样本分别表扬什么？"
+      ],
+      "required_source_ids": [
+        "g2",
+        "capterra"
+      ],
+      "comparison_conditions": [
+        "评价时间窗、星级量表、角色、规模、激励标签"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "保留逐条原链与公开样本信息；结论限制在实际观察样本。"
+      ]
+    },
+    {
+      "field_id": "negative_reviews",
+      "priority": "P1",
+      "questions": [
+        "不同星级、角色和规模样本分别抱怨什么？"
+      ],
+      "required_source_ids": [
+        "g2",
+        "capterra"
+      ],
+      "comparison_conditions": [
+        "评价时间窗、版本、角色、规模、激励标签"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "区分产品缺陷、使用条件、服务体验与主观意见，不静默过滤不利评价。"
+      ]
+    },
+    {
+      "field_id": "recurring_complaints",
+      "priority": "P1",
+      "questions": [
+        "哪些主题在去重后的样本中重复出现？"
+      ],
+      "required_source_ids": [
+        "g2",
+        "capterra"
+      ],
+      "comparison_conditions": [
+        "实际样本量、独立评价、时间窗、归类口径"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "给出主题计数和分母、重复剔除规则；不足样本不声称高频或总体比例。"
+      ]
+    },
+    {
+      "field_id": "recent_changes",
+      "priority": "P1",
+      "questions": [
+        "观察窗内有哪些带日期的产品变化？"
+      ],
+      "required_source_ids": [
+        "changelog",
+        "github_releases"
+      ],
+      "comparison_conditions": [
+        "明确起止日期、发布类型、版本、适用客户"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "每条动态有原始发布时间；不把公告时间、获取时间和实际可用时间混为一谈。"
+      ]
+    },
+    {
+      "field_id": "api_maturity",
+      "priority": "P1",
+      "questions": [
+        "是否提供公开API，鉴权、限流、webhook、版本、弃用和SDK说明是否完整？"
+      ],
+      "required_source_ids": [
+        "api_docs"
+      ],
+      "comparison_conditions": [
+        "API版本、鉴权方式、资源对象、额度、SDK维护者"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "缺文档记未知；若明确无对外API才说明不适用，并给依据。"
+      ]
+    },
+    {
+      "field_id": "integration_maturity",
+      "priority": "P1",
+      "questions": [
+        "连接器由谁维护，覆盖什么对象／操作，单向还是双向？"
+      ],
+      "required_source_ids": [
+        "integration_directory",
+        "api_docs"
+      ],
+      "comparison_conditions": [
+        "原生／第三方／自建、维护者、同步方向、对象、频率和版本"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "目录数量与单项可用性分开；记录维护状态和文档，不推断所有集成都可用。"
+      ]
+    },
+    {
+      "field_id": "data_portability",
+      "priority": "P1",
+      "questions": [
+        "支持导入／导出哪些对象、格式、附件和关系，如何迁移与删除？"
+      ],
+      "required_source_ids": [
+        "migration_export",
+        "api_docs",
+        "terms_privacy"
+      ],
+      "comparison_conditions": [
+        "对象、格式、导出完整度、额度、频率、权限、保留与删除期限"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "把导出、可恢复、可迁移分别记录；删除与取消订阅不可混同。"
+      ]
+    },
+    {
+      "field_id": "switching_cost_analysis",
+      "priority": "P1",
+      "questions": [
+        "基于公开迁移、合约和学习要求，可识别哪些切换阻力？"
+      ],
+      "required_source_ids": [
+        "migration_export",
+        "terms_privacy",
+        "product_docs"
+      ],
+      "comparison_conditions": [
+        "替代路径、数据范围、学习／迁移／合约成本、适用客户"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "事实条件与推断分列；没有真实迁移样本不编造工时、金额或锁定强度。"
+      ]
+    },
+    {
+      "field_id": "release_cadence",
+      "priority": "P1",
+      "questions": [
+        "统一观察窗内不同发布类型的节奏和影响如何，记录是否完整？"
+      ],
+      "required_source_ids": [
+        "changelog",
+        "github_releases"
+      ],
+      "comparison_conditions": [
+        "起止日期、发布条目粒度、修复／功能／破坏性变更、观察缺口"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "频次只对实际观察记录计数；发布多不等于创新快、质量高或对客户影响大。"
+      ]
+    },
+    {
+      "field_id": "review_sample_context",
+      "priority": "P1",
+      "questions": [
+        "两平台哪些评价可访问，实际筛选、星级覆盖和未知元信息有哪些？"
+      ],
+      "required_source_ids": [
+        "g2",
+        "capterra",
+        "capterra_methodology"
+      ],
+      "comparison_conditions": [
+        "默认最近365天建议窗、每平台每档目标3条、实际可用量、排序／筛选和偏差"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "记录低分1～2、中分3、高分4～5的实际覆盖及缺口；这是工程样本建议，不代表统计代表性。",
+        "评价元数据不可得时显式unknown；不为凑样本绕限制或捏造。"
+      ]
+    },
+    {
+      "field_id": "reference_customers",
+      "priority": "P2",
+      "questions": [
+        "有哪些公开可核对的客户案例，适用场景是什么？"
+      ],
+      "required_source_ids": [
+        "official_site"
+      ],
+      "comparison_conditions": [
+        "客户主体、场景、案例时间"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "案例只证明公开案例存在；不能据logo推导仍在使用或整体客户规模。"
+      ]
+    },
+    {
+      "field_id": "security_governance",
+      "priority": "P2",
+      "questions": [
+        "与目标客户相关的权限、SSO、审计、备份和服务保障是什么？"
+      ],
+      "required_source_ids": [
+        "security_status",
+        "product_docs"
+      ],
+      "comparison_conditions": [
+        "适用主体、产品、套餐、地区、认证范围、有效期"
+      ],
+      "minimum_evidence": [
+        "每条信息保留原始URL、获取日期、来源类型、摘录和定位；搜索摘要不能作为终证。",
+        "按任务判断适用性，不强制所有SaaS有API、SSO或特定认证；未知不当没有。"
+      ]
+    }
+  ],
+  "review_sampling": {
+    "platform_ids": [
+      "g2",
+      "capterra"
+    ],
+    "window_days": 365,
+    "target_per_rating_band": 3,
+    "rating_bands": [
+      "low",
+      "middle",
+      "high"
+    ],
+    "required_metadata": [
+      "review_url",
+      "published_on",
+      "acquired_on",
+      "rating",
+      "role",
+      "company_size",
+      "incentivized",
+      "verified",
+      "text"
+    ]
+  },
+  "execution": "configuration_only",
+  "research_ready": false
+}

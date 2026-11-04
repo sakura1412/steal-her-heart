@@ -296,12 +296,35 @@ class StateEvent(Contract):
     recorded_at: datetime = Field(default_factory=utc_now)
 
 
+class MissingModule(Contract):
+    id: Identifier
+    description: Text
+
+
+class ExecutionGuidance(Contract):
+    reason: Literal["research_chain_unavailable", "profile_saved_only"] = (
+        "research_chain_unavailable"
+    )
+    research_ready: Literal[False] = False
+    summary: Text
+    missing_modules: tuple[MissingModule, ...] = Field(min_length=1)
+    next_steps: tuple[Text, ...] = Field(min_length=1)
+    codex_prompt: Optional[Text] = None
+
+    @model_validator(mode="after")
+    def unique_modules(self) -> "ExecutionGuidance":
+        if len({item.id for item in self.missing_modules}) != len(self.missing_modules):
+            raise ValueError("Missing module IDs must be unique")
+        return self
+
+
 class TaskResult(Contract):
     task_id: UUID
     state: ResearchState
     outcome: Literal["pending_module", "waiting_confirmation", "completed", "failed"]
     message: Text
     report_path: Optional[Text] = None
+    guidance: Optional[ExecutionGuidance] = None
 
     @model_validator(mode="after")
     def check_outcome(self) -> "TaskResult":
@@ -314,6 +337,8 @@ class TaskResult(Contract):
             raise ValueError("Task outcome must match the persisted state")
         if self.report_path is not None and self.state != ResearchState.COMPLETED:
             raise ValueError("Only completed tasks may expose a final report")
+        if self.guidance is not None and self.outcome != "pending_module":
+            raise ValueError("Research readiness guidance belongs only to pending tasks")
         return self
 
 

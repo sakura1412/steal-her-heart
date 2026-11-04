@@ -1,8 +1,8 @@
 # Steal Her Heart — TASK_SPEC
 
-版本：0.9.0；任务持久化 schema_version：1；采集对象 schema_version：2；Battlecard schema_version：1；日期：2026-11-03。
+版本：0.16.0；任务持久化 schema_version：1；采集对象 schema_version：2；Battlecard schema_version：1；日期：2026-11-04。
 
-本次变更：默认 [单对象入口](../../commands/analyze.md) 仅需竞品名，我方背景与项目可选。Python路由不再把所有任务前置拦截到访谈，run/resume允许无项目快照并保持上下文一致。显式项目的11题、旧档案兼容和review API名单／锁约束保留；不接入网络、分析或报告执行。
+本次只实现 P0 范围桥接中的本地终端确认到最终锁定子模块，复用现有评审 API 并持久化、回读整条绑定链，不接 Research 或后续研究模块。**生产研究执行链路未就绪，不能自动生成完整竞品报告。** 本地锁定不认证 Codex 聊天回复来源，聊天确认仍不自动同步为 Python 锁。默认 [单对象入口](../../commands/analyze.md)、全行业配置、状态机、项目及恢复 guard 不变；独立工具、SaaS 可选配置、guidance 与上一轮参考工作流验收沿用。用户 P0／P1／P2 与实际依赖见 [路线图](../../docs/roadmap.md)。
 
 ## 1. 基线与决策来源
 
@@ -39,11 +39,107 @@ Research Engine 跨模块返回 EvidenceBundle，Report Generator 返回 ReportD
 | 工具 | 输入 | 输出 | 阶段 |
 |---|---|---|---|
 | hello | name（默认 Agent） | message | Phase 1，无网络 |
-| web_search | query、地区、语言、结果数量 | title/url/snippet 的 SearchResult 列表 | Phase 3 |
-| web_fetch | URL | canonical URL、状态、正文、来源元数据、散列、快照引用 | Phase 3 |
-| extract_features | Source 快照引用、竞品、维度 | 有摘录及定位的 Evidence 候选 | Phase 3 |
+| web_search | query、max_results（1～10）、request_id | SearchResponse：调用标识、来源时间与散列、title/url/snippet 线索 | 当前独立诊断；未接入研究调度 |
+| web_fetch | url、request_id | 来源快照收据、原文及正文散列、行数、有界正文预览 | 当前独立诊断；未接入研究调度 |
+| extract_features | snapshot_ref、text_sha256、竞品、维度、显式spans | support_status=unvalidated的精确摘录候选及locator | 当前独立只读诊断；未接入研究调度 |
 
-网络工具细化 Schema 在 Phase 3 对接选定提供方后实现，不能假定现成服务可用。统一注册、schema 校验和权限适用于全部工具。候选 Evidence 未经 Validator 通过不能进入 Analysis。
+搜索契约以 [web_search.py](../../src/steal_her_heart/web_search.py) 和 [search_html.py](../../src/steal_her_heart/search_html.py) 为准，暂不支持地区、语言、域名过滤或分页参数。抓取与快照契约见 [web_fetch.py](../../src/steal_her_heart/web_fetch.py) 和 [source_snapshots.py](../../src/steal_her_heart/source_snapshots.py)。显式候选契约见 [evidence_extraction.py](../../src/steal_her_heart/evidence_extraction.py) 和 [evidence_candidates.py](../../src/steal_her_heart/evidence_candidates.py)。其他工具细化 Schema 在其模块对接后实现，不能假定现成服务可用。统一注册、schema 校验和权限适用于全部工具。候选 Evidence 未经 Validator 通过不能进入 Analysis。
+
+### 当前独立模块：公开搜索
+
+`SearchRequest` 严格校验 query（1～512字符、单行无控制字符）、max_results（整数1～10，默认5）与 request_id（UUID，未指定时生成）；额外字段拒绝。`WebSearchTool` 通过 Registry 要求 web_search 能力，默认使用 DuckDuckGoSearchProvider，也允许可信应用注入 SearchProvider 测试或后续适配；模型不能传提供方实现路径。未授权或无效输入零网络执行。
+
+提供方只请求固定公开 HTTPS 搜索入口，单次请求、不跟随重定向、不执行脚本、不自动翻页。响应最多1 MiB，CLI 总超时15秒；外部网络工作器随取消或超时终止回收，DNS／连接／TLS／读取不能无限继续。目标需为允许的公网地址，错误不回显原始网页、异常或敏感字符串。验证码、HTTP 403／429和访问限制返回 SEARCH_ACCESS_RESTRICTED；重定向、网络、超时、协议与页面格式错误有独立安全代码。未知页面不当作空结果，仅明确的无结果标记才产生成功空列表。
+
+`SearchResponse` 包含 provider、search_url、fetched_at（带时区）、response_sha256、task_id、request_id、query、去重且连续排名的 results，以及固定 `evidence_eligible=false` 和限制说明。结果中的 id/title/url/snippet 是未核验的发现线索，不是落地页内容、Source 快照、Evidence 或采集字段。未查到正式内容、访问失败与不适用不得混写为“未找到”。
+
+[SearchLedger](../../src/steal_her_heart/search_ledger.py) 使用独立 SQLite 文件记录任务搜索额度及调用状态，默认每任务30次。联网前事务预留，错误也占额度，并发或重启不复位；请求标识绑定 task_id 与提供方／query／max_results 摘要。相同请求已成功或失败可重放本地安全结果，改参或换任务被拒绝；已预留但未完成的调用不自动重发。搜索与抓取分别计数，不替代任务 MemoryStore，不声称分布式 exactly-once 或跨工具／LLM／研究轮次／活动时间的全局预算已实现。
+
+`search "查询"` 直接进入该工具，不读取项目配置、不创建研究任务或迁移状态。`--task-id` 复用任务额度，`--request-id` 支持同调用重放，`--search-ledger` 覆盖默认 `.steal-her-heart/search-calls.sqlite3`。CLI 先生成未指定的任务与请求标识再传给 Registry；stdout 是完整 ToolResult，stderr 始终输出 search_task_id 和 search_request_id，失败时也可获取标识供本地重放。成功退出0，参数错误2，执行或访问受限1。非 search 命令不初始化此账本。详细语法见 [命令规范](references/commands.md)。
+
+此前公开搜索仅真实探测一次并收到 HTTP 202 验证页，随后停止该提供方请求；未绕验证、换入口或重试。确定性测试覆盖命中解析、明确无结果、限制与失败、预算、重启及重放，但不能据此宣称真实命中验收完成。
+
+### 当前独立模块：静态抓取与来源快照
+
+`FetchRequest` 包含公开 HTTP(S) URL 与 request_id，拒绝凭据、非标准端口、控制字符、越界长度及本地／非公网字面地址；DNS解析后全部候选也须为公网并绑定连接目标，TLS验证与原域名SNI保持开启。`WebFetchTool` 经 Registry 要求 web_fetch 能力，不读取项目、不跟进搜索结果、不迁移研究状态。仅获取静态 HTML、XHTML、纯文本，原文最多1MiB、CLI请求超时15秒；不执行脚本、不跟随重定向、不自动重试。访问限制、代理认证挑战、网络、编码、大小和结构错误分别安全报告，不回显原始异常、代理或页面内容。
+
+`SnapshotStore.save` 原子发布不可变 raw bytes、规范化 UTF-8 正文及 manifest；`SnapshotDocument` 包含现有 `Source`、标题（可空）、media_type、charset、正文散列、稳定行数与 parser_version。Source.content_sha256 对应原始下载 bytes，source_name 采用hostname，不自动赋予“官方”身份；fetched_at 带时区，published_at=null。snapshot_ref 是内容寻址引用，不含绝对文件路径；已有 Source 和任务持久化 schema 不变。
+
+正文是静态源文本的规范化视图，不是浏览器渲染结果；去掉脚本、样式、模板及显式隐藏内容，不执行网页指令。行号从1开始，定位须绑定具体正文散列与解析器版本。快照 load 重新核对 manifest、原文、正文散列及行数，拒绝缺失、篡改、路径越界、symlink或未知版本。只含JS壳或无可用正文时不是成功 Source；结构验证码停止。这里不提取 fact/quote/locator，也不证明任何语义主张。
+
+`FetchResponse` 包含 task_id、request_id、document、最多12000字符的text_preview、text_truncated及固定facts_validated=false。完整原文和正文留在快照中，有界预览保留精确空白；不得把抓取成功替换为Evidence或Validator PASS。
+
+FetchLedger复用持久意图原语，但使用独立数据库标识及默认文件 `.steal-her-heart/fetch-calls.sqlite3`，与搜索账本不能混用。每任务默认最多60次，联网前预留、错误计数；已完成请求本地重放，未完成不重发。成功重放还要重新核验快照，坏缓存停止，不自动补抓。工具计数未接入研究全局预算、轮次、模型额度或无进展终止。
+
+`fetch URL` 使用默认 `.steal-her-heart/sources`，可通过 `--fetch-ledger`、`--sources-root` 覆盖；`--task-id`／`--request-id` 绑定额度与重放。stdout仅JSON ToolResult，stderr始终输出fetch_task_id和fetch_request_id，失败时也保留。成功退出0，参数无效2，其他执行错误1。静态抓取受控测试与真实网络验收独立记录，不能用离线fixture宣布真实页面取证或整个分析已完成。
+
+快照当前支持具备POSIX目录能力的macOS／Linux；能力缺失须在预留额度和联网前以FETCH_SNAPSHOT_UNAVAILABLE停止。此前实际通过CLI单次GET `https://example.com/`，保存577 bytes原文，重开核对散列并用同ID重放本地data，账本仍为1/60；没有再次请求DuckDuckGo。该实例不证明任意站点、搜索命中、竞品证据、语义核查或完整研究链已验收。
+
+### 当前独立模块：显式摘录候选绑定
+
+`ExtractionRequest` 接收 snapshot_ref、text_sha256、competitor、dimension 与1～20个TextSpan。调用者明确选择规范正文的Unicode码点，start从0包含、end不包含，每段最多4000字符；行号从1起。工具 `extract_features` 经Registry要求evidence_extraction能力，CLI超时5秒。先读取并校验快照与预期正文版本，再对精确片段建立候选；纯空白、重复、越界、过长、坏引用和不匹配版本明确失败，不能截断或产生部分成功。
+
+`EvidenceCandidate` 与既有 `Evidence` 分开：source保留原始Source，quote精确保留空白，fact固定等于quote，不改写、不增加confidence，support_status固定unvalidated。QuoteLocator绑定snapshot_ref、text_sha256、parser_version、字符范围和起止行号；候选ID根据绑定内容确定，重复调用同一选择得到同一候选ID。机械verify检查Source、散列、范围、摘录、行号和ID；不能据此判断该片段与用户对象／维度相关或语义支持主张。
+
+输出ExtractionResponse.status=candidates_only、facts_validated=false，不构造EvidenceBundle或Validator PASS。工具只读，不调用网络／模型、不创建账本、不写任务／ResearchMemory或文件、不推进状态。`extract-candidates REF --text-sha256 SHA --competitor NAME --dimension DIM --span START:END` 可重复--span，--sources-root默认.steal-her-heart/sources。stdout为ToolResult JSON，stderr输出extraction_task_id；成功0，参数错误2，其他执行错误1。输入选择针对完整正文，不能误将截断预览视作全文。
+
+读取旧快照保留原fetched_at，不代表本次重新采集、时效核查或跨任务资产选择。原文网页指令仍是不可信数据。自动挑选、改写事实的语义提取和实质Validator仍待模型与对应评测接入；本轮无需联网或运行时Prompt。
+
+### 跨任务资产复用：后续契约
+
+当前MemoryStore只保存同任务最新snapshot与状态events；commit覆盖该snapshot，revision用于并发检查。events只有task/revision/state/time，无法回放出旧Evidence版本；active/archived和memory_reference只是字段，ResearchMemory.sources/evidence也未接成资产目录。按显式ref重读Source与按同任务请求重放调用，都不实现跨任务检索、有效性判断或增量更新。
+
+Phase 6后续须按实体、维度、地区、产品／版本、适用时间、价格单位等比较口径检索资产，核对来源原文／正文／提取器／Schema版本及原fetched_at。TTL内也不自动表示本次检索已核验，必须保留原日期，另记revalidated_at、核验动作与依据。过期、源内容变化或口径不兼容时刷新；变化产生新Source/Evidence版本并建立supersedes，保留origin_task、旧证据与更新链，旧报告继续引用旧版。
+
+刷新受限、失败或预算不足时保留旧版并明确未更新／待核验，不能给旧Evidence重贴当前日期、复制旧PASS或静默覆盖历史。资产读写与比较范围按项目隔离；新对象／实质范围变化沿用现有确认规则，刷新调用纳入统一预算及停止条件。跨任务资产目录、时效策略执行和增量更新本轮都未实现。
+
+### 当前入口：能力披露与未就绪指引
+
+首次调用Codex技能先简短说明开发预览与所用路径，再复用已有名称继续；没有名称才问名称，不额外要求“是否继续”、项目档案或我方背景。Skill描述和UI展示名称／短描述均标明Python研究链未就绪。宿主无联网能力时给缺口或待取证提纲，不用训练记忆生成事实报告。
+
+Codex聊天分批访谈可用实际工具辅助维度建议和候选发现；Python逐字段访谈只保存profile，ready／退出0不表示维度、名单、最终锁或研究已完成，也不会自动触发后续步骤。Codex聊天确认不自动调用Python批准／锁API；两边完成状态分别陈述。
+
+CommandResponse和TaskResult新增默认None的guidance，包含reason、research_ready=false、summary、missing_modules（id／description对象列表）、next_steps及适用时的codex_prompt。pending producer填入确定性、可执行的指引：analyze可转Codex宿主辅助查证；battlecard说明双方材料与我方回应边界；brief说明对象、起止日期和来源资产需求。不能把重复调用、重新初始化或不存在的命令当作继续生成的方法。
+
+guidance只扩展输出，不进入TaskSnapshot，SQLite schema_version保持1。新模型能读取没有guidance的旧payload；旧版extra=forbid客户端需要升级后才能接收新字段，不能称为双向完全兼容。人类反馈写stderr，stdout保持单份JSON；execution／outcome、状态、退出码、空产物与重复恢复行为保留，提示不能生成报告、批准或迁移研究状态。
+
+### 当前独立模块：本地项目评审桥接
+
+[project_review.py](../../src/steal_her_heart/project_review.py) 的 `ProjectReviewRequest` 接收 `discovery`、`selected_ids`、`library`、`core_field_ids`、`extension_ids`、`selection_rationale` 与可选 `readers`。输入是显式提案，不是模型自动发现或维度推荐；严格 JSON 解析拒绝重复键、未知字段和无效结构，不接受批准、回复或自填批准时间。当前项目背景取自 `ProjectWorkspace.read_required()`，包含 profile 全文摘要；不能用旧访谈快照替代当前配置。
+
+`run_project_review(workspace, request, confirmer)` 通过可信应用回调接收原始确认文本。`ReviewQuestion` 包含阶段、当次 token 和实际审阅 Markdown；token 绑定新评审标识、当前项目、发现提案与选择，最终阶段还绑定维度和 Markdown。顺序为展示名单 → 真实回复 → `confirm_competitors` → 持久化名单提案及批准 → `design_dimensions`／`write_dimensions` → 展示最终维度 → 真实回复 → `confirm_dimensions` → 从持久化材料调用 `prepare_collection_jobs` 回读。回复后重读当前背景与文件，内容变化和旧 token 失效，不能靠复制批准记录续签。
+
+CLI `--project-name NAME review-project --review-file FILE` 要求显式项目及 stdin、stderr 都为交互终端；提案从有界普通文件读取，审阅提示写 stderr，stdout 保持单份 JSON。只接受本次展示的精确确认 token，其余输入、EOF 或中断均不能变成同意；不提供 `--yes`、管道式批准或 Registry 批准工具。模型与脚本不得使用 PTY 替用户确认。TTY 是本地交互边界，不能认证人类或 Codex 聊天消息来源，核心回调同样只适用于可信调用方；宿主消息认证与聊天自动衔接仍未实现。
+
+结果 `ProjectReviewResult` 为 locked／rejected／failed，附 `review_id`、`record_path`、`scope_locked`、`jobs` 及适用错误码。只有持久化名单、批准、维度提案、Markdown 与锁完全匹配且回读成功时，才返回 locked／scope_locked=true；`research_ready` 固定 false。jobs 仅是后续采集准备，命令不迁移任务、不启动 subagent、不联网、不生成 Evidence 或报告。写入／回读失败须返回未锁定，不能以存在 lock 文件作成功判据。
+
+审计材料保存在项目 `.state/reviews/<review_id>/`；同项目评审序列化，既有维度评审／锁不覆盖，当前只允许替换初始化原始占位稿。分阶段文件落盘不是跨资源原子事务，审计也不提供任意中断恢复；已有文件不静默覆盖，拒绝或失败在存储可写时保存诊断，不自动重开确认。存储失败时 record_path 只是预期位置，不能证明文件已存在。验收记录见 [project-review.json](../../validation/project-review.json)。
+
+### 当前独立模块：可选 SaaS 推荐与评价采样检查
+
+[research_presets.py](../../src/steal_her_heart/research_presets.py) 的 `load_research_preset("saas") → ResearchPreset` 通过包资源读取可信名称对应的推荐JSON，不接受任意文件路径；`preset saas` 只输出推荐配置。定义包含id/version/title、现有CollectionTemplate、每字段DimensionRecipe、SourceHint列表及ReviewSamplingPolicy，执行标记为configuration_only、research_ready=false。所选字段仍由原CollectionTemplate校验，核心定义不弱化，源码中的全行业BASE_FIELDS默认不变。
+
+包内 [saas.json](../../src/steal_her_heart/presets/saas.json) 为维护单源；运行技能携带 [同字节副本](../../codex-skills/steal-her-heart/references/saas.json)，与 [采集指南](../../codex-skills/steal-her-heart/references/saas.md) 一同保持自包含。Python显式读预设不等于自动加载dimensions.md或识别某个产品为SaaS；只有用户选择或实际资料确认适用时推荐，不要求先建项目。
+
+当前预设选择15个核心字段并加10个专项字段，共25份recipe；P0为11项、P1为12项、P2为2项。每个字段恰一份采集定义，包含priority、questions、required_source_ids、comparison_conditions和minimum_evidence；源ID唯一且引用必须存在。15份SourceHint给出来源类型、入口（可空，产品URL待发现）、查找方向、access_mode和说明。API／免费版／认证并非所有SaaS必有能力；优先级是可调整的采集建议，不是可信度或自动执行顺序。
+
+专项覆盖功能广度／任务深度、API与集成生态、免费与升级路径、数据可携带性与迁移成本、迭代窗口和评价样本上下文；事实、用户评价和推断保留区分。G2／Capterra只作为公开评价／人工或授权导出线索，没有自动采集器；G2合作伙伴API需要专用密钥。具体产品页与仓库地址必须实际确认，不能猜slug。预设不会创建项目、生成名单或维度锁；附加采集元信息和预设散列尚未自动绑定进现有锁，项目采纳仍走正式提案与评审。
+
+[review_sampling.py](../../src/steal_her_heart/review_sampling.py) 对调用者提供的 `ReviewSampleBatch` 做有限检查；外层为records、platform_attempts和固定rating_scale="1_to_5"。评论逐条保留链接、发布日期、获取日期、评分、公开角色／公司规模、激励／验证标记及原文；不可得可为null，显式未知文本也列为缺口。false表示已知为否，不等于null。日期／窗口、缺字段、链接或文本疑似重复、平台与评分分层覆盖会影响机械覆盖结果；这些数据尚未和真实平台页面／工具调用对账。
+
+默认建议近365天、每个平台每个评分段目标3条，平台为g2和capterra；低分≤2，中分>2且<4，高分≥4。该策略仅为有限研究的覆盖起点，不能据分层主动选样的均值、比例或少量重复抱怨推断总体。平台访问结果分别保存，受限不能当零评价，只有完成查找才能填未找到；相同文本跨站出现不自动算独立体验。
+
+CLI `preset saas --review-sample FILE --as-of YYYY-MM-DD` 要求两个评估参数同时给出。读取配置成功退出0；样本机械覆盖完整退出0、有缺口3、参数／JSON无效2。无联网、登录、采集、模型、项目／任务写入或状态推进；结果保持facts_validated=false，不发出ValidationResult.PASS。source／quote／locator真正对应、主张支持、按维度时效和冲突仍需后续Research／实质Validator，不能以本轮配置或样本检查代替。
+
+### 当前验收层：受控参考工作流与边界矩阵
+
+此前新增的 [tests/acceptance](../../tests/acceptance/) 测试专用参考工作流，从brief串联已实现的工具Registry、搜索／抓取提供方及解析器、真实Source快照和显式摘录候选，只在HTTP I/O边界注入合成HTML。计划、quote到Evidence的语义适配、Validator、Analysis和Reporter均为明确测试替身或夹具；适配器confidence固定为0，场景oracle预先声明。参考协调器与报告交付检查也仅属测试；生产Orchestrator不调用此harness，也不因测试结果推进实际任务。
+
+参考报告醒目标SIMULATION／合成场景，只写pytest的tmp_path，并检查来源及引用等契约。替身的PASS与预期输出只用于验证所选分支和数据传递，不证明自动语义提取、引文支持、时效判断、冲突识别、分析质量或Reporter已经实现。生产/analyze、/battlecard、/brief仍pending_module，run/resume仍UNDERSTANDING；这条能力回归与模拟成功分开验收。
+
+边界矩阵直接调用真实CollectionTemplate／CollectedField／CompetitorCollection、ValidationResult和状态guard：pending与访问失败不能冒充查找后未找到；not_found须有完成查找记录与范围说明；not_applicable须由字段允许且附理由；显式冲突、缺口或不完整coverage不能伪装PASS或推进分析。测试使用给定冲突，不声称存在自动语义冲突检测器；理由和查找记录结构合法也不证明其业务真实性。
+
+执行方式、真实组件／替身清单、场景矩阵与剩余范围见 [验收说明](../../docs/acceptance.md)，实际检查结果见 [workflow-acceptance.json](../../validation/workflow-acceptance.json)。确定性测试禁用真实联网，不需要密钥；本轮不重试此前受限搜索服务、不调用真实模型，不向业务research/projects写模拟产物。
 
 ## 4. 计划—执行—反思
 
@@ -73,17 +169,17 @@ flowchart TD
 |---|---|---|
 | 可选项目访谈 | 主动选择项目时保存背景与快照 | 已实现逐题访谈与显式项目闸门；默认单对象不依赖 |
 | Phase 1 骨架 | Schema、State Machine、Registry、Memory基础、Orchestrator、CLI | 实施并测试 |
-| Phase 2 Planner | 意图／行业／实体识别、分层发现、名单及维度确认的 CLI 交互 | 仅离线 ResearchBrief 识别已实施 |
-| Phase 3 Research | 搜索／抓取／提取／去重、来源快照、实质 Validator、反思补证、调用预算与恢复 | 只留契约 |
-| Phase 4 Analysis | 比较、SWOT、差异和机会假设 | 只留契约 |
-| Phase 5 Report | 通用／读者视图 Markdown、Battlecard、Sources、产物验证与归档 | 只留契约 |
-| Phase 6 Memory | 关联追问、研究资产复用、版本／时效与新增范围确认 | 只留契约 |
+| Phase 2 Planner | 意图／行业／实体识别、分层发现、名单及维度确认的 CLI 交互 | 本轮接本地终端评审与最终锁回读；离线识别与显式SaaS推荐沿用，自动发现／设计及Codex回复认证仍缺 |
+| Phase 3 Research | 搜索／抓取／提取／去重、来源快照、实质 Validator、反思补证、调用预算与恢复 | 独立工具及样本检查沿用；自动采集和实质Validator未接入 |
+| Phase 4 Analysis | 比较、SWOT、差异和机会假设 | 只留生产契约；既有测试替身不计实装 |
+| Phase 5 Report | 通用／读者视图 Markdown、Battlecard、Sources、产物验证与归档 | 只留生产契约；临时SIMULATION报告不计Reporter实装 |
+| Phase 6 Memory | 关联追问、研究资产复用、版本／时效与新增范围确认 | 未实现；保留版本、核验、更新链、隔离与刷新失败的后续验收 |
 
-上述开发批次中每个模块先完成及测试再推进，不用一次性生成全部产品。Memory基础是任务恢复设施，Phase 6 才是研究资产复用产品能力，两者不矛盾。
+上述开发批次中每个模块先完成及测试再推进，不用一次性生成全部产品。最新优先级按 [P0／P1／P2 路线图](../../docs/roadmap.md) 管理；实际依赖为范围桥接 → 最小可用语义提取／模型提供方 → Research → Validator → Analysis → Reporter。模型虽在用户清单中列为 P2，但通用自动提取依赖它，不能用现有显式 spans 工具或测试语义适配器代替。Memory 基础是任务恢复设施，Phase 6 才是研究资产复用产品能力，两者不矛盾。
 
 ## 6. Phase 1 实际行为
 
-项目包为 src/steal_her_heart；不创建后续功能空实现，不连接模型、不搜索。
+项目包为 src/steal_her_heart；下列为 Phase 1 基础命令的实际行为，不连接模型、不执行搜索或抓取。独立 search／fetch 诊断见上文，不改变这些命令的边界。
 
 - `hello`：经 Registry 调用诊断工具，输出 ToolResult，成功退出0，不写研究数据库。
 - `run "分析 Cursor"`：无项目也可验证输入、创建Task＋Memory并迁移至UNDERSTANDING；project_context=None，返回pending_module、退出3。默认库为.steal-her-heart/memory.sqlite3或--db；显式项目使用其已校验背景。
@@ -135,7 +231,7 @@ status=draft 必须披露缺口，可没有 Analysis；status=ready 要有我方
 
 CommandResponse对无项目完整意图直接返回pending_module，缺参数则澄清；只有显式选择的项目未完成才initialization_required。Battlecard我方信息和brief资产范围由后续执行补齐，路由不创建没有提交接口的循环；产物路径不可伪造。CLI request 接受原文，直接 /analyze、/battlecard、/brief 也可用；recognize-brief 为识别器入口，旧 brief 保留兼容。所有路由调用经 Registry，不创建库或产物。周报／月报起止日期和档案范围在后续计划明确，不创建调度器。
 
-### 默认单对象入口（本轮）
+### 默认单对象入口
 
 可直接安装的运行包在 [codex-skills/steal-her-heart](../../codex-skills/steal-her-heart/SKILL.md)，包内提供维度库，不依赖源码目录或 Python。技能名为 steal-her-heart，当前文件对应的开发技能另名 steal-her-heart-dev，避免同名发现。运行时采用“调用技能 → 产品名 → 按需问答”；名称已给不重问，未给只问名称，重点问题可跳过。安装与 UI 刷新按宿主实际行为验证，不把文件创建说成当前聊天已加载。
 
@@ -161,13 +257,13 @@ CommandResponse保留initialization_required与initialization_question供显式�
 
 以 [research-workflow.md](references/research-workflow.md) 为运行规范源：默认单对象只需名称，范围内按对象设计维度并继续；下面的DiscoveryProposal、名单和维度锁属于可选项目／批量研究API，不能反过来要求所有单对象先建项目。
 
-[research_workflow.py](../../src/steal_her_heart/research_workflow.py) 的 DiscoveryProposal 保存背景摘要、实际搜索调用引用、四类候选及明确层级缺口；现状／不换为 alternative，不强制虚构候选。confirm_competitors 校验用户审阅摘要和选择ID，产生名单批准；受信界面仍需验证真实用户来源并持久化事件，批准函数不能暴露给模型。
+[research_workflow.py](../../src/steal_her_heart/research_workflow.py) 的 DiscoveryProposal 保存背景摘要、搜索调用引用、四类候选及明确层级缺口；现状／不换为 alternative，不强制虚构候选。来源引用需要实际对账，导入不能证明联网已发生。confirm_competitors 校验用户审阅摘要和选择ID，产生名单批准；本地终端桥接负责真实交互、持久化和回读，批准函数不暴露给模型。Codex 聊天来源认证另行接入。
 
 DimensionLibrary 保存扩展字段和版本，核心库沿用 BASE_FIELDS；design_dimensions 仍在有效名单批准后，按配置的核心子集、扩展ID和 readers 构建最终项目提案。write_dimensions 生成 dimensions.md 和同源 dimensions.proposal.json，不覆盖既有版本。confirm_dimensions 核对审阅摘要、文件和配置后保存 dimensions.lock.json。聊天预确认暂不具备到这些 API 的自动迁移，不能将预览稿或聊天确认直接冒充其锁文件；候选引起维度变化时重新审阅变化。
 
-prepare_collection_jobs 必须匹配当前背景、名单批准、提案、锁记录和 Markdown，为每个选中对象返回一个带相同模板的 CollectionJob。任何范围／文件变更使准备失败。任务只有准备契约，尚不启动 subagent；队列、预算、重试、取消、恢复与真实工具账本需要后续执行器。
+prepare_collection_jobs 必须匹配当前背景、名单批准、提案、锁记录和 Markdown，为每个选中对象返回一个带相同模板的 CollectionJob。任何范围／文件变更使准备失败。任务只有准备契约，尚不启动 subagent；队列、全局预算、重试、取消、恢复与业务状态和工具账本的协调需要后续执行器。
 
-Python 的实际联网发现、行业维度自动推荐、受信确认通道、业务状态协调器、采集核查分析和输出都未接入；现有 run/resume 仍只到 UNDERSTANDING。聊天宿主工具的实际执行须单独记录，不能把指令、离线构造提案或确认夹具当作已完成真实研究。
+Python 的独立搜索／抓取尚未接到联网竞品发现、行业维度自动推荐或业务状态协调器；本地终端确认只消费显式准备的提案，不自动创建发现结果。证据提取、实质核查、分析和输出仍未接入，现有 run/resume 仍只到 UNDERSTANDING。聊天宿主工具的实际执行须单独记录，不能把指令、离线构造提案、搜索线索、来源快照或确认夹具当作已完成真实研究。
 
 ### 产品项目文件工作区
 
@@ -201,6 +297,12 @@ Python 的实际联网发现、行业维度自动推荐、受信确认通道、�
 | P1-06 | Orchestrator | 输入保存于短期记忆；停止 UNDERSTANDING、pending_module；零搜索／LLM，零假报告 |
 | P1-07 | CLI | hello=0、run/resume=3、status=0、非法输入=2；重复恢复无新事件 |
 | P1-08 | 工具异常 | 超时有界；原始异常不暴露假密钥；坏输出不能成为成功 data |
+| ACCEPT-01 | 当前：参考流程 | tests/acceptance从brief连接真实组件与显式替身，受控页面不出网，数据与来源引用可对账 |
+| ACCEPT-02 | 当前：缺失状态矩阵 | 未采集、完成查找未找到、访问受限、字段允许／不允许的不适用分别验证，不能静默互换 |
+| ACCEPT-03 | 当前：显式冲突闸门 | 已给冲突／缺口／不完整coverage不能PASS或越过分析闸门；不称自动冲突识别 |
+| ACCEPT-04 | 当前：模拟工件 | 报告标SIMULATION／合成场景，仅写tmp_path；临时写入后独占发布，拒绝覆盖；部分写入或最终Memory提交失败时清理本次工件／引用，不提前COMPLETED；不提交假业务报告、不写research/projects |
+| ACCEPT-05 | 当前：生产边界 | 模拟成功后生产命令仍pending／UNDERSTANDING，无实际报告；测试替身不进入src执行路径 |
+| ACCEPT-06 | 后续：生产完整E2E | 经真实生产入口完成研究／语义核查／报告，并记录真实服务、来源支持、失败恢复与报告质量；当前未具备 |
 | P2-01 | Planner | 单对象按名称规划；可选批量模式另验发现、名单、维度与锁；当前仅识别、入口与文件API |
 | P2-B01 | 当前：实体提取 | 中英文多对象、别名去重、带引号的对象完整保留，不凭空增补竞品 |
 | P2-B02 | 当前：范围提取 | 显式行业与维度保留，非软件维度不强填 AI，词表推断／默认值标假设 |
@@ -212,9 +314,41 @@ Python 的实际联网发现、行业维度自动推荐、受信确认通道、�
 | TPL-04 | 分析与窗口 | 口碑／推断不冒充事实；选用我方对照才需背景；声明时间要求的字段需窗口 |
 | TPL-05 | 全行业扩展 | ERP、WMS、HR、餐饮、硬件及未预置品类均用同一契约扩展，无垂直字段泄漏 |
 | TPL-06 | 适用性及兼容 | 不适用需允许及理由，不能替代未找到；拒绝旧垂直协议 |
+| SAAS-01 | 当前：推荐完整性 | 显式预设可读，所选核心不弱化；每模板字段恰一recipe，优先级、问题、源引用和比较条件完整且唯一 |
+| SAAS-02 | 当前：领域重点 | 广度／深度、API／生态、免费升级、可携带／迁移、迭代窗口和评价上下文有独立采集口径；不默认所有产品具备能力 |
+| SAAS-03 | 当前：资源与范围 | 包资源与运行技能同字节、自包含；全行业默认不变，不创建项目或批准，不绕旧名单／维度锁 |
+| SAAS-04 | 当前：采样元信息 | 未知字段、日期／窗口、链接或文本疑似重复、平台／评分分层不足可检测；false不当未知，受限不当零评价 |
+| SAAS-05 | 当前：执行边界 | 只读配置和提供的数据，不联网／采集／模型／状态推进；facts_validated=false，覆盖完整也不发Validator PASS |
+| SAAS-06 | 后续：实际质量执行 | 来源及工具结果对账、逐条引文与语义、按维度时效、覆盖和冲突须独立验收，不以配置或元信息合法替代 |
 | P3-01 | 取证 | 真实来源可追溯；snippet 不充当终证；价格维度完整；去重与冲突保留 |
 | P3-02 | 闭环 | 缺用户评价／价格触发精确补证；预算及无进展终止；范围变化回确认 |
 | P3-03 | 工具边界 | SSRF、重定向、超大网页、提示注入、超时／重启／并发不绕约束 |
+| SEARCH-01 | 当前：工具与参数 | 必须经 Registry 且有 web_search 能力；非法或未知参数零网络执行；CLI与项目配置独立 |
+| SEARCH-02 | 当前：页面解释 | 去重连续排名、过滤不可用URL；仅明确无结果页可成功为空；验证码、未知结构不冒充空结果 |
+| SEARCH-03 | 当前：执行边界 | 固定公开入口、有限字节与总超时；不跟随跳转、不自动重试；工作器取消后回收 |
+| SEARCH-04 | 当前：搜索额度 | 联网前持久预留；失败计数；并发和重启不突破每任务上限；坏库不联网 |
+| SEARCH-05 | 当前：调用恢复 | 相同请求本地重放成功／安全错误；改参或换任务拒绝；未完成请求不自动重发 |
+| SEARCH-06 | 当前：输出诚实 | 搜索线索 evidence_eligible=false；不写 Evidence、字段或报告；/analyze 与 run 不接假研究链 |
+| SEARCH-07 | 待验：真实命中 | 此前仅一次真实探测，HTTP202验证后停止；受控命中测试不能代替公开服务真实命中验收 |
+| FETCH-01 | 当前：输入与权限 | Registry要求web_fetch能力，非法URL／未知参数零网络；独立CLI不读项目、不自动抓搜索结果 |
+| FETCH-02 | 当前：网络限制 | 公网DNS检查与pin、TLS原域名验证；只支持有界静态文本，不跟跳转、不重试；受限明确停止 |
+| FETCH-03 | 当前：快照 | 原始bytes与规范正文分别散列，manifest原子发布、稳定行数及版本可重读；缺失／篡改／越界拒绝 |
+| FETCH-04 | 当前：调用恢复 | 每任务60次联网前预留、失败计数；重启及并发不复位；同请求重放并核验快照，不自动补抓坏缓存 |
+| FETCH-05 | 当前：输出诚实 | 来源收据、最多12000字符预览、facts_validated=false；不产生Evidence、PASS、报告或状态推进 |
+| FETCH-06 | 独立：真实页面 | 离线成功和实际公网抓取分别记录；公开搜索受限不改记为已通过，不把示例页当竞品研究 |
+| EXT-01 | 当前：只读入口 | Registry要求evidence_extraction能力；非法参数零快照读取；CLI独立且不联网、不写文件／Memory、不迁移状态 |
+| EXT-02 | 当前：定位绑定 | Unicode码点start包含/end不含，精确空白、正文版本、原Source和行号绑定；越界、重复、纯空白全批失败 |
+| EXT-03 | 当前：一致性 | 候选ID稳定；源／文本散列、quote/fact、locator或ID被改动均拒绝；不复制来源新日期 |
+| EXT-04 | 当前：诚实输出 | candidates_only、unvalidated、facts_validated=false；无confidence、现有Evidence、PASS、语义提取或自动资产复用 |
+| VAL-01 | 后续：来源支持 | 快照／原文／摘录／locator可对账；即使引文存在，不能支持主张也须返回缺口，不仅做子串命中 |
+| VAL-02 | 后续：时效与覆盖 | 按维度策略和as_of检查日期及适用窗口，逐个必需对象×维度核算可用覆盖，未知／失败不冒充找到 |
+| VAL-03 | 后续：冲突 | 先对齐对象、地区、版本、单位和时间，再识别矛盾及来源依赖；冲突不能静默选边或重复算独立证据 |
+| ANL-01 | 后续：实质分析 | 同口径横向比较、差异、机会／威胁逐条引用已验证Evidence；未知不当没有，推断披露依据和限制 |
+| REPORT-01 | 后续：可读产物 | 实际生成通用、Battlecard、周／月及选定读者视图；来源可对账，一页卡片验证可读版式，缺背景不编我方赢输 |
+| LOCK-01 | 当前：本地确认桥接 | 显式项目与提案；本地两次当次token确认，持久化名单批准及最终提案，回读整条链后才scope_locked；research_ready=false，不启动研究 |
+| LOCK-02 | 当前：失败与范围绑定 | 非交互、旧／跨评审token、改项目／名单／维度、已有评审、写入或回读失败不能宣称锁定成功；不接受JSON批准字段 |
+| LOCK-03 | 后续：Codex聊天自动衔接 | 验证可信用户消息来源并绑定本次提案；TTY／PTY、内容散列或role=user字符串不能替代宿主来源认证 |
+| LLM-01 | 后续：真实接入 | 实际提供方、非空运行时Prompt、结构化输出解析、超时／预算／错误处理、多行业歧义否定与注入评测均有可运行证据 |
 | P4-01 | Analysis | 无 Evidence 拒绝；引用匹配；事实与机会分开；不支持的 SWOT 不强填 |
 | P5-01 | Report | 通用底稿及所选角色结构、来源；无新增事实；发布可对账；产物后才 COMPLETED |
 | VIEW-01 | 当前：读者规范 | 四类常用预设与自定义角色可配置，共用资产，不自动填四角色 |
@@ -236,12 +370,21 @@ Python 的实际联网发现、行业维度自动推荐、受信确认通道、�
 | ENTRY-03 | 恢复边界 | None与绑定项目双向不可混用，绑定背景变化拒绝 |
 | ENTRY-04 | 显式配置 | 选择项目才读取档案；默认入口不受损坏default档案影响 |
 | ENTRY-05 | Codex指令 | 只必要消歧，自动常规维度、不强制初始化；无我方背景不编对照 |
-| P6-01 | Memory | 追问关联新任务，只复用仍有效资产；Claude 实体／新增范围确认；旧报告可追溯 |
+| ENTRY-UX01 | 当前：入口披露 | 顶层／研究子命令帮助和Skill描述标开发预览及Python研究链未就绪；首次告知后采用既有名称，不加泛泛确认 |
+| ENTRY-UX02 | 当前：两路径完成边界 | Codex宿主辅助与Python初始化／工程诊断分别说明；Python档案ready不触发维度推荐／发现／锁定或研究 |
+| ENTRY-UX03 | 当前：pending指引 | 保留未完成状态和空产物，同时给具体缺失能力与请求对应下一步；不要求反复初始化、不指向未实现的执行命令 |
+| ENTRY-UX04 | 当前：输出与恢复 | stdout一份JSON、stderr人类提示；新输出模型兼容旧payload，状态／退出码／项目guard／重复resume不变，不声称旧严格客户端可直接接受新增字段 |
+| P6-01 | 后续：资产检索 | 追问关联新任务；按实体、维度、地区／版本、时间与比较条件选择，项目隔离；旧快照或同任务重放不算复用实现 |
+| P6-02 | 后续：版本链 | 保留origin_task、原证据和来源／正文／提取器／Schema版本；更新建supersedes，旧报告仍引用旧版，revision不替代资产历史 |
+| P6-03 | 后续：时效核验 | 按维度策略判断过期；TTL内也不伪装本次核验，保留fetched_at并记录revalidated_at及依据；来源变化需刷新和重新核查 |
+| P6-04 | 后续：失败与预算 | 刷新受限／失败／预算到限保留旧版和未更新缺口，不能复制旧PASS、重贴日期或覆盖历史，新增调用受预算与停止策略约束 |
 
-Phase 1 全部验收离线。后续语义夹具覆盖不同产业、资料缺失、冲突、价格条件、时效、同源转载和提示注入，真实服务测试独立标记。结构校验不能证明“全行业有效”。
+Phase 1、参考工作流及本轮项目桥接均采用离线验收；桥接使用隔离的合成项目与受控终端输入，不替用户批准真实业务范围。已有单个公开页面抓取和受限搜索探测保持独立历史记录，不改记为完整真实E2E通过。后续语义夹具还须覆盖不同产业、资料缺失、真实冲突、价格条件、时效、同源转载和提示注入；结构和受控场景通过不能证明“全行业有效”。
 
 ## 8. 测试与完成定义
 
 安装及命令见项目 README。第一阶段交付需提供源文件、已解析依赖快照、上述离线验收、架构说明、运行示例与明确的未实现范围。完整 MVP 需 Phase 2–6 逐项验收，当前不能称已完成。
 
-ResearchBrief、可选项目访谈、评审契约、维度文件和任务准备已实现；本轮改为默认单对象无项目入口与可空上下文恢复。下一步接入单对象Planner和真实研究执行，再衔接可选项目批量评审与资产复用。P2-01 整体未完成，不能宣称研究全链路已跑通。模型与搜索服务尚未指定，不把 SDK 写死在 Orchestrator。
+本轮项目桥接及 CLI 交互验收记录在 [project-review.json](../../validation/project-review.json)，完整回归仍为 `.venv/bin/python -m pytest -q`。此前参考工作流可单独运行 `.venv/bin/python -m pytest tests/acceptance -q`，历史结果见 [workflow-acceptance.json](../../validation/workflow-acceptance.json)，替身和剩余范围见 [验收说明](../../docs/acceptance.md)。本地范围锁、模拟状态推进、替身PASS或临时报告均不表示生产研究端到端通过。
+
+ResearchBrief、无项目入口、可选访谈、入口披露、SaaS推荐及独立工具沿用基线；[SaaS验收](../../validation/saas-preset.json) 与 [入口验收](../../validation/entry-readiness.json) 对应各自历史改动。搜索真实命中仍因访问限制未验收；后续须按路线图分别实现自动语义提取与模型提供方、实际Research、实质Validator、Analysis、可读Reporter、Planner调度、Codex可信聊天确认桥接和资产复用，再经生产入口完成真实E2E。不得用配置、样本覆盖、结构通过、测试替身或模型自评代替主张支持和实际执行；P2-01整体未完成。

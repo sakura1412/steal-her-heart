@@ -1,6 +1,6 @@
 # 全行业竞品研究维度库
 
-版本：2；2026-11-03。供 Codex 按研究对象选择维度，也可用于可选项目初始化。这是研究设计素材，不是竞品事实来源；Python 尚不自动加载本 Markdown 库。核心字段ID与 [BASE_FIELDS](https://github.com/sakura1412/steal-her-heart/blob/main/src/steal_her_heart/collection_template.py) 对齐，正式模板仍须通过现有 Schema 校验。
+版本：3；2026-11-04。供 Codex 按研究对象选择维度，也可用于可选项目初始化。这是研究设计素材，不是竞品事实来源；Python 尚不自动加载本 Markdown 库。核心字段ID与 [BASE_FIELDS](https://github.com/sakura1412/steal-her-heart/blob/main/src/steal_her_heart/collection_template.py) 对齐，正式模板仍须通过现有 Schema 校验。SaaS／工具类另提供可选的 [采集指南](saas.md) 和 [机器可读推荐配置](saas.json)，Python 可显式读取该 JSON 预设，不等于自动理解或采集。
 
 ## 选择方式
 
@@ -64,7 +64,7 @@
 
 | 业态／目标线索 | 可推荐的扩展组合 | 需要解释的取舍 |
 |---|---|---|
-| 软件、数字工具或企业系统 | workflow_coverage、deployment_integration、onboarding_retention | AI、移动端和API按任务需要选，不自动成为所有项目必填 |
+| 软件、数字工具或企业系统 | workflow_coverage、deployment_integration、onboarding_retention；适用时采用 [SaaS 推荐组合](saas.md) | 预设提供优先级、采集问题和源提示；AI、移动端和API按任务需要选，不自动成为所有项目必填 |
 | 设备、硬件、工业品、实体商品 | specification_performance、quality_reliability、supply_availability | 同型号／工况比较，避免只看宣传参数 |
 | 零售、消费品牌或电商 | channel_distribution、content_campaigns、quality_reliability | 商品与渠道可以分层，价格注明规格与促销条件 |
 | 本地生活、门店或专业服务 | service_coverage、service_journey、onboarding_retention | 服务流程、可达性与履约体验，不套软件版本功能表 |
@@ -73,6 +73,8 @@
 | 多业态或其他行业 | 相关模块组合或自定义 | 保留用户行业描述，说明新字段定义，不改内核即可扩展 |
 
 以上都可加 applicable_requirements；只有与项目有关时加入。对销售话术目标，可另外定义我方对照、赢输场景和客户探测问题，标为需要双方证据或真实样本的分析字段，不能从未验证的核心优势直接得出胜出结论。
+
+SaaS 推荐组合补充功能广度／任务深度、API／生态成熟度、免费与升级路径、迁移／数据锁定、版本迭代窗口和 G2／Capterra 评价采样。P0／P1／P2只表示该建议配置中的采集顺序，具体问题、比较口径与源清单见其指南；没有对应产品或无法访问评价站时保留缺口。不得把该组合应用为全行业默认，或将样本覆盖完整当作事实已经核验。
 
 ## 比较口径与可选项目确认
 

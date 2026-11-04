@@ -3,6 +3,7 @@
 from typing import Optional
 from uuid import UUID
 
+from .execution_readiness import pending_guidance
 from .memory import MemoryStore
 from .project_initialization import require_project
 from .schemas import (
@@ -84,5 +85,9 @@ class Orchestrator:
             task_id=context.task_id,
             state=context.current_state,
             outcome="pending_module",
-            message="Phase 1 foundation only: Planner and research execution are not implemented",
+            message=(
+                f"任务停在 {context.current_state.value}；"
+                "自动研究与报告链路未就绪，本次未执行研究或生成报告。"
+            ),
+            guidance=pending_guidance(),
         )

@@ -1,6 +1,6 @@
 # 单对象默认研究与可选项目流程
 
-版本：3；日期：2026-11-03。默认入口以 [commands/analyze.md](../../../commands/analyze.md) 为准，只需竞品名。项目模式是用户主动选择的附加能力，与源码开发的 Phase 1–6 分开。
+版本：4；日期：2026-11-03。默认入口以 [commands/analyze.md](../../../commands/analyze.md) 为准，只需竞品名。**Python当前仅支持初始化与工程验证，研究执行链路未就绪。** 下图是目标工作方式，也可用于宿主工具可用时的Codex辅助研究试验，不是Python已经接通的流程。项目模式由用户主动选择，与源码开发Phase 1–6分开。
 
 ```mermaid
 flowchart TD
@@ -16,7 +16,7 @@ flowchart TD
   H --> I[报告、来源与待验证问题]
 ```
 
-这是研究工作方式，不代表 Python 已跑通该链路。Codex 使用宿主实际可用工具执行；Python 默认入口目前只路由请求，run/resume 保存任务并停在 UNDERSTANDING。
+Codex路径须实际读取来源并逐条核查，证据不足时交付有限结果或提纲，不保证完整报告。Python默认入口目前只路由请求并给缺口／下一步指引，run/resume保存任务并停在UNDERSTANDING。宿主对话与产物不会自动导入Python任务或最终锁。
 
 ## 默认单对象范围
 
@@ -42,7 +42,7 @@ flowchart TD
 
 ## 可选项目模式
 
-用户主动要求长期跟踪、发现一组竞品、固定读者或我方对照配置时，可读取 [commands/init-project.md](../../../commands/init-project.md)：每轮2～3题访谈 → 保存 profile → 推荐并预确认 dimensions → 联网发现四层候选并确认名单。Python 项目访谈仍一次一题；此模式不影响无项目默认入口。
+用户主动要求长期跟踪、发现一组竞品、固定读者或我方对照配置时，可读取 [commands/init-project.md](../../../commands/init-project.md)：Codex每轮2～3题访谈 → 保存profile → 以可用宿主工具推荐维度／发现候选并确认草案。Python项目访谈仍一次一题，ready只表示档案保存，不会自动执行后面几步；聊天完成也不等最终锁或报告完成。此模式不影响无项目默认请求。
 
 仅在用户选择的项目模式或明确要求市场格局／竞品发现时，分层检查：
 
@@ -67,6 +67,6 @@ prepare_collection_jobs 只为该项目已批准对象准备带同一模板的�
 
 ## 实现边界
 
-底层 ResearchState、Registry、SQLite 快照与事件已经存在；单对象入口取消强制项目访谈，未提前接入 Python 搜索、分析或报告。项目评审的数据散列只检测内容变化，不是用户身份认证，搜索引用仍需与实际账本核验。
+底层ResearchState、Registry、SQLite快照与事件已经存在；单对象入口没有强制项目访谈。独立搜索／抓取／显式摘录诊断可用，但未接入研究路由、分析或报告。项目评审的数据散列只检测内容变化，不是用户身份认证，搜索引用仍需与实际账本核验。帮助与guidance改善可理解性，不改变这些执行边界。
 
 当前 run/resume 仅到 UNDERSTANDING，不能从技术状态名、任务数量、离线确认夹具或指令文件推导真实研究已完成。后续 Python Planner 与执行器需为单对象范围和可选项目范围分别落地契约，不复用旧 initial_plan 标记跳过有约束的项目锁检查。

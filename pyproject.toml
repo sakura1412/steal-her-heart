@@ -19,7 +19,7 @@ steal-her-heart = "steal_her_heart.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-steal_her_heart = ["templates/*.md"]
+steal_her_heart = ["templates/*.md", "presets/*.json"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]

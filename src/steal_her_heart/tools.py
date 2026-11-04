@@ -1,4 +1,4 @@
-"""Explicit, schema-checked tools. Production web tools are not implemented yet."""
+"""Explicit, schema-checked boundaries for trusted diagnostic and research tools."""
 
 import asyncio
 import re
@@ -7,6 +7,14 @@ from abc import ABC, abstractmethod
 from pydantic import ValidationError
 
 from .schemas import Contract, Identifier, Text, ToolContext, ToolError, ToolResult
+
+
+class ToolExecutionError(Exception):
+    """A trusted implementation's public error, never a raw provider exception."""
+
+    def __init__(self, code: str, message: str) -> None:
+        self.error = ToolError(code=code, message=message)
+        super().__init__(message)
 
 
 class Tool(ABC):
@@ -75,6 +83,8 @@ class ToolRegistry:
             raw = await asyncio.wait_for(tool.run(parsed, context), timeout=context.timeout_s)
         except asyncio.TimeoutError:
             return failure("TOOL_TIMEOUT", "Tool deadline exceeded; execution may be incomplete")
+        except ToolExecutionError as error:
+            return failure(error.error.code, error.error.message)
         except Exception:
             return failure("TOOL_EXECUTION_ERROR", "Tool failed; raw exception is not exposed")
         try:

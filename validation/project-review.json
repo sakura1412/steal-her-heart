@@ -1,0 +1,199 @@
+{
+  "scope": "P0-4 local project review bridge: trusted UI callback/terminal confirmation to persisted final dimension lock and CollectionJob readback",
+  "verified_at": "2026-11-04T03:30:27.656709+08:00",
+  "development_spec_version": "0.16.0",
+  "status": "local_review_bridge_verified; codex_user_message_bridge_and_production_research_not_ready",
+  "baseline_validation": "validation/workflow-acceptance.json",
+  "baseline_tests": 1108,
+  "added_tests": 87,
+  "total_tests": 1195,
+  "test_files": {
+    "tests/test_project_review.py": 64,
+    "tests/test_project_review_cli.py": 23
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --junitxml=<temporary JUnit XML>",
+      "exit_code": 0,
+      "result": "1195 passed in 4.56s",
+      "junit_elapsed_seconds": 4.531,
+      "junit_started_at": "2026-11-04T03:27:01.641092+08:00",
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "command": ".venv/bin/python -m pytest tests/test_project_review.py -q",
+      "result": "64 passed in 0.72s",
+      "exit_code": 0,
+      "verified_by": "core worker; included in root final full regression"
+    },
+    {
+      "command": ".venv/bin/python -m pytest tests/test_project_review_cli.py -q",
+      "result": "23 passed in 0.21s",
+      "exit_code": 0,
+      "verified_by": "root; included in final full regression"
+    },
+    {
+      "command": ".venv/bin/python -m ruff check .",
+      "exit_code": 0,
+      "result": "All checks passed!"
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check .",
+      "exit_code": 0,
+      "result": "93 files already formatted"
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0
+    },
+    {
+      "check": "skill-creator quick_validate",
+      "skill": "skills/steal-her-heart",
+      "result": "valid; documentation worker"
+    },
+    {
+      "check": "Changed Markdown local links and code fences",
+      "markdown_files": 5,
+      "local_links": 124,
+      "result": "all local links resolve; code fences balanced"
+    }
+  ],
+  "cli": {
+    "syntax": "steal-her-heart --project-name <existing-project> review-project --review-file <bounded-request.json>",
+    "terminal_requirement": "Both stdin and stderr report isatty; no --yes or piped approval; hints and questions on stderr, one JSON response on stdout.",
+    "input": "Explicit DiscoveryProposal, selected_ids and versioned dimension library/selection; not automatic discovery or recommendation.",
+    "input_limit_bytes": 1048576,
+    "approval_fields_from_json": "rejected by extra=forbid",
+    "exit_codes": {
+      "locked": 0,
+      "failed": 1,
+      "preflight_input_or_terminal_error": 2,
+      "rejected": 3
+    },
+    "result": "locked/rejected/failed with review_id, scope_locked, jobs, record_path, error_code and fixed research_ready=false; preflight failures use a ToolResult error envelope.",
+    "not_model_callable": "Approval is not registered in ToolRegistry."
+  },
+  "confirmation_and_persistence": {
+    "flow": [
+      "Read current profile and draft dimensions",
+      "Persist request/project/discovery snapshots",
+      "Display proposed selection and accept only the fresh competitors token",
+      "Persist and reread CompetitorApproval",
+      "Design and persist final dimensions using existing review APIs",
+      "Display final dimensions and accept only the fresh dimensions token",
+      "Persist lock and reread complete question/decision/approval/proposal/Markdown/lock chain",
+      "prepare_collection_jobs readback and persist/reread final result"
+    ],
+    "token_binding": [
+      "Fresh review UUID",
+      "Stage",
+      "Current ProjectContext digest including full profile SHA-256",
+      "Complete request digest including selected candidate IDs/library/field selection/readers/rationale",
+      "For final dimension approval: proposal and actual Markdown digests"
+    ],
+    "approval_timestamps": "Generated from the current UTC clock, never taken from input approval JSON.",
+    "records": "projects/<name>/.state/reviews/<review-id>/",
+    "canonical_files": [
+      "dimensions.md",
+      "dimensions.proposal.json",
+      "dimensions.lock.json"
+    ],
+    "concurrency": "Cooperating local reviews serialized with nonblocking POSIX flock.",
+    "safe_file_policy": "Regular single-link files, no symlinks or multi-link hardlinks; bounded reads with no-follow open. Audit records published exclusively without replacing existing records.",
+    "success_condition": "Actual persisted artifacts and final result read back and match expected values; lock existence alone is insufficient.",
+    "storage_failure_boundary": "Failed writes may retain partial dimension/lock artifacts and refuse silent retry. record_path is an intended location and may not exist if storage is unavailable. No cross-file transaction or automatic recovery claimed."
+  },
+  "verified_cases": [
+    "Real existing confirm_competitors/design_dimensions/write_dimensions/confirm_dimensions/prepare_collection_jobs API chain succeeds and can be independently reread.",
+    "Configured readers, library core subset/extensions and selected candidates are preserved; user-provided proposal import is not research evidence.",
+    "Ambiguous answers, empty input, EOF and KeyboardInterrupt reject instead of approving.",
+    "Tokens from another stage/review/session cannot authorize the current question.",
+    "Changed profile, candidate request, dimensions, proposal, approval or previous decision record cannot yield locked success.",
+    "Existing dimension reviews/locks are not overwritten; concurrent reviews return busy.",
+    "Malformed, oversized, duplicate-key, non-UTF-8 or extra approval fields are rejected.",
+    "Project review artifacts reject symlinks, non-regular files and multi-link hardlinks; the hardlink fixture preserves both original paths before any question. CLI proposal input rejects symlinks/non-regular files and is bounded/read-only.",
+    "Covered write/readback/result-publication faults produce failed results with no delivered jobs, and never retain a recoverable contradictory success receipt.",
+    "Temporary-record exclusive publication does not remove an existing record owned by another call.",
+    "CLI keeps stdout as one JSON and refuses noninteractive approval before reading input or creating project state.",
+    "Default product-name analysis remains pending_module without invoking this optional project review flow."
+  ],
+  "independent_review": {
+    "status": "no_remaining_blocking_issue_found",
+    "closed_findings": [
+      {
+        "finding": "Later confirmation could alter an earlier accepted audit decision without blocking final lock.",
+        "fix": "Immediately reread questions/decisions and recheck both stages plus derived artifacts before final success.",
+        "probe_result": "failed / REVIEW_RECORD_CHANGED, jobs empty, no canonical lock, failed result persisted."
+      },
+      {
+        "finding": "A cleanup OSError after result publication could return failed while a locked success receipt remained on disk.",
+        "fix": "Track publication ownership; undo this call target on post-publication error, clean temporary file and persist the failed result after storage recovers. Preserve preexisting targets.",
+        "probe_result": "Returned and persisted failed/scope_locked=false; no pending file."
+      },
+      {
+        "finding": "A draft dimensions hardlink could allow in-place writing to affect another path sharing its inode.",
+        "fix": "Require st_nlink==1 in lstat policy and opened-file fstat checks.",
+        "probe_result": "Refused before prompting; original bytes at both linked paths unchanged; no lock/jobs."
+      }
+    ],
+    "independent_tests": [
+      "86 passed before final hardlink-only change",
+      "4 targeted tests passed after hardlink fix: hardlink rejection, full successful flow, preserve existing record, publication cleanup failure"
+    ],
+    "additional_probe": "Actual resolved tmp directory: os.link window has nlink=2, temporary removal restores nlink=1, final record load succeeds without pending file."
+  },
+  "authorization_and_execution_boundary": {
+    "trusted_callback": "Application-side trust assumption; not proof of human or Codex user-message identity.",
+    "tty_is_not_authentication": true,
+    "models_or_scripts_may_not_type_tokens_via_pty_for_users": true,
+    "codex_verified_user_reply_auto_bridge": "not_implemented",
+    "terminal_test_inputs": "Synthetic TTY surfaces and input callbacks only; no actual business approval session was run.",
+    "real_business_project_mutations": 0,
+    "live_user_approval_session": "not_run",
+    "real_network_calls": 0,
+    "real_model_calls": 0,
+    "restricted_search_retried": false,
+    "research_ready": false,
+    "research_or_subagent_started": false,
+    "evidence_analysis_or_report_generated": false,
+    "runtime_skill_updated": false,
+    "committed_or_pushed": false
+  },
+  "roadmap": "docs/roadmap.md maps all 11 user priorities to actual code and remaining acceptance. SaaS configuration and pending guidance are existing partial capabilities; model-backed extraction is a dependency of general Research.",
+  "not_implemented_or_verified": [
+    "Automatic Codex user-message source authentication and chat-to-Python approval transport.",
+    "Research execution, model semantic extraction, substantive Validator, Analysis or Reporter.",
+    "Platform-level collection/access verification for G2/Capterra/Product Hunt or real DDG search hits.",
+    "Automatic project discovery, dimension recommendation, post-initialization synchronization or resume/recovery.",
+    "Crash/power-loss durability, a transaction across all files, or protection against arbitrary concurrent filesystem attackers.",
+    "Cross-task asset version catalog, freshness revalidation or incremental update."
+  ],
+  "previous_validation_files_left_as_history": true,
+  "changed_existing_files_from_previous_validation": [
+    "README.md",
+    "skills/steal-her-heart/SKILL.md",
+    "skills/steal-her-heart/RULES.md",
+    "skills/steal-her-heart/TASK_SPEC.md",
+    "src/steal_her_heart/cli.py"
+  ],
+  "source_sha256": {
+    "README.md": "e183455c163f59474489bcc7620efeacb76e649c0aa1a18186afa871ee927567",
+    "skills/steal-her-heart/SKILL.md": "b664a294d19ebfe33204d135f34aae2666da88caa6df0d9c97e19b5b7aa021d0",
+    "skills/steal-her-heart/RULES.md": "586511fe0a38a7d8d9b3f658d9ed6bde636e86329bebf25c1532ccfb7259ea67",
+    "skills/steal-her-heart/TASK_SPEC.md": "61c845df5596b40429a71b6fcd9ff4f7472c73d757654f69ba5a624196effdd3",
+    "docs/roadmap.md": "7cc5b832c0ad91ee4bd1079a11f77e1ad0b67553bfc184396123bcddfd79d5e7",
+    "src/steal_her_heart/project_review.py": "c063e60ebde762f06939a55f1e748a1331ccc5971410d067db82324088a7d56c",
+    "src/steal_her_heart/cli.py": "ebe2af19c03bb0c295ac18bb95c89b61a5004a5547f9cf80534a0428d885755f",
+    "tests/test_project_review.py": "e2ce7a569b06971df0b73c7c7d87216323ca38956be05f211acf3bb0266ebc85",
+    "tests/test_project_review_cli.py": "5e7ab30685de9a5a4057d4b78f1e78d110ae9918a762248f104aaa9a4c49c8d8",
+    "src/steal_her_heart/research_workflow.py": "fa75c29c1d184db48bbb18198e27e3b1fd3feb835d0a4cfa9e85cc124b9d5467",
+    "src/steal_her_heart/project_workspace.py": "45bf35e122fa6ea4b5c2919e3c429355d503caa301b11dc0f95201bb3299e8ef",
+    "src/steal_her_heart/schemas.py": "d36710b59aed842a609d316b1f86d7eab081d6379097c803777051adf9de3949",
+    "src/steal_her_heart/orchestrator.py": "5c3f719525735ed3f3fae938686124a10af0056251244c938bdcbaa843763199",
+    "src/steal_her_heart/tools.py": "c5007f62d28b5dead1bf7a15e4aa43dd4e40af38facb54c2fd103130d53e6424",
+    "src/steal_her_heart/interfaces.py": "e4dc1818c1713030f1e31344409eb67a913bfc540600bb00cb225ab072fba201"
+  },
+  "junit_module_results_sha256": "a0876b0c8b6d4c2b3db7ca0cdfdff304ce973e79c38d4a2ae88fdbb84bb8b40c"
+}
