@@ -1,4 +1,0 @@
-interface:
-  display_name: "竞品研究（开发预览兼容入口）"
-  short_description: "开发预览兼容入口：Python研究链未就绪，转交Codex宿主辅助查证，不保证报告"
-  default_prompt: "使用 $competitor-research 兼容入口调用Steal Her Heart，先说明开发预览及路径边界，再采用产品名称按需问答。"

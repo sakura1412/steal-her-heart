@@ -1,0 +1,65 @@
+# Codex instruction catalog; not an executable loader or an availability claim.
+registry_version: 1
+status: instruction_catalog
+runtime_loader: false
+semantics_document: connectors.md
+platform_types:
+  official_channels: 企业官方渠道
+  apps_software: 应用与软件平台
+  commerce_retail: 电商与零售平台
+  social_content: 社交与内容平台
+  news_media: 新闻与媒体
+  research_knowledge: 研究与知识平台
+  public_data: 公共数据平台
+  reviews_communities: 专业评价与社区
+connection_modes:
+  public_web: Public Web
+  official_api: Official API
+  authorized_account: Authorized Account
+  user_upload: User Upload
+adapter_required_fields:
+  connector_id: 稳定唯一标识
+  platform_type: platform_types 中的主类别
+  supported_capabilities: 逐能力状态、条件、限制和声明依据
+  supported_regions: 已知支持及限制；未知显式记录
+  supported_languages: 获取／检索语言与翻译能力分别记录
+  auth_type: 实际认证方式及宿主授权引用；不含凭据
+  rate_limit: 平台／宿主已知限制和本任务有限上限；未知不代表无限
+  data_types: 实际可取得内容类型及格式
+  update_strategy: 按需／条件刷新／有界增量，不自动创建定时任务
+  failure_policy: 错误分类、停止、有限重试、替代来源及恢复条件
+  version: 适配说明版本
+binding_required_fields:
+  connection_modes: 本条目实际支持的模式及各自访问条件
+  host_tool_bindings: 当前工具标识、已核对参数、已知版本或 unknown
+  source_scope: 支持的来源／对象范围及排除条件
+  limitations: 明确的覆盖、解析、访问限制与未知项
+  verification_records: 实际调用日期、参数条件、来源范围、结果定位与限制；无验证时为空
+capability_topics:
+  - search
+  - pagination
+  - date_filter
+  - static_content
+  - dynamic_content
+  - document_parse
+  - news_retrieval
+  - review_collection
+  - bounded_crawl
+capability_statuses: [unknown, unsupported, conditional, supported]
+state_dimensions:
+  declaration: [unconfigured, strategy_defined, tool_bound]
+  session_availability: [unchecked, callable, unsupported, temporarily_unavailable]
+  authorization: [not_required, valid, missing, expired, insufficient_scope]
+  verification: [unverified, verified_in_scope, failed]
+result_statuses:
+  - retrieved
+  - partial
+  - no_results
+  - unsupported
+  - access_restricted
+  - temporarily_unavailable
+  - parse_failed
+  - outcome_unknown
+# Fill task-local records only from actual tool discovery, authorization and calls.
+# An empty catalog does not disable host tools and does not claim platform support.
+entries: []

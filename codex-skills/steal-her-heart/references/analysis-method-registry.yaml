@@ -1,0 +1,495 @@
+registry_version: 1
+status: instruction_catalog
+runtime_loader: false
+semantics_document: analysis-methods.md
+common_rules:
+- 仅由研究问题触发，Research QA 后由 Planner 按实际数据选择
+- 继承 RULES.md 八条证据铁律，Analysis 不直接取证或扩范围
+- 涉及直接比较或排名必须通过 comparison.md；不适用不排名、未知不填零
+- 输出统一带方法／范围／输入／证据版本、状态、主张引用及限制
+methods:
+- method_id: swot
+  version: 1.0.0
+  display_name: SWOT
+  purpose: 梳理指定对象的优势、劣势、机会和威胁
+  triggers:
+  - 用户需要战略因素综合
+  required_inputs:
+  - subject_scope
+  - evidence_records
+  - internal_external_context
+  optional_inputs:
+  - comparison_baseline
+  - business_objectives
+  execution_rules:
+  - 先区分对象内部因素与外部环境，再逐项说明影响机制
+  - 相对优势需要比较基线，不用缺证据填四象限
+  - 无我方背景只评价指定对象，不生成我方赢输策略
+  output:
+  - strengths_weaknesses
+  - opportunities_threats
+  - implications
+  - limitations
+  failure_handling:
+  - 缺必需输入返回 blocked 和具体缺口；独立已核验部分可标 limited
+  - 不适用返回 skipped；执行或计算错误不得冒充事实缺失
+  completion_criteria:
+  - 所选问题已回答，输入与范围匹配、步骤有记录
+  - 新主张核对证据支持，计算实际复算，限制与假设可见
+  validation_status: instruction_defined_not_behavior_validated
+- method_id: pestle
+  version: 1.0.0
+  display_name: PESTLE
+  purpose: 分析宏观环境对当前问题的影响
+  triggers:
+  - 用户关注宏观变化或外部约束
+  required_inputs:
+  - market_scope
+  - time_window
+  - macro_evidence
+  optional_inputs:
+  - scenario_assumptions
+  execution_rules:
+  - 按实际证据检查政治、经济、社会、技术、法律和环境因素，仅深入相关因素
+  - 区分已生效事件、提案与预测，记录地区和时间
+  - 每项说明影响路径，不把宏观标题当影响结论
+  output:
+  - relevant_factors
+  - impact_paths
+  - uncertainties
+  - limitations
+  failure_handling:
+  - 缺必需输入返回 blocked 和具体缺口；独立已核验部分可标 limited
+  - 不适用返回 skipped；执行或计算错误不得冒充事实缺失
+  completion_criteria:
+  - 所选问题已回答，输入与范围匹配、步骤有记录
+  - 新主张核对证据支持，计算实际复算，限制与假设可见
+  validation_status: instruction_defined_not_behavior_validated
+- method_id: five_forces
+  version: 1.0.0
+  display_name: 五力模型
+  purpose: 分析行业竞争结构
+  triggers:
+  - 用户问行业结构、进入壁垒或议价关系
+  required_inputs:
+  - market_boundary
+  - actor_relations
+  - evidence_records
+  optional_inputs:
+  - regional_context
+  execution_rules:
+  - 核查现有竞争、替代、进入者、供应方和买方关系的实际范围
+  - 逐项说明证据和作用机制，不用模型直觉给高低分
+  - 未知力量保留缺口，不因候选数量少认定竞争弱
+  output:
+  - force_assessment
+  - structural_implications
+  - evidence_gaps
+  - limitations
+  failure_handling:
+  - 缺必需输入返回 blocked 和具体缺口；独立已核验部分可标 limited
+  - 不适用返回 skipped；执行或计算错误不得冒充事实缺失
+  completion_criteria:
+  - 所选问题已回答，输入与范围匹配、步骤有记录
+  - 新主张核对证据支持，计算实际复算，限制与假设可见
+  validation_status: instruction_defined_not_behavior_validated
+- method_id: benchmarking
+  version: 1.0.0
+  display_name: Benchmarking
+  purpose: 比较对象与明确标杆的差异
+  triggers:
+  - 用户明确需要标杆比较
+  required_inputs:
+  - comparable_group
+  - benchmark_basis
+  - evidence_records
+  optional_inputs:
+  - business_objectives
+  execution_rules:
+  - 解释标杆选择依据，不因规模大就当最佳实践
+  - 采用 Comparison Engine 的定义和单位规则
+  - 只借鉴有适用条件的机制，不照搬效果
+  output:
+  - benchmark_comparison
+  - transfer_conditions
+  - recommendations
+  - limitations
+  failure_handling:
+  - 缺必需输入返回 blocked 和具体缺口；独立已核验部分可标 limited
+  - 不适用返回 skipped；执行或计算错误不得冒充事实缺失
+  completion_criteria:
+  - 所选问题已回答，输入与范围匹配、步骤有记录
+  - 新主张核对证据支持，计算实际复算，限制与假设可见
+  validation_status: instruction_defined_not_behavior_validated
+- method_id: feature_matrix
+  version: 1.0.0
+  display_name: Feature Matrix
+  purpose: 呈现当前任务的能力差异
+  triggers:
+  - 用户问哪些能力或服务任务存在差异
+  required_inputs:
+  - comparable_group
+  - capability_definitions
+  - evidence_records
+  optional_inputs:
+  - usage_scenario
+  execution_rules:
+  - 按同一客户任务定义能力，允许不同实现方式
+  - 有、无、未知、不适用、冲突分开；未提及不等于没有
+  - 逐端和版本核对，不以功能数量代替质量排名
+  output:
+  - capability_matrix
+  - differences
+  - coverage
+  - limitations
+  failure_handling:
+  - 缺必需输入返回 blocked 和具体缺口；独立已核验部分可标 limited
+  - 不适用返回 skipped；执行或计算错误不得冒充事实缺失
+  completion_criteria:
+  - 所选问题已回答，输入与范围匹配、步骤有记录
+  - 新主张核对证据支持，计算实际复算，限制与假设可见
+  validation_status: instruction_defined_not_behavior_validated
+- method_id: price_analysis
+  version: 1.0.0
+  display_name: Price Analysis
+  purpose: 解释价格与收费结构
+  triggers:
+  - 用户要求价格对比或定价策略
+  required_inputs:
+  - offer_records
+  - comparison_scope
+  - evidence_records
+  optional_inputs:
+  - usage_scenario
+  - comparable_group
+  execution_rules:
+  - 先分清版本、规格、单位、币种、地区、税费和期间
+  - 数值对比先通过 Comparison Engine；月均摊不等于可按月购买
+  - 没有共同情景不排名，公开价格不能证明底价、成本或价格弹性
+  output:
+  - pricing_structure
+  - scenario_costs
+  - pricing_limitations
+  - limitations
+  failure_handling:
+  - 缺必需输入返回 blocked 和具体缺口；独立已核验部分可标 limited
+  - 不适用返回 skipped；执行或计算错误不得冒充事实缺失
+  completion_criteria:
+  - 所选问题已回答，输入与范围匹配、步骤有记录
+  - 新主张核对证据支持，计算实际复算，限制与假设可见
+  validation_status: instruction_defined_not_behavior_validated
+- method_id: positioning_map
+  version: 1.0.0
+  display_name: Positioning Map
+  purpose: 表达竞争位置及其依据
+  triggers:
+  - 用户问对象在指定市场处于何种位置
+  required_inputs:
+  - comparison_scope
+  - axis_definitions
+  - evidence_records
+  optional_inputs:
+  - customer_research
+  execution_rules:
+  - 每条轴说明与决策的关系、定义和测量依据
+  - 定性位置不伪造精确坐标，缺证据不定位
+  - 公开宣称、用户认知和实际能力分别标注
+  output:
+  - position_map_data
+  - position_explanation
+  - uncertainty
+  - limitations
+  failure_handling:
+  - 缺必需输入返回 blocked 和具体缺口；独立已核验部分可标 limited
+  - 不适用返回 skipped；执行或计算错误不得冒充事实缺失
+  completion_criteria:
+  - 所选问题已回答，输入与范围匹配、步骤有记录
+  - 新主张核对证据支持，计算实际复算，限制与假设可见
+  validation_status: instruction_defined_not_behavior_validated
+- method_id: value_chain_analysis
+  version: 1.0.0
+  display_name: Value Chain Analysis
+  purpose: 识别价值活动与竞争差异
+  triggers:
+  - 用户关注价值链、渠道或上下游关系
+  required_inputs:
+  - activity_scope
+  - actor_relations
+  - evidence_records
+  optional_inputs:
+  - cost_data
+  execution_rules:
+  - 区分活动、主体与关系，核对范围和时期
+  - 没有成本证据不推成本结构或利润比例
+  - 解释竞争作用及依赖，不将合作关系当所有权
+  output:
+  - activity_map
+  - dependencies
+  - opportunities
+  - limitations
+  failure_handling:
+  - 缺必需输入返回 blocked 和具体缺口；独立已核验部分可标 limited
+  - 不适用返回 skipped；执行或计算错误不得冒充事实缺失
+  completion_criteria:
+  - 所选问题已回答，输入与范围匹配、步骤有记录
+  - 新主张核对证据支持，计算实际复算，限制与假设可见
+  validation_status: instruction_defined_not_behavior_validated
+- method_id: business_model_canvas
+  version: 1.0.0
+  display_name: Business Model Canvas
+  purpose: 组织商业模式及待验证关系
+  triggers:
+  - 用户需要商业模式理解或比较
+  required_inputs:
+  - subject_scope
+  - business_activity_evidence
+  optional_inputs:
+  - comparable_group
+  - own_context
+  execution_rules:
+  - 将实际价值提供、客户、交付和收入等资料组织为相关模块
+  - 没有依据的模块列缺口，不用画布强填事实
+  - 商业模式比较先校验主体层级；逻辑关联标为判断
+  output:
+  - business_model_structure
+  - model_relationships
+  - open_questions
+  - limitations
+  failure_handling:
+  - 缺必需输入返回 blocked 和具体缺口；独立已核验部分可标 limited
+  - 不适用返回 skipped；执行或计算错误不得冒充事实缺失
+  completion_criteria:
+  - 所选问题已回答，输入与范围匹配、步骤有记录
+  - 新主张核对证据支持，计算实际复算，限制与假设可见
+  validation_status: instruction_defined_not_behavior_validated
+- method_id: customer_journey
+  version: 1.0.0
+  display_name: Customer Journey
+  purpose: 分析客户体验与服务过程
+  triggers:
+  - 用户关注客户选择、使用或履约体验
+  required_inputs:
+  - customer_scope
+  - journey_scope
+  - evidence_records
+  optional_inputs:
+  - observations
+  - feedback_samples
+  execution_rules:
+  - 按实际场景建立阶段，不使用固定全行业流程
+  - 公开流程、实际观察、样本反馈分开，逐端标注
+  - 没有转化或留存数据不将动作归因为效果
+  output:
+  - journey_map
+  - frictions
+  - validation_actions
+  - limitations
+  failure_handling:
+  - 缺必需输入返回 blocked 和具体缺口；独立已核验部分可标 limited
+  - 不适用返回 skipped；执行或计算错误不得冒充事实缺失
+  completion_criteria:
+  - 所选问题已回答，输入与范围匹配、步骤有记录
+  - 新主张核对证据支持，计算实际复算，限制与假设可见
+  validation_status: instruction_defined_not_behavior_validated
+- method_id: market_segmentation
+  version: 1.0.0
+  display_name: Market Segmentation
+  purpose: 识别市场细分及差异
+  triggers:
+  - 用户需要群体差异或市场结构
+  required_inputs:
+  - market_boundary
+  - segmentation_basis
+  - evidence_records
+  optional_inputs:
+  - group_size_data
+  execution_rules:
+  - 说明分群变量和依据，区分互斥分组与重叠标签
+  - 重叠群体不能直接加总，样本不外推总体
+  - 群体没有规模依据时只描述，不编份额
+  output:
+  - segments
+  - segment_differences
+  - overlap_limits
+  - limitations
+  failure_handling:
+  - 缺必需输入返回 blocked 和具体缺口；独立已核验部分可标 limited
+  - 不适用返回 skipped；执行或计算错误不得冒充事实缺失
+  completion_criteria:
+  - 所选问题已回答，输入与范围匹配、步骤有记录
+  - 新主张核对证据支持，计算实际复算，限制与假设可见
+  validation_status: instruction_defined_not_behavior_validated
+- method_id: trend_analysis
+  version: 1.0.0
+  display_name: Trend Analysis
+  purpose: 分析可验证的时间变化
+  triggers:
+  - 用户问变化方向、速度或趋势
+  required_inputs:
+  - time_series_evidence
+  - metric_definitions
+  - time_window
+  optional_inputs:
+  - forecast_scenarios
+  execution_rules:
+  - 先校验时序定义、地区、样本及频率可比
+  - 区分历史观察、季节因素、结构变化与未来预测
+  - 增长计算遵循市场研究规则，一点数据不算趋势
+  output:
+  - trend_findings
+  - change_measures
+  - forecast_limits
+  - limitations
+  failure_handling:
+  - 缺必需输入返回 blocked 和具体缺口；独立已核验部分可标 limited
+  - 不适用返回 skipped；执行或计算错误不得冒充事实缺失
+  completion_criteria:
+  - 所选问题已回答，输入与范围匹配、步骤有记录
+  - 新主张核对证据支持，计算实际复算，限制与假设可见
+  validation_status: instruction_defined_not_behavior_validated
+- method_id: capability_gap_analysis
+  version: 1.0.0
+  display_name: Capability Gap Analysis
+  purpose: 分析竞争对象与研究对象之间的能力差距
+  triggers:
+  - 用户明确要求能力差距或改进机会
+  required_inputs:
+  - comparable_capabilities
+  - evidence_records
+  - comparison_scope
+  optional_inputs:
+  - target_customer
+  - business_objectives
+  execution_rules:
+  - 执行前取得 Comparison Engine 可比组和统一口径
+  - 缺失数据不得默认为零，不适用字段不得参与排名
+  - 区分能力缺失与证据缺失；建议说明影响机制和验证动作
+  output:
+  - capability_comparison
+  - gap_analysis
+  - limitations
+  - recommendations
+  failure_handling:
+  - 缺必需输入返回 blocked 和具体缺口；独立已核验部分可标 limited
+  - 不适用返回 skipped；执行或计算错误不得冒充事实缺失
+  completion_criteria:
+  - 所选问题已回答，输入与范围匹配、步骤有记录
+  - 新主张核对证据支持，计算实际复算，限制与假设可见
+  validation_status: instruction_defined_not_behavior_validated
+- method_id: competitive_response_analysis
+  version: 1.0.0
+  display_name: Competitive Response Analysis
+  purpose: 分析竞争策略与可能反应
+  triggers:
+  - 用户问行动可能引发何种竞争反应
+  required_inputs:
+  - decision_scenario
+  - actor_context
+  - evidence_records
+  optional_inputs:
+  - historical_responses
+  - own_context
+  execution_rules:
+  - 以历史动作、动机与约束生成多个有依据的情景
+  - 反应是分析假设，不声称知道对方内部意图或精确概率
+  - 缺我方背景不编我方行动方案，区分预警信号和已发生动作
+  output:
+  - response_scenarios
+  - observable_signals
+  - scenario_limits
+  - limitations
+  failure_handling:
+  - 缺必需输入返回 blocked 和具体缺口；独立已核验部分可标 limited
+  - 不适用返回 skipped；执行或计算错误不得冒充事实缺失
+  completion_criteria:
+  - 所选问题已回答，输入与范围匹配、步骤有记录
+  - 新主张核对证据支持，计算实际复算，限制与假设可见
+  validation_status: instruction_defined_not_behavior_validated
+- method_id: tam_analysis
+  version: 1.0.0
+  display_name: TAM Analysis
+  purpose: 分析明确定义范围的总市场机会
+  triggers:
+  - 用户要求总市场规模机会
+  required_inputs:
+  - market_boundary
+  - population_or_market_totals
+  - spend_basis
+  - evidence_records
+  optional_inputs:
+  - scenario_assumptions
+  execution_rules:
+  - 采用市场研究中的 TAM 口径与可核算输入，不以行业总量替代定义市场
+  - 自下而上群体去重，自上而下筛选有依据
+  - 假设、官方披露、第三方估算和 Agent 推算分开
+  output:
+  - tam_estimate
+  - calculation_trace
+  - assumptions
+  - limitations
+  failure_handling:
+  - 缺必需输入返回 blocked 和具体缺口；独立已核验部分可标 limited
+  - 不适用返回 skipped；执行或计算错误不得冒充事实缺失
+  completion_criteria:
+  - 所选问题已回答，输入与范围匹配、步骤有记录
+  - 新主张核对证据支持，计算实际复算，限制与假设可见
+  validation_status: instruction_defined_not_behavior_validated
+- method_id: sam_analysis
+  version: 1.0.0
+  display_name: SAM Analysis
+  purpose: 分析指定方案的可服务市场
+  triggers:
+  - 用户要求可服务部分
+  required_inputs:
+  - tam_basis
+  - offering_scope
+  - serviceability_constraints
+  - evidence_records
+  optional_inputs:
+  - scenario_assumptions
+  execution_rules:
+  - 记录指定方案，不默认我方产品
+  - 服务范围筛选有依据，不任取 TAM 百分比
+  - 按市场研究口径核对时期、重复计数及 SAM 与 TAM 关系
+  output:
+  - sam_estimate
+  - scope_filters
+  - assumptions
+  - limitations
+  failure_handling:
+  - 缺必需输入返回 blocked 和具体缺口；独立已核验部分可标 limited
+  - 不适用返回 skipped；执行或计算错误不得冒充事实缺失
+  completion_criteria:
+  - 所选问题已回答，输入与范围匹配、步骤有记录
+  - 新主张核对证据支持，计算实际复算，限制与假设可见
+  validation_status: instruction_defined_not_behavior_validated
+- method_id: som_analysis
+  version: 1.0.0
+  display_name: SOM Analysis
+  purpose: 分析期限及资源约束下可争取市场
+  triggers:
+  - 用户要求可获得市场情景
+  required_inputs:
+  - sam_basis
+  - planning_horizon
+  - capacity_and_reach
+  - acquisition_basis
+  - evidence_records
+  optional_inputs:
+  - scenario_assumptions
+  execution_rules:
+  - 必须有明确方案、期间、渠道与交付约束，不编我们的资源
+  - 不能用希望获得的份额反推结论；SOM 不等于当前市场份额
+  - 按市场研究规则核对上限和敏感性，缺关键依据不给确定数值
+  output:
+  - som_scenarios
+  - constraint_analysis
+  - assumptions
+  - limitations
+  failure_handling:
+  - 缺必需输入返回 blocked 和具体缺口；独立已核验部分可标 limited
+  - 不适用返回 skipped；执行或计算错误不得冒充事实缺失
+  completion_criteria:
+  - 所选问题已回答，输入与范围匹配、步骤有记录
+  - 新主张核对证据支持，计算实际复算，限制与假设可见
+  validation_status: instruction_defined_not_behavior_validated

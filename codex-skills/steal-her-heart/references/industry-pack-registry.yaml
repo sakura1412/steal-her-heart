@@ -1,0 +1,51 @@
+# Instruction catalog for Codex; no executable package manager or installed packs.
+registry_version: 1
+pack_contract_version: 1
+status: instruction_catalog
+runtime_loader: false
+semantics_document: industry-packs.md
+components:
+  industry_profile: 行业定义、细分、业务特征、适用边界及依据
+  dimension_schema: 按目标选择的候选问题、定义、类型及证据要求
+  metric_dictionary: 指标含义、公式、单位、口径、输入及缺失处理
+  source_recommendation: 来源类别、能力要求与偏差；接入状态另核
+  analysis_method: 引用分析方法目录的精确版本及行业适用条件；专业变体有命名空间与差异
+  report_template: 可选模块、决策问题映射、证据与缺口呈现
+entry_required_fields:
+  pack_id: 稳定包身份
+  namespace: 条目标识的命名空间
+  version: major.minor.patch；同版本内容不可变
+  contract_version: 此包遵循的契约版本
+  provenance: 来源、维护者、材料及可追溯位置
+  usage_terms: 用途、许可或明确未知；未知不自动允许公开分发
+  applicability: 对象、目的、实体层级、地区、时期及使用端条件
+  resources: 六部分资源引用及内容空缺说明
+  dependencies: 包身份、允许版本、required／optional、条目和用途
+  compatibility: 契约、字段语义、指标口径、工具能力和输出约束
+  validation_records: 实际检查范围、版本、材料、方法、结果和日期；未检查可为空
+  lifecycle_status: draft／reviewed／deprecated／withdrawn
+validation_layers: [structure, semantics, task_applicability, behavior]
+validation_statuses: [not_run, passed, failed, inconclusive]
+compatibility_statuses: [compatible, conditional, incompatible, unknown]
+selection_record_fields:
+  - exact_pack_versions
+  - content_fingerprints_or_snapshots
+  - selected_items_and_reasons
+  - resolved_dependency_versions
+  - compatibility_and_validation_results
+  - customization_diff_and_version
+  - unresolved_gaps_and_reproducibility_limits
+overlay_required_fields:
+  - overlay_id
+  - version
+  - base_pack_id
+  - base_version
+  - changed_items_and_reasons
+  - scope_and_provenance
+  - validation_records
+marketplace:
+  status: long_term_plan
+  automatic_install: false
+  automatic_publish: false
+  automatic_update: false
+entries: []

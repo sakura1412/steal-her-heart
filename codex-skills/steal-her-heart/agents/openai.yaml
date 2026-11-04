@@ -1,4 +1,4 @@
 interface:
-  display_name: "Steal Her Heart（开发预览）"
-  short_description: "开发预览：Python研究链未就绪；初始化与工程验证，Codex辅助研究需联网核查"
-  default_prompt: "使用 $steal-her-heart，先说明开发预览的能力边界与所用路径，再采用我给出的产品名称辅助研究；没有名称再问名称。"
+  display_name: "Steal Her Heart"
+  short_description: "在 Codex 中研究产品、企业、市场与竞争问题，核验证据并动态选择分析方法"
+  default_prompt: "使用 $steal-her-heart 分析我提供的研究对象或主题，按需澄清、核验证据并给出结论与缺口。"
