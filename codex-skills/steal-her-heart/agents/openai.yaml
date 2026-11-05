@@ -1,4 +1,4 @@
 interface:
   display_name: "steal her heart"
-  short_description: "正式版：在 Codex 中研究产品、企业、市场与竞争问题，核验证据并动态选择分析方法"
-  default_prompt: "使用 $steal-her-heart 分析我提供的研究对象或主题，角色和类型合并一次可选提问，默认通用读者与一般版，同时开始轻量研究，核验证据并默认生成 PDF，交付后询问是否需要 PPT。"
+  short_description: "竞品分析与竞争情报：研究竞争对手、产品、企业与市场，核验证据并生成报告"
+  default_prompt: "使用 $steal-her-heart 完成我的竞品分析或竞争情报研究；交互与交付遵循技能中的 references/report-delivery.md。"

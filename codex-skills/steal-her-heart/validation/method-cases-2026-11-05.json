@@ -1,0 +1,533 @@
+{
+  "date": "2026-11-05",
+  "timezone": "Asia/Shanghai",
+  "notice": "All inputs are synthetic. Outputs were applied and reviewed by the current Codex task, not an independent evaluator. Structural checks and deterministic arithmetic run separately.",
+  "calculations": {
+    "actual": {
+      "annual_a": 1200,
+      "annual_b": 1440,
+      "annual_difference": 240,
+      "monthly_equivalent_a": 100.0,
+      "trend_growth": 0.25,
+      "tam": 1200000,
+      "sam": 720000,
+      "som_customers": 80,
+      "som_low_customers": 50
+    },
+    "expected": {
+      "annual_a": 1200,
+      "annual_b": 1440,
+      "annual_difference": 240,
+      "monthly_equivalent_a": 100,
+      "trend_growth": 0.25,
+      "tam": 1200000,
+      "sam": 720000,
+      "som_customers": 80,
+      "som_low_customers": 50
+    },
+    "result": "passed"
+  },
+  "cases": [
+    {
+      "method_id": "swot",
+      "method_version": "1.0.0",
+      "definition_sha256": "3f3d44fd8df66295989a75fafac5787e1df5c3b86194435464d523ef44affa34",
+      "execution_kind": "codex_manual_controlled_case",
+      "dataset_type": "synthetic_not_current_research",
+      "question": "对合成产品 A 做战略因素整理",
+      "input_bindings": {
+        "subject_scope": "A 当前产品，不涉及我方",
+        "evidence_records": "S1 产品记录支持离线；S2 用户访谈确认离线可用；S3 竞争者新发布离线功能",
+        "internal_external_context": "离线实现为内部能力；竞品新功能为外部变化"
+      },
+      "observed_output": {
+        "strengths_weaknesses": "优势：A 有离线能力，但无性能基线，不称领先；劣势：未知",
+        "opportunities_threats": "机会：未取得机会证据；威胁：竞品能力趋同，影响是判断",
+        "implications": "验证客户是否仍以离线能力作为选择条件",
+        "limitations": "未填满四象限，无我方策略"
+      },
+      "boundary_input": "删除 internal_external_context",
+      "observed_boundary_response": "blocked：先补内部／外部归属，不把缺失象限填成事实",
+      "review_result": "reviewed_with_limits",
+      "reviewer": "same Codex task; not independent or blinded",
+      "limitations": [
+        "Not a live market study",
+        "No standalone method executor is claimed",
+        "Single controlled case per method cannot establish general accuracy"
+      ]
+    },
+    {
+      "method_id": "pestle",
+      "method_version": "1.0.0",
+      "definition_sha256": "d48e38755b4931153cc5b2629a5083cec1dea611b3c9b88eb333f43088e2c980",
+      "execution_kind": "codex_manual_controlled_case",
+      "dataset_type": "synthetic_not_current_research",
+      "question": "分析合成地区 R 对行业的外部变化",
+      "input_bindings": {
+        "market_scope": "R 的指定行业",
+        "time_window": "2026 年",
+        "macro_evidence": "S1 2027 年拟议规则，尚未生效；S2 监管程序说明仍处于征询阶段"
+      },
+      "observed_output": {
+        "relevant_factors": "只纳入法律因素；其余因素无材料",
+        "impact_paths": "若生效可能增加记录义务，作为条件分析",
+        "uncertainties": "是否通过及实施日期未定",
+        "limitations": "不把提案写成当前法律义务"
+      },
+      "boundary_input": "把提案当作现行法律",
+      "observed_boundary_response": "limited：纠正为拟议条件，不给确定合规结论",
+      "review_result": "reviewed_with_limits",
+      "reviewer": "same Codex task; not independent or blinded",
+      "limitations": [
+        "Not a live market study",
+        "No standalone method executor is claimed",
+        "Single controlled case per method cannot establish general accuracy"
+      ]
+    },
+    {
+      "method_id": "five_forces",
+      "method_version": "1.0.0",
+      "definition_sha256": "09c2d73e765d5eb89f453c7c348632c55e3ae3d65a471e4f9d691e012ddc2b76",
+      "execution_kind": "codex_manual_controlled_case",
+      "dataset_type": "synthetic_not_current_research",
+      "question": "分析合成市场的竞争关系",
+      "input_bindings": {
+        "market_boundary": "R 地区面向小商户的服务",
+        "actor_relations": "S1 买家可自建；S2 客户访谈确认人工替代；供应商只有线索",
+        "evidence_records": "S1/S2 原始合成资料，其他力量缺证"
+      },
+      "observed_output": {
+        "force_assessment": "替代路径：人工和自建；供应方、进入者等保留未知",
+        "structural_implications": "人工替代可能限制购买意愿，需核切换成本",
+        "evidence_gaps": "供应集中度和新进入壁垒未知",
+        "limitations": "不根据只发现两家公司判断竞争弱"
+      },
+      "boundary_input": "仅提供两家企业名单",
+      "observed_boundary_response": "blocked：名单不足以建立五种竞争关系",
+      "review_result": "reviewed_with_limits",
+      "reviewer": "same Codex task; not independent or blinded",
+      "limitations": [
+        "Not a live market study",
+        "No standalone method executor is claimed",
+        "Single controlled case per method cannot establish general accuracy"
+      ]
+    },
+    {
+      "method_id": "benchmarking",
+      "method_version": "1.0.0",
+      "definition_sha256": "5ce4a3aa4813afed413e6dd7e16696483f1dbf5e3f4cfa9baf7b2a980401df96",
+      "execution_kind": "codex_manual_controlled_case",
+      "dataset_type": "synthetic_not_current_research",
+      "question": "比较合成 A 与指定标杆 B 的交付速度",
+      "input_bindings": {
+        "comparable_group": "同地区同服务范围与相同起止定义",
+        "benchmark_basis": "用户指定 B，非声称其全行业最佳",
+        "evidence_records": "S1 A 用时 4 天；S2 B 用时 2 天；流程材料显示不同环节"
+      },
+      "observed_output": {
+        "benchmark_comparison": "A 比 B 多 2 天，仅在此范围",
+        "transfer_conditions": "复用 B 流程需核资源与审批条件",
+        "recommendations": "先测试慢环节，不承诺收益",
+        "limitations": "两条观察不是总体均值"
+      },
+      "boundary_input": "B 的服务范围改为一半",
+      "observed_boundary_response": "blocked：退出直接标杆速度排名，先统一范围",
+      "review_result": "reviewed_with_limits",
+      "reviewer": "same Codex task; not independent or blinded",
+      "limitations": [
+        "Not a live market study",
+        "No standalone method executor is claimed",
+        "Single controlled case per method cannot establish general accuracy"
+      ]
+    },
+    {
+      "method_id": "feature_matrix",
+      "method_version": "1.0.0",
+      "definition_sha256": "6e81fb3f81a9850b6e07c162a9b10135b0c80c2939a01cfaebb0a9064417a3ca",
+      "execution_kind": "codex_manual_controlled_case",
+      "dataset_type": "synthetic_not_current_research",
+      "question": "比较离线任务支持",
+      "input_bindings": {
+        "comparable_group": "A/B 同版本地区；C 仅作为市场参考",
+        "capability_definitions": "能否无网络完成指定任务",
+        "evidence_records": "S1 A 明确支持；S2 B 未提及；S3 C 是到店服务"
+      },
+      "observed_output": {
+        "capability_matrix": "A=支持；B=未知；C=不适用且不参与直接比较",
+        "differences": "只确认 A，有关 B 的缺口待补",
+        "coverage": "必需软件单元 1/2，50%",
+        "limitations": "不计功能总数或给排名"
+      },
+      "boundary_input": "把 B 未提及映射为不支持",
+      "observed_boundary_response": "limited：保持未知，拒绝填零",
+      "review_result": "reviewed_with_limits",
+      "reviewer": "same Codex task; not independent or blinded",
+      "limitations": [
+        "Not a live market study",
+        "No standalone method executor is claimed",
+        "Single controlled case per method cannot establish general accuracy"
+      ]
+    },
+    {
+      "method_id": "price_analysis",
+      "method_version": "1.0.0",
+      "definition_sha256": "fbce829586f98dde95445c9ca3dcf5749055bd2dab21f53013c9a873aafbeb11",
+      "execution_kind": "codex_manual_controlled_case",
+      "dataset_type": "synthetic_not_current_research",
+      "question": "比较合成 A/B 一年费用",
+      "input_bindings": {
+        "offer_records": "S1 A 年付1200；S2 B 月付120；均同币种同税费、同席位同功能",
+        "comparison_scope": "同地区一年使用，A/B 可比",
+        "evidence_records": "S1/S2 完整合成报价及有效条件"
+      },
+      "observed_output": {
+        "pricing_structure": "A 只能年付；B 可月付",
+        "scenario_costs": {
+          "annual_a": 1200,
+          "annual_b": 1440,
+          "annual_difference": 240,
+          "monthly_equivalent_a": 100.0,
+          "trend_growth": 0.25,
+          "tam": 1200000,
+          "sam": 720000,
+          "som_customers": 80,
+          "som_low_customers": 50
+        },
+        "pricing_limitations": "公开标价，不是成交底价",
+        "limitations": "A 月均100不等于可以月付100"
+      },
+      "boundary_input": "B 改按未知使用量收费",
+      "observed_boundary_response": "blocked：用量情景不足，不计算总价或排名",
+      "review_result": "reviewed_with_limits",
+      "reviewer": "same Codex task; not independent or blinded",
+      "limitations": [
+        "Not a live market study",
+        "No standalone method executor is claimed",
+        "Single controlled case per method cannot establish general accuracy"
+      ]
+    },
+    {
+      "method_id": "positioning_map",
+      "method_version": "1.0.0",
+      "definition_sha256": "20069dbb3b60ef7c2dbdd7d6a25243e9ae29f90604081d6699664da071bd94ae",
+      "execution_kind": "codex_manual_controlled_case",
+      "dataset_type": "synthetic_not_current_research",
+      "question": "用价格与服务范围比较合成对象",
+      "input_bindings": {
+        "comparison_scope": "A/B 同市场，不做能力排名",
+        "axis_definitions": "价格为同周期标价；服务范围仅定性分类",
+        "evidence_records": "S1 A价格1200且范围基础；S2 B价格1440且范围扩展"
+      },
+      "observed_output": {
+        "position_map_data": "A=(1200,基础)；B=(1440,扩展)，第二轴为类别",
+        "position_explanation": "由实际报价与服务说明定位",
+        "uncertainty": "不把类别编码当连续分数",
+        "limitations": "没有用户认知坐标或品质结论"
+      },
+      "boundary_input": "缺少 B 服务范围",
+      "observed_boundary_response": "limited：B 第二轴留未知，不补坐标",
+      "review_result": "reviewed_with_limits",
+      "reviewer": "same Codex task; not independent or blinded",
+      "limitations": [
+        "Not a live market study",
+        "No standalone method executor is claimed",
+        "Single controlled case per method cannot establish general accuracy"
+      ]
+    },
+    {
+      "method_id": "value_chain_analysis",
+      "method_version": "1.0.0",
+      "definition_sha256": "269d54044f1ebd91aa7af2e78849353ca7fda2b291d1462d882742993422924d",
+      "execution_kind": "codex_manual_controlled_case",
+      "dataset_type": "synthetic_not_current_research",
+      "question": "分析合成供应合作关系",
+      "input_bindings": {
+        "activity_scope": "制造到分销",
+        "actor_relations": "S1 制造商与渠道合作；S2 合同有独家地区条款",
+        "evidence_records": "原始合成协议和流程记录"
+      },
+      "observed_output": {
+        "activity_map": "制造→渠道→客户；合作边不是所有权",
+        "dependencies": "地区独家形成渠道依赖",
+        "opportunities": "验证替代渠道可行性，作为机会假设",
+        "limitations": "成本与利润分配未知"
+      },
+      "boundary_input": "要求按合作关系估算利润率",
+      "observed_boundary_response": "blocked：缺成本收入依据，不输出比例",
+      "review_result": "reviewed_with_limits",
+      "reviewer": "same Codex task; not independent or blinded",
+      "limitations": [
+        "Not a live market study",
+        "No standalone method executor is claimed",
+        "Single controlled case per method cannot establish general accuracy"
+      ]
+    },
+    {
+      "method_id": "business_model_canvas",
+      "method_version": "1.0.0",
+      "definition_sha256": "5e590d5daba05f698a9e61dc652f1c889770403a43561b8e177e12bada7d9c52",
+      "execution_kind": "codex_manual_controlled_case",
+      "dataset_type": "synthetic_not_current_research",
+      "question": "整理合成服务商业模式",
+      "input_bindings": {
+        "subject_scope": "单一服务产品，不外推母公司",
+        "business_activity_evidence": "S1 年订阅条款；S2 客户与交付说明；无成本资料"
+      },
+      "observed_output": {
+        "business_model_structure": "客户、订阅收入、在线交付可描述，成本结构未知",
+        "model_relationships": "订阅与持续服务关联是判断",
+        "open_questions": "待核续费、渠道费用、成本",
+        "limitations": "不填满画布未知模块"
+      },
+      "boundary_input": "要求把产品收入当集团收入",
+      "observed_boundary_response": "blocked：主体不匹配，保留产品层数据",
+      "review_result": "reviewed_with_limits",
+      "reviewer": "same Codex task; not independent or blinded",
+      "limitations": [
+        "Not a live market study",
+        "No standalone method executor is claimed",
+        "Single controlled case per method cannot establish general accuracy"
+      ]
+    },
+    {
+      "method_id": "customer_journey",
+      "method_version": "1.0.0",
+      "definition_sha256": "5f0f586d497202231194695cdacab1d1adb9fef750cd1a142a8766aa3d6e59fe",
+      "execution_kind": "codex_manual_controlled_case",
+      "dataset_type": "synthetic_not_current_research",
+      "question": "分析合成用户从注册到首次任务",
+      "input_bindings": {
+        "customer_scope": "新用户使用 Web",
+        "journey_scope": "注册→配置→首次任务",
+        "evidence_records": "S1 流程观察；S2 三条用户反馈配置较难"
+      },
+      "observed_output": {
+        "journey_map": "三阶段按实际观察，App 未研究",
+        "frictions": "样本反馈配置有阻力，不代表全体",
+        "validation_actions": "开展配置步骤测试并记录完成率",
+        "limitations": "没有漏斗分母，不声称转化提升"
+      },
+      "boundary_input": "要求根据页面改动证明留存上升",
+      "observed_boundary_response": "blocked：缺留存时序与因果依据",
+      "review_result": "reviewed_with_limits",
+      "reviewer": "same Codex task; not independent or blinded",
+      "limitations": [
+        "Not a live market study",
+        "No standalone method executor is claimed",
+        "Single controlled case per method cannot establish general accuracy"
+      ]
+    },
+    {
+      "method_id": "market_segmentation",
+      "method_version": "1.0.0",
+      "definition_sha256": "ff2bd11905d5b1a498731f506eb029ba11f5ed53656665157ac1398759735dd9",
+      "execution_kind": "codex_manual_controlled_case",
+      "dataset_type": "synthetic_not_current_research",
+      "question": "按规模和渠道描述合成市场样本",
+      "input_bindings": {
+        "market_boundary": "R 地区样本，不是全市场",
+        "segmentation_basis": "规模与渠道是两组可重叠标签",
+        "evidence_records": "S1 30个小企业；S2 20个线上企业；交集10个，来自同一50家样本"
+      },
+      "observed_output": {
+        "segments": "小企业30；线上20；交集10",
+        "segment_differences": "两个维度描述选择条件",
+        "overlap_limits": "并集40，不将30+20称为不同客户数",
+        "limitations": "无全市场总体，不算市场份额"
+      },
+      "boundary_input": "交集未知但要求并集",
+      "observed_boundary_response": "limited：只能分别列标签，不能直接相加",
+      "review_result": "reviewed_with_limits",
+      "reviewer": "same Codex task; not independent or blinded",
+      "limitations": [
+        "Not a live market study",
+        "No standalone method executor is claimed",
+        "Single controlled case per method cannot establish general accuracy"
+      ]
+    },
+    {
+      "method_id": "trend_analysis",
+      "method_version": "1.0.0",
+      "definition_sha256": "36c63279d37734be8bf8c1adcdf6c865e8c89c40f4c05631566e66ccfcb5501e",
+      "execution_kind": "codex_manual_controlled_case",
+      "dataset_type": "synthetic_not_current_research",
+      "question": "分析合成同口径两期数量变化",
+      "input_bindings": {
+        "time_series_evidence": "S1 基期100；S2 后期125，统计定义一致",
+        "metric_definitions": "同地区同类订单年度计数",
+        "time_window": "两个连续完整年度"
+      },
+      "observed_output": {
+        "trend_findings": "观察增长，不当长期趋势预测",
+        "change_measures": {
+          "growth": 0.25,
+          "absolute_change": 25
+        },
+        "forecast_limits": "两期不足以区分季节和结构因素",
+        "limitations": "没有未来增速保证"
+      },
+      "boundary_input": "基期改为零",
+      "observed_boundary_response": "blocked：常规增长率未定义，仍可给绝对变化",
+      "review_result": "reviewed_with_limits",
+      "reviewer": "same Codex task; not independent or blinded",
+      "limitations": [
+        "Not a live market study",
+        "No standalone method executor is claimed",
+        "Single controlled case per method cannot establish general accuracy"
+      ]
+    },
+    {
+      "method_id": "capability_gap_analysis",
+      "method_version": "1.0.0",
+      "definition_sha256": "c25c9599f03db74306ff0140cd2d9cbc423c5f5a7eeffb8153879fbe36f38d26",
+      "execution_kind": "codex_manual_controlled_case",
+      "dataset_type": "synthetic_not_current_research",
+      "question": "分析合成可比产品的能力差距",
+      "input_bindings": {
+        "comparable_capabilities": "同场景离线任务；A有，B未知，C不适用不入组",
+        "evidence_records": "S1 A说明；S2 B未披露，来源不足",
+        "comparison_scope": "A/B同市场版本的用户任务"
+      },
+      "observed_output": {
+        "capability_comparison": "A支持，B未知",
+        "gap_analysis": "这是 B 的证据缺口，不是已证明能力短板",
+        "limitations": "不评分，不编我方优势",
+        "recommendations": "补查 B 的操作文档或实测，再评估差距"
+      },
+      "boundary_input": "要求将 B 未知计0分",
+      "observed_boundary_response": "blocked：拒绝以未知数值做差距排名",
+      "review_result": "reviewed_with_limits",
+      "reviewer": "same Codex task; not independent or blinded",
+      "limitations": [
+        "Not a live market study",
+        "No standalone method executor is claimed",
+        "Single controlled case per method cannot establish general accuracy"
+      ]
+    },
+    {
+      "method_id": "competitive_response_analysis",
+      "method_version": "1.0.0",
+      "definition_sha256": "c5455de1de05fddd3cb8b4b546ad85ee03ac0196b104f7bc4850b5e9383af4f4",
+      "execution_kind": "codex_manual_controlled_case",
+      "dataset_type": "synthetic_not_current_research",
+      "question": "评估合成竞争者面对降价的可能反应",
+      "input_bindings": {
+        "decision_scenario": "某对象计划降价，用户未提供我方背景",
+        "actor_context": "S1 对方历史曾促销；S2 对方公开重视服务承诺",
+        "evidence_records": "两个独立合成观察来源，无内部计划"
+      },
+      "observed_output": {
+        "response_scenarios": "情景一短期促销；情景二保持价格强调服务；均为假设",
+        "observable_signals": "关注价格页与服务承诺的可观察变化",
+        "scenario_limits": "无概率与内部意图证据",
+        "limitations": "不生成虚构我方资源计划"
+      },
+      "boundary_input": "要求输出反应概率80%",
+      "observed_boundary_response": "blocked：无校准模型或样本，不给精确概率",
+      "review_result": "reviewed_with_limits",
+      "reviewer": "same Codex task; not independent or blinded",
+      "limitations": [
+        "Not a live market study",
+        "No standalone method executor is claimed",
+        "Single controlled case per method cannot establish general accuracy"
+      ]
+    },
+    {
+      "method_id": "tam_analysis",
+      "method_version": "1.0.0",
+      "definition_sha256": "73319c7c32607a30ee9e7c9c223babaed3ef5afa4c71c3a0ce2b5e2ea27bb4bb",
+      "execution_kind": "codex_manual_controlled_case",
+      "dataset_type": "synthetic_not_current_research",
+      "question": "计算合成市场年度潜在支出",
+      "input_bindings": {
+        "market_boundary": "1000个不重复且合定义的单位",
+        "population_or_market_totals": "S1 总数1000",
+        "spend_basis": "S2 每单位每年1200，作为统一情景假设",
+        "evidence_records": "S1/S2 合成输入，可追溯但不是外部市场事实"
+      },
+      "observed_output": {
+        "tam_estimate": {
+          "currency_per_year": 1200000
+        },
+        "calculation_trace": "1000×1200=1200000",
+        "assumptions": "单位全部采购及统一支出属于情景假设",
+        "limitations": "不是现实销售额或已核验市场规模"
+      },
+      "boundary_input": "1000包含重复客户且无法去重",
+      "observed_boundary_response": "blocked：无法确定总体，不给确定TAM",
+      "review_result": "reviewed_with_limits",
+      "reviewer": "same Codex task; not independent or blinded",
+      "limitations": [
+        "Not a live market study",
+        "No standalone method executor is claimed",
+        "Single controlled case per method cannot establish general accuracy"
+      ]
+    },
+    {
+      "method_id": "sam_analysis",
+      "method_version": "1.0.0",
+      "definition_sha256": "2eb794cc80fa68cfa8fd83618977dc46c1280fe12023e1aad9e03e2616672e36",
+      "execution_kind": "codex_manual_controlled_case",
+      "dataset_type": "synthetic_not_current_research",
+      "question": "计算合成方案可服务市场",
+      "input_bindings": {
+        "tam_basis": "上个合成TAM1200000，1000单位",
+        "offering_scope": "特定方案只服务地区R1",
+        "serviceability_constraints": "S3 同一总体中可服务且去重600单位",
+        "evidence_records": "S1/S2/S3 合成输入"
+      },
+      "observed_output": {
+        "sam_estimate": {
+          "currency_per_year": 720000
+        },
+        "scope_filters": "600×1200=720000，不任取百分比",
+        "assumptions": "价格和服务约束同TAM时期",
+        "limitations": "该方案不是虚构的我方产品"
+      },
+      "boundary_input": "仅说预计服务TAM的60%，无筛选依据",
+      "observed_boundary_response": "blocked：缺可服务约束证据，不套比例",
+      "review_result": "reviewed_with_limits",
+      "reviewer": "same Codex task; not independent or blinded",
+      "limitations": [
+        "Not a live market study",
+        "No standalone method executor is claimed",
+        "Single controlled case per method cannot establish general accuracy"
+      ]
+    },
+    {
+      "method_id": "som_analysis",
+      "method_version": "1.0.0",
+      "definition_sha256": "42da2da753b8a14e40116670e45bea9a35a6eeb0387f38e7644d550c11d4d8f1",
+      "execution_kind": "codex_manual_controlled_case",
+      "dataset_type": "synthetic_not_current_research",
+      "question": "计算合成方案一年可获范围",
+      "input_bindings": {
+        "sam_basis": "600单位、720000/年",
+        "planning_horizon": "未来一年情景",
+        "capacity_and_reach": "S4交付上限80；S5可触达1000",
+        "acquisition_basis": "S6样本转化率情景5%～10%，不是保证",
+        "evidence_records": "S3/S4/S5/S6合成输入"
+      },
+      "observed_output": {
+        "som_scenarios": {
+          "customers_low": 50,
+          "customers_high": 80,
+          "revenue_low": 60000,
+          "revenue_high": 96000
+        },
+        "constraint_analysis": "min(600,80,1000×转化率)，高情景受交付上限约束",
+        "assumptions": "转化率适用性及市场变化未确定",
+        "limitations": "未来情景不等于当前份额"
+      },
+      "boundary_input": "缺交付能力但要求预计占SAM的10%",
+      "observed_boundary_response": "blocked：不能用目标份额替代能力与获客约束",
+      "review_result": "reviewed_with_limits",
+      "reviewer": "same Codex task; not independent or blinded",
+      "limitations": [
+        "Not a live market study",
+        "No standalone method executor is claimed",
+        "Single controlled case per method cannot establish general accuracy"
+      ]
+    }
+  ]
+}

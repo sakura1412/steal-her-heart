@@ -1,5 +1,7 @@
 # Analysis Method Registry
 
+当前逐项覆盖见 [验证记录](../validation/README.md)，验证元信息单独记录，不改变方法定义版本。
+
 方法定义独立于研究流程，机器可读单源为 [analysis-method-registry.yaml](analysis-method-registry.yaml)。目录提供 Codex 可读的执行契约，不是已部署算法库，也不证明方法已在真实案例验收。方法的专业行业变体经 IndustryPack 引用或扩展，不在核心 Prompt 写死。
 
 ## 选择时点与触发

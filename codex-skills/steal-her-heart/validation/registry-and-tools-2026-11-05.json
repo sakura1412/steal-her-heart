@@ -1,0 +1,59 @@
+{
+  "date": "2026-11-05",
+  "catalog_structure": "passed",
+  "method_count": 17,
+  "connector_instances": {
+    "count": 0,
+    "instance_validation": "not_run_no_instances"
+  },
+  "industry_pack_instances": {
+    "count": 0,
+    "instance_validation": "not_run_no_instances"
+  },
+  "host_tool_smoke_checks": [
+    {
+      "tool": "web.run.search_query",
+      "input": "site.python.org downloads Python",
+      "observed": "Returned search results with source URLs",
+      "result": "retrieved",
+      "limitations": [
+        "Search result content was not treated as verified facts"
+      ]
+    },
+    {
+      "tool": "web.run.open",
+      "input": "https://www.python.org/downloads/",
+      "observed": "Text returned with explicit script-not-run fallback notice",
+      "result": "partial",
+      "limitations": [
+        "JavaScript behavior not verified",
+        "No crawl or pagination tested"
+      ]
+    },
+    {
+      "tool": "web.run.open",
+      "input": "https://docs.python.org/3/tutorial/",
+      "observed": "Tutorial text and navigation returned",
+      "result": "retrieved",
+      "limitations": [
+        "Only this public document read was tested"
+      ]
+    },
+    {
+      "tool": "GitHub connector fetch",
+      "input": "https://api.github.com/repos/sakura1412/steal-her-heart/git/ref/heads/main",
+      "observed": "refs/heads/main and commit SHA returned",
+      "result": "retrieved",
+      "limitations": [
+        "Only this repository endpoint and current authorization tested"
+      ]
+    }
+  ],
+  "not_run": [
+    "Adapter instance behavior: none registered",
+    "IndustryPack behavior: none registered",
+    "Independent live evaluation for each method",
+    "Dynamic browser workflows",
+    "PDF/PPT end-to-end evaluation in this validation task"
+  ]
+}

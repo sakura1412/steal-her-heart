@@ -1,6 +1,12 @@
 # 研究台账、上下文与恢复
 
-本契约版本 `1.0.0`，使用 JSON Schema 2020-12：[逐条记录 Schema](../schemas/ledger-record.schema.json)、[检查点 Schema](../schemas/research-manifest.schema.json)。这定义 Codex 使用实际文件工具维护的工件，不代表已经部署数据库、迁移器或后台任务服务。JSON Schema 检查结构；下述引用、时效、预算及语义检查仍须实际执行。
+本契约版本 `1.1.0`（读取兼容 1.0.0；新增背景知识清单或报告背景引用时必须使用 1.1.0，旧快照不原地迁移），使用 JSON Schema 2020-12：[逐条记录 Schema](../schemas/ledger-record.schema.json)、[检查点 Schema](../schemas/research-manifest.schema.json)。这定义 Codex 使用实际文件工具维护的工件，不代表已经部署数据库、迁移器或后台任务服务。JSON Schema 检查结构；下述引用、时效、预算及语义检查仍须实际执行。
+
+## 版本目录命名
+
+`<revision>` 使用 `YYYYMMDDTHHMMSS+0800-rNNN-<8位随机十六进制>`，例如 `20261105T103000+0800-r001-a1b2c3d4`。时间采用用户指定时区，未指定时记录实际采用时区；NNN 为当前 subject 下递增序号。随机后缀防同秒冲突，创建前检查路径不存在，不覆盖。`safe-subject-id` 使用经过清理的短标识和稳定实体 ID，不把原始用户字符串当路径。此命名只表示工件版本，不表示产品版本或事实生效时间。
+
+`manifest.snapshot_id` 取该版本目录名，`parent_snapshot` 指前一完整检查点 ID 或 null。恢复在新目录写检查点，旧目录只读；相同事实快照的格式重排可在 reports 下使用 `report-rNNN.pdf/pptx` 并追加报告记录。
 
 ## 目录和权威数据
 
@@ -72,7 +78,7 @@ manifest 保存原始问题、目的、范围版本、当前阶段、偏好及�
 
 1. 先锁定一个已经核查的输入快照，实际计算 manifest 字节的 SHA-256；后续不得修改该快照。重要事实／判断必须已有可接纳的 Claim，支持链、时效和冲突通过 [质量策略](research-quality.md)。
 2. PDF 和 PPT **各自读取同一 input_snapshot_id 和 input_manifest_sha256**，按角色与详略组织内容；不得 PDF→PPT、PPT→PDF 或只读聊天摘要转写。两者可以布局不同，但数字、条件、结论与关键缺口一致。
-3. 每段事实、表格行、图形数据或幻灯片的事实／判断位置登记 claim_refs；纯标题可空，限制说明也应对应台账缺口或有引用的限制结论。发现正文中台账没有的新事实必须退回核查，不可只补一个装饰性编号。
+3. 每段事实、表格行、图形数据或幻灯片的事实／判断位置登记 claim_refs；背景解释登记 background_refs 并显式标注，不计事实覆盖；格式见 [背景知识规则](source-quality.md)。纯标题可空，限制说明也应对应台账缺口或有引用的限制结论。发现正文中台账没有的新事实必须退回核查，不可只补一个装饰性编号。
 4. 报告产物的元信息、引用映射和导出检查结果写入 reports/reports.jsonl，使用相同记录 Schema 的 report 类型；它不参与输入 manifest 哈希，避免自引用。文件实际生成后计算哈希，分别检查内容、引用、渲染与跨格式一致性，再标 qa_passed。
 5. 证据或 Claim 更新就生成新快照和新报告修订；若仅更改布局可继续引用原快照，但保存新的报告文件／报告记录，不覆盖旧产物。PDF 已生成、PPT 尚未生成时也不能修改旧输入台账。
 

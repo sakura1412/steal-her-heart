@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Background knowledge, excluded from factual evidence",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "background_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "basis": {
+      "enum": [
+        "model_background",
+        "local_method_reference"
+      ]
+    },
+    "reference": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "verification_status": {
+      "const": "not_verified_as_current_fact"
+    },
+    "intended_use": {
+      "enum": [
+        "definition",
+        "explanation",
+        "query_planning"
+      ]
+    },
+    "limitations": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "schema_version",
+    "background_id",
+    "text",
+    "basis",
+    "reference",
+    "verification_status",
+    "intended_use",
+    "limitations"
+  ],
+  "additionalProperties": false
+}

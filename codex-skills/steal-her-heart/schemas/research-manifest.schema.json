@@ -2,7 +2,10 @@
   "type": "object",
   "properties": {
     "schema_version": {
-      "const": "1.0.0"
+      "enum": [
+        "1.0.0",
+        "1.1.0"
+      ]
     },
     "snapshot_id": {
       "type": "string",
@@ -512,6 +515,28 @@
         "events.jsonl"
       ],
       "additionalProperties": false
+    },
+    "background_file": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "const": "background.jsonl"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "record_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "path",
+        "sha256",
+        "record_count"
+      ],
+      "additionalProperties": false
     }
   },
   "required": [
@@ -534,6 +559,22 @@
   ],
   "additionalProperties": false,
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:steal-her-heart:research-manifest:1.0.0",
-  "title": "Immutable research checkpoint manifest"
+  "$id": "urn:steal-her-heart:research-manifest:1.1.0",
+  "title": "Immutable research checkpoint manifest",
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "background_file"
+        ]
+      },
+      "then": {
+        "properties": {
+          "schema_version": {
+            "const": "1.1.0"
+          }
+        }
+      }
+    }
+  ]
 }

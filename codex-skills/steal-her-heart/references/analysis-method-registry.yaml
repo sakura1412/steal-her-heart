@@ -36,7 +36,15 @@ methods:
   completion_criteria:
   - 所选问题已回答，输入与范围匹配、步骤有记录
   - 新主张核对证据支持，计算实际复算，限制与假设可见
-  validation_status: instruction_defined_not_behavior_validated
+  validation_status: controlled_case_reviewed_not_live_validated
+  validation_records:
+  - date: '2026-11-05'
+    kind: manual_controlled_case
+    result: reviewed_with_limits
+    artifact: ../validation/method-cases-2026-11-05.json
+    case_id: swot
+    independent: false
+    live_research: false
 - method_id: pestle
   version: 1.0.0
   display_name: PESTLE
@@ -64,7 +72,15 @@ methods:
   completion_criteria:
   - 所选问题已回答，输入与范围匹配、步骤有记录
   - 新主张核对证据支持，计算实际复算，限制与假设可见
-  validation_status: instruction_defined_not_behavior_validated
+  validation_status: controlled_case_reviewed_not_live_validated
+  validation_records:
+  - date: '2026-11-05'
+    kind: manual_controlled_case
+    result: reviewed_with_limits
+    artifact: ../validation/method-cases-2026-11-05.json
+    case_id: pestle
+    independent: false
+    live_research: false
 - method_id: five_forces
   version: 1.0.0
   display_name: 五力模型
@@ -92,7 +108,15 @@ methods:
   completion_criteria:
   - 所选问题已回答，输入与范围匹配、步骤有记录
   - 新主张核对证据支持，计算实际复算，限制与假设可见
-  validation_status: instruction_defined_not_behavior_validated
+  validation_status: controlled_case_reviewed_not_live_validated
+  validation_records:
+  - date: '2026-11-05'
+    kind: manual_controlled_case
+    result: reviewed_with_limits
+    artifact: ../validation/method-cases-2026-11-05.json
+    case_id: five_forces
+    independent: false
+    live_research: false
 - method_id: benchmarking
   version: 1.0.0
   display_name: Benchmarking
@@ -120,7 +144,15 @@ methods:
   completion_criteria:
   - 所选问题已回答，输入与范围匹配、步骤有记录
   - 新主张核对证据支持，计算实际复算，限制与假设可见
-  validation_status: instruction_defined_not_behavior_validated
+  validation_status: controlled_case_reviewed_not_live_validated
+  validation_records:
+  - date: '2026-11-05'
+    kind: manual_controlled_case
+    result: reviewed_with_limits
+    artifact: ../validation/method-cases-2026-11-05.json
+    case_id: benchmarking
+    independent: false
+    live_research: false
 - method_id: feature_matrix
   version: 1.0.0
   display_name: Feature Matrix
@@ -148,7 +180,15 @@ methods:
   completion_criteria:
   - 所选问题已回答，输入与范围匹配、步骤有记录
   - 新主张核对证据支持，计算实际复算，限制与假设可见
-  validation_status: instruction_defined_not_behavior_validated
+  validation_status: controlled_case_reviewed_not_live_validated
+  validation_records:
+  - date: '2026-11-05'
+    kind: manual_controlled_case
+    result: reviewed_with_limits
+    artifact: ../validation/method-cases-2026-11-05.json
+    case_id: feature_matrix
+    independent: false
+    live_research: false
 - method_id: price_analysis
   version: 1.0.0
   display_name: Price Analysis
@@ -177,7 +217,15 @@ methods:
   completion_criteria:
   - 所选问题已回答，输入与范围匹配、步骤有记录
   - 新主张核对证据支持，计算实际复算，限制与假设可见
-  validation_status: instruction_defined_not_behavior_validated
+  validation_status: controlled_case_reviewed_not_live_validated
+  validation_records:
+  - date: '2026-11-05'
+    kind: manual_controlled_case
+    result: reviewed_with_limits
+    artifact: ../validation/method-cases-2026-11-05.json
+    case_id: price_analysis
+    independent: false
+    live_research: false
 - method_id: positioning_map
   version: 1.0.0
   display_name: Positioning Map
@@ -205,7 +253,15 @@ methods:
   completion_criteria:
   - 所选问题已回答，输入与范围匹配、步骤有记录
   - 新主张核对证据支持，计算实际复算，限制与假设可见
-  validation_status: instruction_defined_not_behavior_validated
+  validation_status: controlled_case_reviewed_not_live_validated
+  validation_records:
+  - date: '2026-11-05'
+    kind: manual_controlled_case
+    result: reviewed_with_limits
+    artifact: ../validation/method-cases-2026-11-05.json
+    case_id: positioning_map
+    independent: false
+    live_research: false
 - method_id: value_chain_analysis
   version: 1.0.0
   display_name: Value Chain Analysis
@@ -233,7 +289,15 @@ methods:
   completion_criteria:
   - 所选问题已回答，输入与范围匹配、步骤有记录
   - 新主张核对证据支持，计算实际复算，限制与假设可见
-  validation_status: instruction_defined_not_behavior_validated
+  validation_status: controlled_case_reviewed_not_live_validated
+  validation_records:
+  - date: '2026-11-05'
+    kind: manual_controlled_case
+    result: reviewed_with_limits
+    artifact: ../validation/method-cases-2026-11-05.json
+    case_id: value_chain_analysis
+    independent: false
+    live_research: false
 - method_id: business_model_canvas
   version: 1.0.0
   display_name: Business Model Canvas
@@ -261,7 +325,15 @@ methods:
   completion_criteria:
   - 所选问题已回答，输入与范围匹配、步骤有记录
   - 新主张核对证据支持，计算实际复算，限制与假设可见
-  validation_status: instruction_defined_not_behavior_validated
+  validation_status: controlled_case_reviewed_not_live_validated
+  validation_records:
+  - date: '2026-11-05'
+    kind: manual_controlled_case
+    result: reviewed_with_limits
+    artifact: ../validation/method-cases-2026-11-05.json
+    case_id: business_model_canvas
+    independent: false
+    live_research: false
 - method_id: customer_journey
   version: 1.0.0
   display_name: Customer Journey
@@ -290,7 +362,15 @@ methods:
   completion_criteria:
   - 所选问题已回答，输入与范围匹配、步骤有记录
   - 新主张核对证据支持，计算实际复算，限制与假设可见
-  validation_status: instruction_defined_not_behavior_validated
+  validation_status: controlled_case_reviewed_not_live_validated
+  validation_records:
+  - date: '2026-11-05'
+    kind: manual_controlled_case
+    result: reviewed_with_limits
+    artifact: ../validation/method-cases-2026-11-05.json
+    case_id: customer_journey
+    independent: false
+    live_research: false
 - method_id: market_segmentation
   version: 1.0.0
   display_name: Market Segmentation
@@ -318,7 +398,15 @@ methods:
   completion_criteria:
   - 所选问题已回答，输入与范围匹配、步骤有记录
   - 新主张核对证据支持，计算实际复算，限制与假设可见
-  validation_status: instruction_defined_not_behavior_validated
+  validation_status: controlled_case_reviewed_not_live_validated
+  validation_records:
+  - date: '2026-11-05'
+    kind: manual_controlled_case
+    result: reviewed_with_limits
+    artifact: ../validation/method-cases-2026-11-05.json
+    case_id: market_segmentation
+    independent: false
+    live_research: false
 - method_id: trend_analysis
   version: 1.0.0
   display_name: Trend Analysis
@@ -346,7 +434,15 @@ methods:
   completion_criteria:
   - 所选问题已回答，输入与范围匹配、步骤有记录
   - 新主张核对证据支持，计算实际复算，限制与假设可见
-  validation_status: instruction_defined_not_behavior_validated
+  validation_status: controlled_case_reviewed_not_live_validated
+  validation_records:
+  - date: '2026-11-05'
+    kind: manual_controlled_case
+    result: reviewed_with_limits
+    artifact: ../validation/method-cases-2026-11-05.json
+    case_id: trend_analysis
+    independent: false
+    live_research: false
 - method_id: capability_gap_analysis
   version: 1.0.0
   display_name: Capability Gap Analysis
@@ -375,7 +471,15 @@ methods:
   completion_criteria:
   - 所选问题已回答，输入与范围匹配、步骤有记录
   - 新主张核对证据支持，计算实际复算，限制与假设可见
-  validation_status: instruction_defined_not_behavior_validated
+  validation_status: controlled_case_reviewed_not_live_validated
+  validation_records:
+  - date: '2026-11-05'
+    kind: manual_controlled_case
+    result: reviewed_with_limits
+    artifact: ../validation/method-cases-2026-11-05.json
+    case_id: capability_gap_analysis
+    independent: false
+    live_research: false
 - method_id: competitive_response_analysis
   version: 1.0.0
   display_name: Competitive Response Analysis
@@ -404,7 +508,15 @@ methods:
   completion_criteria:
   - 所选问题已回答，输入与范围匹配、步骤有记录
   - 新主张核对证据支持，计算实际复算，限制与假设可见
-  validation_status: instruction_defined_not_behavior_validated
+  validation_status: controlled_case_reviewed_not_live_validated
+  validation_records:
+  - date: '2026-11-05'
+    kind: manual_controlled_case
+    result: reviewed_with_limits
+    artifact: ../validation/method-cases-2026-11-05.json
+    case_id: competitive_response_analysis
+    independent: false
+    live_research: false
 - method_id: tam_analysis
   version: 1.0.0
   display_name: TAM Analysis
@@ -433,7 +545,15 @@ methods:
   completion_criteria:
   - 所选问题已回答，输入与范围匹配、步骤有记录
   - 新主张核对证据支持，计算实际复算，限制与假设可见
-  validation_status: instruction_defined_not_behavior_validated
+  validation_status: controlled_case_reviewed_not_live_validated
+  validation_records:
+  - date: '2026-11-05'
+    kind: manual_controlled_case
+    result: reviewed_with_limits
+    artifact: ../validation/method-cases-2026-11-05.json
+    case_id: tam_analysis
+    independent: false
+    live_research: false
 - method_id: sam_analysis
   version: 1.0.0
   display_name: SAM Analysis
@@ -462,7 +582,15 @@ methods:
   completion_criteria:
   - 所选问题已回答，输入与范围匹配、步骤有记录
   - 新主张核对证据支持，计算实际复算，限制与假设可见
-  validation_status: instruction_defined_not_behavior_validated
+  validation_status: controlled_case_reviewed_not_live_validated
+  validation_records:
+  - date: '2026-11-05'
+    kind: manual_controlled_case
+    result: reviewed_with_limits
+    artifact: ../validation/method-cases-2026-11-05.json
+    case_id: sam_analysis
+    independent: false
+    live_research: false
 - method_id: som_analysis
   version: 1.0.0
   display_name: SOM Analysis
@@ -492,4 +620,12 @@ methods:
   completion_criteria:
   - 所选问题已回答，输入与范围匹配、步骤有记录
   - 新主张核对证据支持，计算实际复算，限制与假设可见
-  validation_status: instruction_defined_not_behavior_validated
+  validation_status: controlled_case_reviewed_not_live_validated
+  validation_records:
+  - date: '2026-11-05'
+    kind: manual_controlled_case
+    result: reviewed_with_limits
+    artifact: ../validation/method-cases-2026-11-05.json
+    case_id: som_analysis
+    independent: false
+    live_research: false

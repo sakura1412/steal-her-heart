@@ -813,6 +813,155 @@
           }
         }
       }
+    },
+    {
+      "case_id": "background-explanation",
+      "schema": "background-record.schema.json",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.0.0",
+        "background_id": "bg-synthetic",
+        "text": "Synthetic method explanation",
+        "basis": "model_background",
+        "reference": null,
+        "verification_status": "not_verified_as_current_fact",
+        "intended_use": "explanation",
+        "limitations": "Not evidence for a real object"
+      }
+    },
+    {
+      "case_id": "reject-background-as-verified-fact",
+      "schema": "background-record.schema.json",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.0.0",
+        "background_id": "bg-synthetic",
+        "text": "Synthetic method explanation",
+        "basis": "model_background",
+        "reference": null,
+        "verification_status": "verified",
+        "intended_use": "explanation",
+        "limitations": "Not evidence for a real object"
+      }
+    },
+    {
+      "case_id": "background-report-reference",
+      "schema": "ledger-record.schema.json",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.1.0",
+        "record_type": "report",
+        "record_id": "test-report",
+        "revision": 1,
+        "recorded_at": "2026-11-05T12:00:00+08:00",
+        "supersedes": null,
+        "data": {
+          "format": "pdf",
+          "artifact_path": null,
+          "artifact_sha256": null,
+          "input_snapshot_id": "test-snapshot",
+          "input_manifest_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "status": "failed",
+          "paragraphs": [
+            {
+              "location": "p1",
+              "claim_refs": [],
+              "kind": "background",
+              "background_refs": [
+                "bg-synthetic"
+              ]
+            }
+          ],
+          "checks": {
+            "content": "not_run",
+            "render": "not_run",
+            "citations": "not_run",
+            "cross_format_consistency": "not_applicable"
+          },
+          "failure_reason": "Synthetic missing exporter"
+        }
+      }
+    },
+    {
+      "case_id": "reject-background-with-evidence-claim",
+      "schema": "ledger-record.schema.json",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.1.0",
+        "record_type": "report",
+        "record_id": "test-report",
+        "revision": 1,
+        "recorded_at": "2026-11-05T12:00:00+08:00",
+        "supersedes": null,
+        "data": {
+          "format": "pdf",
+          "artifact_path": null,
+          "artifact_sha256": null,
+          "input_snapshot_id": "test-snapshot",
+          "input_manifest_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "status": "failed",
+          "paragraphs": [
+            {
+              "location": "p1",
+              "claim_refs": [
+                {
+                  "record_id": "claim1",
+                  "revision": 1
+                }
+              ],
+              "kind": "background",
+              "background_refs": [
+                "bg-synthetic"
+              ]
+            }
+          ],
+          "checks": {
+            "content": "not_run",
+            "render": "not_run",
+            "citations": "not_run",
+            "cross_format_consistency": "not_applicable"
+          },
+          "failure_reason": "Synthetic missing exporter"
+        }
+      }
+    },
+    {
+      "case_id": "reject-old-version-background-extension",
+      "schema": "ledger-record.schema.json",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.0.0",
+        "record_type": "report",
+        "record_id": "test-report",
+        "revision": 1,
+        "recorded_at": "2026-11-05T12:00:00+08:00",
+        "supersedes": null,
+        "data": {
+          "format": "pdf",
+          "artifact_path": null,
+          "artifact_sha256": null,
+          "input_snapshot_id": "test-snapshot",
+          "input_manifest_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "status": "failed",
+          "paragraphs": [
+            {
+              "location": "p1",
+              "claim_refs": [],
+              "kind": "background",
+              "background_refs": [
+                "bg-synthetic"
+              ]
+            }
+          ],
+          "checks": {
+            "content": "not_run",
+            "render": "not_run",
+            "citations": "not_run",
+            "cross_format_consistency": "not_applicable"
+          },
+          "failure_reason": "Synthetic missing exporter"
+        }
+      }
     }
   ]
 }
