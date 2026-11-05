@@ -1,0 +1,818 @@
+{
+  "notice": "Synthetic structural fixtures only. No real source, tool result, or semantic verification is claimed. Hashes are placeholders; do not ingest as research data.",
+  "cases": [
+    {
+      "case_id": "source",
+      "schema": "ledger-record.schema.json",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.0.0",
+        "record_type": "source",
+        "record_id": "test-source",
+        "revision": 1,
+        "recorded_at": "2026-11-05T12:00:00+08:00",
+        "supersedes": null,
+        "data": {
+          "url": "https://example.invalid/synthetic/pricing",
+          "title": "Synthetic fixture, not research evidence",
+          "source_type": "official",
+          "producer": "Synthetic producer",
+          "independence_group": "synthetic-group",
+          "independence_basis": "Test-only producer",
+          "collected_at": "2026-11-05T12:00:00+08:00",
+          "published_at": null,
+          "content_as_of": "2026-11-05T12:00:00+08:00",
+          "snapshot_path": null,
+          "snapshot_sha256": null,
+          "access_status": "read",
+          "access_limitations": [
+            "Synthetic fixture; no network fetch occurred"
+          ]
+        }
+      }
+    },
+    {
+      "case_id": "evidence",
+      "schema": "ledger-record.schema.json",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.0.0",
+        "record_type": "evidence",
+        "record_id": "test-evidence",
+        "revision": 1,
+        "recorded_at": "2026-11-05T12:00:00+08:00",
+        "supersedes": null,
+        "data": {
+          "entity_refs": [
+            {
+              "record_id": "test-entity",
+              "revision": 1
+            }
+          ],
+          "dimension_id": "price",
+          "source_ref": {
+            "record_id": "test-source",
+            "revision": 1
+          },
+          "content": "Synthetic plan billed yearly",
+          "original_excerpt": "Synthetic plan billed yearly",
+          "locator": "Synthetic paragraph 1",
+          "source_url": "https://example.invalid/synthetic/pricing",
+          "source_type": "official",
+          "collected_at": "2026-11-05T12:00:00+08:00",
+          "published_at": null,
+          "applicability": {
+            "region": "synthetic",
+            "version": null,
+            "channel": null,
+            "surface": null,
+            "period": "year",
+            "unit": null,
+            "billing_basis": "yearly"
+          },
+          "validity": {
+            "valid_from": "2026-11-05T12:00:00+08:00",
+            "valid_until": "2026-11-06T12:00:00+08:00",
+            "basis": "Synthetic 24 hour fixture"
+          },
+          "confidence": {
+            "level": "unknown",
+            "reason": "Synthetic test only"
+          },
+          "verification_status": "candidate",
+          "verification_reason": "No actual source verification"
+        }
+      }
+    },
+    {
+      "case_id": "claim",
+      "schema": "ledger-record.schema.json",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.0.0",
+        "record_type": "claim",
+        "record_id": "test-claim",
+        "revision": 1,
+        "recorded_at": "2026-11-05T12:00:00+08:00",
+        "supersedes": null,
+        "data": {
+          "text": "Synthetic example claim",
+          "claim_type": "official_statement",
+          "critical": true,
+          "fact_category": "price",
+          "scope_context": "Synthetic fixture",
+          "supporting_evidence": [
+            {
+              "record_id": "test-evidence",
+              "revision": 1
+            }
+          ],
+          "counter_evidence": [],
+          "conflict_refs": [],
+          "status": "unsupported",
+          "confidence": {
+            "level": "unknown",
+            "reason": "No actual verification"
+          },
+          "reasoning": "Structural test only",
+          "limitations": [
+            "Not a research result"
+          ],
+          "calculation": null
+        }
+      }
+    },
+    {
+      "case_id": "failed-export",
+      "schema": "ledger-record.schema.json",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.0.0",
+        "record_type": "report",
+        "record_id": "test-report",
+        "revision": 1,
+        "recorded_at": "2026-11-05T12:00:00+08:00",
+        "supersedes": null,
+        "data": {
+          "format": "pdf",
+          "artifact_path": null,
+          "artifact_sha256": null,
+          "input_snapshot_id": "test-snapshot",
+          "input_manifest_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "status": "failed",
+          "paragraphs": [],
+          "checks": {
+            "content": "not_run",
+            "render": "not_run",
+            "citations": "not_run",
+            "cross_format_consistency": "not_applicable"
+          },
+          "failure_reason": "Synthetic missing exporter"
+        }
+      }
+    },
+    {
+      "case_id": "noninteractive-checkpoint",
+      "schema": "research-manifest.schema.json",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.0.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "understanding",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "pending",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Not started"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        }
+      }
+    },
+    {
+      "case_id": "reject-no-original-excerpt",
+      "schema": "ledger-record.schema.json",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.0.0",
+        "record_type": "evidence",
+        "record_id": "test-evidence",
+        "revision": 1,
+        "recorded_at": "2026-11-05T12:00:00+08:00",
+        "supersedes": null,
+        "data": {
+          "entity_refs": [
+            {
+              "record_id": "test-entity",
+              "revision": 1
+            }
+          ],
+          "dimension_id": "price",
+          "source_ref": {
+            "record_id": "test-source",
+            "revision": 1
+          },
+          "content": "Synthetic plan billed yearly",
+          "locator": "Synthetic paragraph 1",
+          "source_url": "https://example.invalid/synthetic/pricing",
+          "source_type": "official",
+          "collected_at": "2026-11-05T12:00:00+08:00",
+          "published_at": null,
+          "applicability": {
+            "region": "synthetic",
+            "version": null,
+            "channel": null,
+            "surface": null,
+            "period": "year",
+            "unit": null,
+            "billing_basis": "yearly"
+          },
+          "validity": {
+            "valid_from": "2026-11-05T12:00:00+08:00",
+            "valid_until": "2026-11-06T12:00:00+08:00",
+            "basis": "Synthetic 24 hour fixture"
+          },
+          "confidence": {
+            "level": "unknown",
+            "reason": "Synthetic test only"
+          },
+          "verification_status": "candidate",
+          "verification_reason": "No actual source verification"
+        }
+      }
+    },
+    {
+      "case_id": "reject-unparseable-time",
+      "schema": "ledger-record.schema.json",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.0.0",
+        "record_type": "evidence",
+        "record_id": "test-evidence",
+        "revision": 1,
+        "recorded_at": "2026-11-05T12:00:00+08:00",
+        "supersedes": null,
+        "data": {
+          "entity_refs": [
+            {
+              "record_id": "test-entity",
+              "revision": 1
+            }
+          ],
+          "dimension_id": "price",
+          "source_ref": {
+            "record_id": "test-source",
+            "revision": 1
+          },
+          "content": "Synthetic plan billed yearly",
+          "original_excerpt": "Synthetic plan billed yearly",
+          "locator": "Synthetic paragraph 1",
+          "source_url": "https://example.invalid/synthetic/pricing",
+          "source_type": "official",
+          "collected_at": "yesterday",
+          "published_at": null,
+          "applicability": {
+            "region": "synthetic",
+            "version": null,
+            "channel": null,
+            "surface": null,
+            "period": "year",
+            "unit": null,
+            "billing_basis": "yearly"
+          },
+          "validity": {
+            "valid_from": "2026-11-05T12:00:00+08:00",
+            "valid_until": "2026-11-06T12:00:00+08:00",
+            "basis": "Synthetic 24 hour fixture"
+          },
+          "confidence": {
+            "level": "unknown",
+            "reason": "Synthetic test only"
+          },
+          "verification_status": "candidate",
+          "verification_reason": "No actual source verification"
+        }
+      }
+    },
+    {
+      "case_id": "reject-invented-status",
+      "schema": "ledger-record.schema.json",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.0.0",
+        "record_type": "evidence",
+        "record_id": "test-evidence",
+        "revision": 1,
+        "recorded_at": "2026-11-05T12:00:00+08:00",
+        "supersedes": null,
+        "data": {
+          "entity_refs": [
+            {
+              "record_id": "test-entity",
+              "revision": 1
+            }
+          ],
+          "dimension_id": "price",
+          "source_ref": {
+            "record_id": "test-source",
+            "revision": 1
+          },
+          "content": "Synthetic plan billed yearly",
+          "original_excerpt": "Synthetic plan billed yearly",
+          "locator": "Synthetic paragraph 1",
+          "source_url": "https://example.invalid/synthetic/pricing",
+          "source_type": "official",
+          "collected_at": "2026-11-05T12:00:00+08:00",
+          "published_at": null,
+          "applicability": {
+            "region": "synthetic",
+            "version": null,
+            "channel": null,
+            "surface": null,
+            "period": "year",
+            "unit": null,
+            "billing_basis": "yearly"
+          },
+          "validity": {
+            "valid_from": "2026-11-05T12:00:00+08:00",
+            "valid_until": "2026-11-06T12:00:00+08:00",
+            "basis": "Synthetic 24 hour fixture"
+          },
+          "confidence": {
+            "level": "unknown",
+            "reason": "Synthetic test only"
+          },
+          "verification_status": "probably-true",
+          "verification_reason": "No actual source verification"
+        }
+      }
+    },
+    {
+      "case_id": "reject-unversioned-reference",
+      "schema": "ledger-record.schema.json",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.0.0",
+        "record_type": "claim",
+        "record_id": "test-claim",
+        "revision": 1,
+        "recorded_at": "2026-11-05T12:00:00+08:00",
+        "supersedes": null,
+        "data": {
+          "text": "Synthetic example claim",
+          "claim_type": "official_statement",
+          "critical": true,
+          "fact_category": "price",
+          "scope_context": "Synthetic fixture",
+          "supporting_evidence": [
+            {
+              "record_id": "test-evidence"
+            }
+          ],
+          "counter_evidence": [],
+          "conflict_refs": [],
+          "status": "unsupported",
+          "confidence": {
+            "level": "unknown",
+            "reason": "No actual verification"
+          },
+          "reasoning": "Structural test only",
+          "limitations": [
+            "Not a research result"
+          ],
+          "calculation": null
+        }
+      }
+    },
+    {
+      "case_id": "reject-fake-completed-export",
+      "schema": "ledger-record.schema.json",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.0.0",
+        "record_type": "report",
+        "record_id": "test-report",
+        "revision": 1,
+        "recorded_at": "2026-11-05T12:00:00+08:00",
+        "supersedes": null,
+        "data": {
+          "format": "pdf",
+          "artifact_path": null,
+          "artifact_sha256": null,
+          "input_snapshot_id": "test-snapshot",
+          "input_manifest_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "status": "qa_passed",
+          "paragraphs": [],
+          "checks": {
+            "content": "not_run",
+            "render": "not_run",
+            "citations": "not_run",
+            "cross_format_consistency": "not_applicable"
+          },
+          "failure_reason": "Synthetic missing exporter"
+        }
+      }
+    },
+    {
+      "case_id": "reject-no-checkpoint-hash",
+      "schema": "research-manifest.schema.json",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.0.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "understanding",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "pending",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Not started"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        }
+      }
+    },
+    {
+      "case_id": "reject-negative-budget",
+      "schema": "research-manifest.schema.json",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.0.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "understanding",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": -1,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": -1,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "pending",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Not started"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        }
+      }
+    },
+    {
+      "case_id": "reject-undefined-detail",
+      "schema": "research-manifest.schema.json",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.0.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "understanding",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "whatever",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "pending",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Not started"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        }
+      }
+    }
+  ]
+}

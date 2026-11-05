@@ -1,0 +1,539 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "snapshot_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "parent_snapshot": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scope_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "original_request": {
+      "type": "string",
+      "minLength": 1
+    },
+    "research_objective": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope_summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "phase": {
+      "enum": [
+        "understanding",
+        "researching",
+        "validating",
+        "supplementing",
+        "analyzing",
+        "reporting",
+        "completed",
+        "blocked",
+        "cancelled",
+        "failed"
+      ]
+    },
+    "preferences": {
+      "type": "object",
+      "properties": {
+        "audiences": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "minLength": 1
+              },
+              "basis": {
+                "enum": [
+                  "explicit_user",
+                  "task_config",
+                  "default"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "value",
+              "basis",
+              "reason"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "report_detail": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "enum": [
+                "简单",
+                "一般",
+                "详细"
+              ]
+            },
+            "basis": {
+              "enum": [
+                "explicit_user",
+                "task_config",
+                "default"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "value",
+            "basis",
+            "reason"
+          ],
+          "additionalProperties": false
+        },
+        "interaction_mode": {
+          "enum": [
+            "interactive_async",
+            "noninteractive",
+            "no_async_support"
+          ]
+        },
+        "preference_timeout_seconds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "asked_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "deadline_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "output_format": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ppt_requested": {
+          "enum": [
+            "not_asked",
+            "pending",
+            "yes",
+            "no",
+            "not_requested_noninteractive"
+          ]
+        }
+      },
+      "required": [
+        "audiences",
+        "report_detail",
+        "interaction_mode",
+        "preference_timeout_seconds",
+        "asked_at",
+        "deadline_at",
+        "output_format",
+        "ppt_requested"
+      ],
+      "additionalProperties": false
+    },
+    "quality_policy_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "enum": [
+        "Quick",
+        "Standard",
+        "Deep"
+      ]
+    },
+    "budget": {
+      "type": "object",
+      "properties": {
+        "limits": {
+          "type": "object",
+          "properties": {
+            "research_operations": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "document_versions": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "supplement_rounds": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "report_repair_rounds": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "global_rework_rounds": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "research_operations",
+            "document_versions",
+            "supplement_rounds",
+            "report_repair_rounds",
+            "global_rework_rounds"
+          ],
+          "additionalProperties": false
+        },
+        "used": {
+          "type": "object",
+          "properties": {
+            "research_operations": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "document_versions": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "supplement_rounds": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "report_repair_rounds": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "global_rework_rounds": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "research_operations",
+            "document_versions",
+            "supplement_rounds",
+            "report_repair_rounds",
+            "global_rework_rounds"
+          ],
+          "additionalProperties": false
+        },
+        "reserved": {
+          "type": "object",
+          "properties": {
+            "research_operations": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "document_versions": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "supplement_rounds": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "report_repair_rounds": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "global_rework_rounds": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "research_operations",
+            "document_versions",
+            "supplement_rounds",
+            "report_repair_rounds",
+            "global_rework_rounds"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "limits",
+        "used",
+        "reserved"
+      ],
+      "additionalProperties": false
+    },
+    "qa": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "pending",
+            "sufficient",
+            "limited",
+            "insufficient"
+          ]
+        },
+        "required_total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "required_covered": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "coverage_ratio": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "open_critical_conflicts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "status",
+        "required_total",
+        "required_covered",
+        "coverage_ratio",
+        "open_critical_conflicts",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "next_actions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "ledger_files": {
+      "type": "object",
+      "properties": {
+        "sources.jsonl": {
+          "type": "object",
+          "properties": {
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "record_count": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "sha256",
+            "record_count"
+          ],
+          "additionalProperties": false
+        },
+        "entities.jsonl": {
+          "type": "object",
+          "properties": {
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "record_count": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "sha256",
+            "record_count"
+          ],
+          "additionalProperties": false
+        },
+        "relationships.jsonl": {
+          "type": "object",
+          "properties": {
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "record_count": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "sha256",
+            "record_count"
+          ],
+          "additionalProperties": false
+        },
+        "evidence.jsonl": {
+          "type": "object",
+          "properties": {
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "record_count": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "sha256",
+            "record_count"
+          ],
+          "additionalProperties": false
+        },
+        "claims.jsonl": {
+          "type": "object",
+          "properties": {
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "record_count": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "sha256",
+            "record_count"
+          ],
+          "additionalProperties": false
+        },
+        "conflicts.jsonl": {
+          "type": "object",
+          "properties": {
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "record_count": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "sha256",
+            "record_count"
+          ],
+          "additionalProperties": false
+        },
+        "coverage.jsonl": {
+          "type": "object",
+          "properties": {
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "record_count": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "sha256",
+            "record_count"
+          ],
+          "additionalProperties": false
+        },
+        "tasks.jsonl": {
+          "type": "object",
+          "properties": {
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "record_count": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "sha256",
+            "record_count"
+          ],
+          "additionalProperties": false
+        },
+        "events.jsonl": {
+          "type": "object",
+          "properties": {
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "record_count": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "sha256",
+            "record_count"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "sources.jsonl",
+        "entities.jsonl",
+        "relationships.jsonl",
+        "evidence.jsonl",
+        "claims.jsonl",
+        "conflicts.jsonl",
+        "coverage.jsonl",
+        "tasks.jsonl",
+        "events.jsonl"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "snapshot_id",
+    "parent_snapshot",
+    "created_at",
+    "scope_version",
+    "original_request",
+    "research_objective",
+    "scope_summary",
+    "phase",
+    "preferences",
+    "quality_policy_version",
+    "mode",
+    "budget",
+    "qa",
+    "next_actions",
+    "ledger_files"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:steal-her-heart:research-manifest:1.0.0",
+  "title": "Immutable research checkpoint manifest"
+}
