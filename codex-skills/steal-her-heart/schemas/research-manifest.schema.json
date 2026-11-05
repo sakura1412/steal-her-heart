@@ -4,7 +4,8 @@
     "schema_version": {
       "enum": [
         "1.0.0",
-        "1.1.0"
+        "1.1.0",
+        "1.2.0"
       ]
     },
     "snapshot_id": {
@@ -537,6 +538,357 @@
         "record_count"
       ],
       "additionalProperties": false
+    },
+    "workflow": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "enum": [
+            "Interview",
+            "Plan",
+            "Collect",
+            "Validate",
+            "Analyze",
+            "Report",
+            "ReportQA",
+            "Delivered"
+          ]
+        },
+        "status": {
+          "enum": [
+            "active",
+            "waiting_input",
+            "blocked",
+            "completed",
+            "cancelled",
+            "failed"
+          ]
+        },
+        "report_qa": {
+          "enum": [
+            "pending",
+            "passed",
+            "failed"
+          ]
+        },
+        "delivery_status": {
+          "enum": [
+            "not_started",
+            "exporting",
+            "verified",
+            "failed",
+            "text_only"
+          ]
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "issue_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "owner": {
+                "enum": [
+                  "Interview",
+                  "Plan",
+                  "Collect",
+                  "Validate",
+                  "Analyze",
+                  "Report",
+                  "ReportQA",
+                  "Delivered"
+                ]
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              },
+              "blocking": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "issue_id",
+              "owner",
+              "description",
+              "blocking"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "last_transition": {
+          "type": "object",
+          "properties": {
+            "from": {
+              "enum": [
+                null,
+                "Interview",
+                "Plan",
+                "Collect",
+                "Validate",
+                "Analyze",
+                "Report",
+                "ReportQA",
+                "Delivered"
+              ]
+            },
+            "to": {
+              "enum": [
+                "Interview",
+                "Plan",
+                "Collect",
+                "Validate",
+                "Analyze",
+                "Report",
+                "ReportQA",
+                "Delivered"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "scope_version": {
+              "type": "string",
+              "minLength": 1
+            },
+            "occurred_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": [
+            "from",
+            "to",
+            "reason",
+            "scope_version",
+            "occurred_at"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "from": {
+                    "const": null
+                  }
+                },
+                "required": [
+                  "from"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "to": {
+                    "enum": [
+                      "Interview",
+                      "Plan",
+                      "Analyze",
+                      "Report"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "from": {
+                    "const": "Interview"
+                  }
+                },
+                "required": [
+                  "from"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "to": {
+                    "enum": [
+                      "Interview",
+                      "Plan"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "from": {
+                    "const": "Plan"
+                  }
+                },
+                "required": [
+                  "from"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "to": {
+                    "enum": [
+                      "Plan",
+                      "Collect"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "from": {
+                    "const": "Collect"
+                  }
+                },
+                "required": [
+                  "from"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "to": {
+                    "enum": [
+                      "Collect",
+                      "Validate"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "from": {
+                    "const": "Validate"
+                  }
+                },
+                "required": [
+                  "from"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "to": {
+                    "enum": [
+                      "Validate",
+                      "Plan",
+                      "Collect",
+                      "Analyze",
+                      "Report"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "from": {
+                    "const": "Analyze"
+                  }
+                },
+                "required": [
+                  "from"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "to": {
+                    "enum": [
+                      "Analyze",
+                      "Plan",
+                      "Report"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "from": {
+                    "const": "Report"
+                  }
+                },
+                "required": [
+                  "from"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "to": {
+                    "enum": [
+                      "Report",
+                      "ReportQA"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "from": {
+                    "const": "ReportQA"
+                  }
+                },
+                "required": [
+                  "from"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "to": {
+                    "enum": [
+                      "ReportQA",
+                      "Report",
+                      "Analyze",
+                      "Validate",
+                      "Plan",
+                      "Delivered"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "from": {
+                    "const": "Delivered"
+                  }
+                },
+                "required": [
+                  "from"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "to": {
+                    "enum": [
+                      "Delivered",
+                      "Report",
+                      "Validate"
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "state",
+        "status",
+        "report_qa",
+        "delivery_status",
+        "issues",
+        "last_transition"
+      ],
+      "additionalProperties": false
     }
   },
   "required": [
@@ -559,7 +911,7 @@
   ],
   "additionalProperties": false,
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:steal-her-heart:research-manifest:1.1.0",
+  "$id": "urn:steal-her-heart:research-manifest:1.2.0",
   "title": "Immutable research checkpoint manifest",
   "allOf": [
     {
@@ -571,7 +923,808 @@
       "then": {
         "properties": {
           "schema_version": {
-            "const": "1.1.0"
+            "enum": [
+              "1.1.0",
+              "1.2.0"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema_version": {
+            "const": "1.2.0"
+          }
+        },
+        "required": [
+          "schema_version"
+        ]
+      },
+      "then": {
+        "required": [
+          "workflow"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {}
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "schema_version": {
+            "const": "1.2.0"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "state": {
+                "const": "Delivered"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "report_qa": {
+                "const": "passed"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "status": {
+                "const": "completed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "state": {
+                "const": "Delivered"
+              },
+              "report_qa": {
+                "const": "passed"
+              },
+              "delivery_status": {
+                "const": "verified"
+              },
+              "issues": {
+                "maxItems": 0
+              }
+            }
+          },
+          "phase": {
+            "const": "completed"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema_version": {
+            "const": "1.2.0"
+          },
+          "phase": {
+            "const": "completed"
+          }
+        },
+        "required": [
+          "schema_version",
+          "phase"
+        ]
+      },
+      "then": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "status": {
+                "const": "completed"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "status": {
+                "const": "blocked"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "phase": {
+            "const": "blocked"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "status": {
+                "const": "failed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "phase": {
+            "const": "failed"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "status": {
+                "const": "cancelled"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "phase": {
+            "const": "cancelled"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "state": {
+                "const": "Interview"
+              },
+              "status": {
+                "enum": [
+                  "active",
+                  "waiting_input"
+                ]
+              }
+            },
+            "required": [
+              "state",
+              "status"
+            ]
+          }
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "phase": {
+            "enum": [
+              "understanding"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "state": {
+                "const": "Interview"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "last_transition": {
+                "properties": {
+                  "to": {
+                    "const": "Interview"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "state": {
+                "const": "Plan"
+              },
+              "status": {
+                "enum": [
+                  "active",
+                  "waiting_input"
+                ]
+              }
+            },
+            "required": [
+              "state",
+              "status"
+            ]
+          }
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "phase": {
+            "enum": [
+              "understanding"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "state": {
+                "const": "Plan"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "last_transition": {
+                "properties": {
+                  "to": {
+                    "const": "Plan"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "state": {
+                "const": "Collect"
+              },
+              "status": {
+                "enum": [
+                  "active",
+                  "waiting_input"
+                ]
+              }
+            },
+            "required": [
+              "state",
+              "status"
+            ]
+          }
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "phase": {
+            "enum": [
+              "researching",
+              "supplementing"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "state": {
+                "const": "Collect"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "last_transition": {
+                "properties": {
+                  "to": {
+                    "const": "Collect"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "state": {
+                "const": "Validate"
+              },
+              "status": {
+                "enum": [
+                  "active",
+                  "waiting_input"
+                ]
+              }
+            },
+            "required": [
+              "state",
+              "status"
+            ]
+          }
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "phase": {
+            "enum": [
+              "validating"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "state": {
+                "const": "Validate"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "last_transition": {
+                "properties": {
+                  "to": {
+                    "const": "Validate"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "state": {
+                "const": "Analyze"
+              },
+              "status": {
+                "enum": [
+                  "active",
+                  "waiting_input"
+                ]
+              }
+            },
+            "required": [
+              "state",
+              "status"
+            ]
+          }
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "phase": {
+            "enum": [
+              "analyzing"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "state": {
+                "const": "Analyze"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "last_transition": {
+                "properties": {
+                  "to": {
+                    "const": "Analyze"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "state": {
+                "const": "Report"
+              },
+              "status": {
+                "enum": [
+                  "active",
+                  "waiting_input"
+                ]
+              }
+            },
+            "required": [
+              "state",
+              "status"
+            ]
+          }
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "phase": {
+            "enum": [
+              "reporting"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "state": {
+                "const": "Report"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "last_transition": {
+                "properties": {
+                  "to": {
+                    "const": "Report"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "state": {
+                "const": "ReportQA"
+              },
+              "status": {
+                "enum": [
+                  "active",
+                  "waiting_input"
+                ]
+              }
+            },
+            "required": [
+              "state",
+              "status"
+            ]
+          }
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "phase": {
+            "enum": [
+              "reporting"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "state": {
+                "const": "ReportQA"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "last_transition": {
+                "properties": {
+                  "to": {
+                    "const": "ReportQA"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "state": {
+                "const": "Delivered"
+              },
+              "status": {
+                "enum": [
+                  "active",
+                  "waiting_input"
+                ]
+              }
+            },
+            "required": [
+              "state",
+              "status"
+            ]
+          }
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "phase": {
+            "enum": [
+              "reporting"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "state": {
+                "const": "Delivered"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "last_transition": {
+                "properties": {
+                  "to": {
+                    "const": "Delivered"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "workflow": {
+            "properties": {
+              "state": {
+                "const": "Delivered"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        },
+        "required": [
+          "workflow"
+        ]
+      },
+      "then": {
+        "properties": {
+          "qa": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "sufficient",
+                  "limited",
+                  "insufficient"
+                ]
+              }
+            }
           }
         }
       }

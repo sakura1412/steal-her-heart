@@ -1,0 +1,2582 @@
+{
+  "schema": "../schemas/research-manifest.schema.json",
+  "notice": "Synthetic structure tests; not proof of live state transitions or file export.",
+  "cases": [
+    {
+      "case_id": "active-Interview",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.2.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "understanding",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "pending",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Not started"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "Interview",
+          "status": "active",
+          "report_qa": "pending",
+          "delivery_status": "not_started",
+          "issues": [],
+          "last_transition": {
+            "from": null,
+            "to": "Interview",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "active-Plan",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.2.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "understanding",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "pending",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Not started"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "Plan",
+          "status": "active",
+          "report_qa": "pending",
+          "delivery_status": "not_started",
+          "issues": [],
+          "last_transition": {
+            "from": "Interview",
+            "to": "Plan",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "active-Collect",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.2.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "researching",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "pending",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Not started"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "Collect",
+          "status": "active",
+          "report_qa": "pending",
+          "delivery_status": "not_started",
+          "issues": [],
+          "last_transition": {
+            "from": "Plan",
+            "to": "Collect",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "active-Validate",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.2.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "validating",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "pending",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Not started"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "Validate",
+          "status": "active",
+          "report_qa": "pending",
+          "delivery_status": "not_started",
+          "issues": [],
+          "last_transition": {
+            "from": "Collect",
+            "to": "Validate",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "active-Analyze",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.2.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "analyzing",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "pending",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Not started"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "Analyze",
+          "status": "active",
+          "report_qa": "pending",
+          "delivery_status": "not_started",
+          "issues": [],
+          "last_transition": {
+            "from": "Validate",
+            "to": "Analyze",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "active-Report",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.2.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "reporting",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "pending",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Not started"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "Report",
+          "status": "active",
+          "report_qa": "pending",
+          "delivery_status": "not_started",
+          "issues": [],
+          "last_transition": {
+            "from": "Analyze",
+            "to": "Report",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "active-ReportQA",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.2.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "reporting",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "pending",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Not started"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "ReportQA",
+          "status": "active",
+          "report_qa": "pending",
+          "delivery_status": "not_started",
+          "issues": [],
+          "last_transition": {
+            "from": "Report",
+            "to": "ReportQA",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "active-Delivered",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.2.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "reporting",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "insufficient",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Synthetic diagnostic-only delivery fixture"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "Delivered",
+          "status": "active",
+          "report_qa": "passed",
+          "delivery_status": "exporting",
+          "issues": [],
+          "last_transition": {
+            "from": "ReportQA",
+            "to": "Delivered",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "verified-delivery",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.2.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "completed",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "insufficient",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Synthetic diagnostic-only delivery fixture"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "Delivered",
+          "status": "completed",
+          "report_qa": "passed",
+          "delivery_status": "verified",
+          "issues": [],
+          "last_transition": {
+            "from": "ReportQA",
+            "to": "Delivered",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "pdf-failed-text-only",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.2.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "blocked",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "insufficient",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Synthetic diagnostic-only delivery fixture"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "Delivered",
+          "status": "blocked",
+          "report_qa": "passed",
+          "delivery_status": "text_only",
+          "issues": [],
+          "last_transition": {
+            "from": "ReportQA",
+            "to": "Delivered",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "reject-completed-not_started",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.2.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "completed",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "insufficient",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Synthetic diagnostic-only delivery fixture"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "Delivered",
+          "status": "completed",
+          "report_qa": "passed",
+          "delivery_status": "not_started",
+          "issues": [],
+          "last_transition": {
+            "from": "ReportQA",
+            "to": "Delivered",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "reject-completed-exporting",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.2.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "completed",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "insufficient",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Synthetic diagnostic-only delivery fixture"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "Delivered",
+          "status": "completed",
+          "report_qa": "passed",
+          "delivery_status": "exporting",
+          "issues": [],
+          "last_transition": {
+            "from": "ReportQA",
+            "to": "Delivered",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "reject-completed-failed",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.2.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "completed",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "insufficient",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Synthetic diagnostic-only delivery fixture"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "Delivered",
+          "status": "completed",
+          "report_qa": "passed",
+          "delivery_status": "failed",
+          "issues": [],
+          "last_transition": {
+            "from": "ReportQA",
+            "to": "Delivered",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "reject-completed-text_only",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.2.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "completed",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "insufficient",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Synthetic diagnostic-only delivery fixture"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "Delivered",
+          "status": "completed",
+          "report_qa": "passed",
+          "delivery_status": "text_only",
+          "issues": [],
+          "last_transition": {
+            "from": "ReportQA",
+            "to": "Delivered",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "reject-qa-failed-completion",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.2.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "completed",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "insufficient",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Synthetic diagnostic-only delivery fixture"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "Delivered",
+          "status": "completed",
+          "report_qa": "failed",
+          "delivery_status": "verified",
+          "issues": [],
+          "last_transition": {
+            "from": "ReportQA",
+            "to": "Delivered",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "reject-open-issue-completion",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.2.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "completed",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "insufficient",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Synthetic diagnostic-only delivery fixture"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "Delivered",
+          "status": "completed",
+          "report_qa": "passed",
+          "delivery_status": "verified",
+          "issues": [
+            {
+              "issue_id": "i1",
+              "owner": "Report",
+              "description": "unresolved",
+              "blocking": true
+            }
+          ],
+          "last_transition": {
+            "from": "ReportQA",
+            "to": "Delivered",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "reject-new-snapshot-without-workflow",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.2.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "understanding",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "pending",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Not started"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        }
+      }
+    },
+    {
+      "case_id": "reject-phase-mismatch",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.2.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "understanding",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "pending",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Not started"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "Collect",
+          "status": "active",
+          "report_qa": "pending",
+          "delivery_status": "not_started",
+          "issues": [],
+          "last_transition": {
+            "from": "Plan",
+            "to": "Collect",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "reject-collect-to-delivered",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.2.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "completed",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "insufficient",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Synthetic diagnostic-only delivery fixture"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "Delivered",
+          "status": "completed",
+          "report_qa": "passed",
+          "delivery_status": "verified",
+          "issues": [],
+          "last_transition": {
+            "from": "Collect",
+            "to": "Delivered",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "reject-transition-target-mismatch",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.2.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "understanding",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "pending",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Not started"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "Interview",
+          "status": "active",
+          "report_qa": "pending",
+          "delivery_status": "not_started",
+          "issues": [],
+          "last_transition": {
+            "from": null,
+            "to": "Plan",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "reject-pending-research-qa-completion",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.2.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "completed",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "pending",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Synthetic diagnostic-only delivery fixture"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "Delivered",
+          "status": "completed",
+          "report_qa": "passed",
+          "delivery_status": "verified",
+          "issues": [],
+          "last_transition": {
+            "from": "ReportQA",
+            "to": "Delivered",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        }
+      }
+    }
+  ]
+}

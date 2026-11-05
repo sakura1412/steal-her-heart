@@ -76,6 +76,8 @@ Agent 先判断变化影响，再复用、重核或补充资料。旧成果保�
 
 ## 研究如何进行
 
+八阶段为 Interview → Plan → Collect → Validate → Analyze → Report → ReportQA → Delivered，守卫与有界回退见 [状态迁移单源](codex-skills/steal-her-heart/references/workflow.md)。Interview 的交互仍由报告交互单源定义；Delivered 是交付阶段，实际文件检查通过才标任务完成。
+
 ```mermaid
 flowchart TD
     A[明确主题、实体与范围] --> B[动态生成问题和研究框架]

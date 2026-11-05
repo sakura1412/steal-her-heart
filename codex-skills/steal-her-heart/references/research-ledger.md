@@ -1,6 +1,6 @@
 # 研究台账、上下文与恢复
 
-本契约版本 `1.1.0`（读取兼容 1.0.0；新增背景知识清单或报告背景引用时必须使用 1.1.0，旧快照不原地迁移），使用 JSON Schema 2020-12：[逐条记录 Schema](../schemas/ledger-record.schema.json)、[检查点 Schema](../schemas/research-manifest.schema.json)。这定义 Codex 使用实际文件工具维护的工件，不代表已经部署数据库、迁移器或后台任务服务。JSON Schema 检查结构；下述引用、时效、预算及语义检查仍须实际执行。
+检查点契约版本 `1.2.0`（读取兼容 1.0.0／1.1.0，旧快照不原地迁移）；记录契约仍为 1.1.0。新任务通过 [workflow](workflow.md) 字段区分阶段与交付状态，使用 JSON Schema 2020-12：[逐条记录 Schema](../schemas/ledger-record.schema.json)、[检查点 Schema](../schemas/research-manifest.schema.json)。这定义 Codex 使用实际文件工具维护的工件，不代表已经部署数据库、迁移器或后台任务服务。JSON Schema 检查结构；下述引用、时效、预算及语义检查仍须实际执行。
 
 ## 版本目录命名
 

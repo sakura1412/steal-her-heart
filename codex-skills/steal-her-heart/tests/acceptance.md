@@ -196,3 +196,19 @@
 | RPT-04 | 未答／非交互／无异步能力：按 report-delivery.md 的默认继续规则执行，不伪造回复或权限 |
 | RPT-11 | 缺对象：一问对象并附默认偏好；非交互返回 missing_subject，不能默认一个产品 |
 | RPT-12 | 点名多个对象：在已给范围继续；只有新增未授权对象或实际歧义才询问 |
+
+## 状态迁移验收
+
+| ID | 场景 | 应观察到的行为 |
+|---|---|---|
+| STM-01 | 默认偏好 | Interview 不因角色未答阻塞，初扫计预算，身份缺失仍须处理 |
+| STM-02 | 空计划／任务失败 | 没有 required 单元不进入 Collect；失败任务单独记录，全部返回不等于核验通过 |
+| STM-03 | 已检查但未充分 | Validate 有额度才补研，limited 只分析有支持子集，insufficient 仅诊断 |
+| STM-04 | 方法 blocked | 输入缺失回 Plan 或停止，不跳到完整结论 |
+| STM-05 | QA 回退 | 按根因到 Report／Analyze／Validate／Plan，保留版本并扣返工预算 |
+| STM-06 | 进入 Delivered | 内容 QA passed 后进入；exporting／failed／text_only 不得 completed |
+| STM-07 | 明确双格式 | 原先要求 PDF+PPT 时两者均检查通过才完成；可选 PPT 未答不阻塞 PDF |
+| STM-08 | 旧快照恢复 | 不从旧 reporting 推定 QA 通过，以实际记录建立新 workflow；缺据则 blocked |
+| STM-09 | 终态与变更 | 终态不原地重开，范围变更新修订，只重做相关任务并继承消耗 |
+
+结构正反例见 [workflow-schema-cases.json](workflow-schema-cases.json)；Schema 通过不等于来源、迁移或导出行为已实际发生。
