@@ -28,7 +28,7 @@ description: 竞品分析、竞争情报、竞争对手研究与产品对比（c
 ## 理解与规划
 
 - 复用已知信息，仅澄清影响身份、范围或事实解释的缺口。
-- 按 [研究框架生成方法](references/dimensions.md)，先核验对象及行业属性，再根据用户目标生成本次问题、维度、比较口径和证据要求。不得从产品名称或行业标签套用固定字段清单；用户明确要求与回答核心问题必需的字段不可默删。
+- 先按 [研究问题与假设](references/questions-hypotheses.md) 拆解目标、支持条件和证伪条件，再由 [Research Framework Agent](references/dimensions.md) 按实体属性生成多业务类别、动态维度、证据要求与优先级；分类不能触发固定行业字段。
 - 需要行业专业方法且有可用包时，读取 [IndustryPack 规则](references/industry-packs.md) 与 [注册目录](references/industry-pack-registry.yaml)。六部分内容只提供候选知识与方法，按本次目标筛选、核兼容与依赖，记录精确版本和定制差异；无包继续动态规划，不套固定清单、不将包内事实当本次证据。
 - 简述本次主题、对象与范围后继续。单对象不自动扩大为市场研究；明确市场／行业任务按 [Market Intelligence](references/market-intelligence.md) 定义边界并开展。主动发现候选供用户选择；已明确授权的研究范围不重复泛泛确认。
 - 按显式或默认角色读取 [读者与交付](references/audiences.md)，将关注点转为分析问题，而非仅在最后更换语气。
@@ -40,7 +40,7 @@ description: 竞品分析、竞争情报、竞争对手研究与产品对比（c
 1. 先按 [Data Source Connector Registry](references/connectors.md) 及其 [目录](references/connector-registry.yaml) 识别本次可用来源、连接模式、权限与能力边界，再按 [资料采集与站点适配](references/research-tools.md) 使用实际工具。目录初始无已验证连接器，不影响发现当前宿主能力，也不证明任何平台已接通。先做足以核验身份与行业属性的探索，再生成研究框架和正式采集任务；能力缺失时说明具体限制，可分析用户提供材料，不以记忆填事实。
 2. 按 Connector Interface → Platform Adapter → Raw Data → Normalizer → Evidence 交接，保留原始内容或实际可复核引用；标准化只生成待核验候选。为实际材料建立来源记录；从可定位的内容中提取事实，记录主体 entity_id 及身份版本、维度、日期、使用端、版本／规格／市场／渠道条件和核验状态。Web、App、小程序、桌面、线下在本次范围内分别核查，不用某端证据代替其他端。
 3. 核查证据是否支持具体主张，检查时效、独立性、口径与矛盾；官方宣称不自动等于实际效果。
-4. 对照当前框架的必需且适用问题检查覆盖，列出证据缺口，并检查研究框架本身是否遗漏关键因素。目标客户只有第三方推测时，不能写成已确认的客群事实。不能根据已采到的内容倒推一个容易完成的框架。
+4. 更新问题台账中的支持证据、反证、当前结论、置信理由与验证状态；对照当前框架的必需且适用问题检查覆盖，列出证据缺口，并检查研究框架本身是否遗漏关键因素。目标客户只有第三方推测时，不能写成已确认的客群事实。不能根据已采到的内容倒推一个容易完成的框架。
 5. 在范围及预算内补证，完成后重新检查。受限、无进展或无法满足必要条件时停止该路径并说明，不能无限尝试或降低证据要求。
 6. Research QA 合格后，由 Planner 根据目标、实际数据和决策问题从 [Analysis Method Registry](references/analysis-methods.md) 及其 [方法目录](references/analysis-method-registry.yaml) 选择必要方法，记录触发依据与输入检查；不固定执行 SWOT 或全量方法。
 7. 涉及比较、评分或排名时先通过 P0 [Comparison Engine](references/comparison.md)，建立 Comparable Group、核口径并保留换算依据；市场参考对象不直接排名。方法必需输入不足返回补证，不以换方法掩盖缺口。

@@ -1,6 +1,6 @@
 # 研究台账、上下文与恢复
 
-检查点契约版本 `1.2.0`（读取兼容 1.0.0／1.1.0，旧快照不原地迁移）；记录契约仍为 1.1.0。新任务通过 [workflow](workflow.md) 字段区分阶段与交付状态，使用 JSON Schema 2020-12：[逐条记录 Schema](../schemas/ledger-record.schema.json)、[检查点 Schema](../schemas/research-manifest.schema.json)。这定义 Codex 使用实际文件工具维护的工件，不代表已经部署数据库、迁移器或后台任务服务。JSON Schema 检查结构；下述引用、时效、预算及语义检查仍须实际执行。
+检查点契约版本 `1.3.0`（读取兼容 1.0.0／1.1.0／1.2.0，旧快照不原地迁移）；记录契约仍为 1.1.0。新任务通过 [workflow](workflow.md) 字段区分阶段与交付状态，使用 JSON Schema 2020-12：[逐条记录 Schema](../schemas/ledger-record.schema.json)、[检查点 Schema](../schemas/research-manifest.schema.json)。这定义 Codex 使用实际文件工具维护的工件，不代表已经部署数据库、迁移器或后台任务服务。JSON Schema 检查结构；下述引用、时效、预算及语义检查仍须实际执行。
 
 ## 版本目录命名
 
@@ -13,6 +13,8 @@
 ```text
 research/<safe-subject-id>/<revision>/
   manifest.json
+  framework.json             本次多业务研究框架
+  questions.jsonl            问题、假设、支持与反证及验证状态
   sources.jsonl
   entities.jsonl
   relationships.jsonl
@@ -47,6 +49,14 @@ JSONL 每行一个 UTF-8 JSON 对象；空文件表示尚无记录。统一外�
 `claims.supporting_evidence` 是 claim→evidence 关系单源，支持多对多；evidence 再指向 source 及原文。证据中的 URL、日期和类型为便于审计保留的副本，必须与引用的 source 版本一致。不要在 evidence 重复维护另一套 claim_ids：反向追溯通过扫描精确引用构建临时索引，报告段落→claim→evidence→source 和 source→evidence→claim→报告位置均可恢复。
 
 `confidence` 是 high／medium／low／unknown 加理由，不是模型自信百分数；高置信不等于已核验，verification_status 和语义准入单独判断。候选、过期或争议材料可留存，但不能当作当前已验证依据。无来源的重要报告事实禁止先写再补台账。
+
+## 问题与框架绑定
+
+新任务在 Plan 维护 [framework.json](../schemas/research-framework.schema.json) 和逐行符合 [问题 Schema](../schemas/research-question.schema.json) 的 questions.jsonl；两者不是 Evidence。manifest 1.3.0 用 `research_design` 记录实际文件哈希、框架身份／版本、问题记录数及 scope_version。Interview 和尚在设计中的 Plan 可暂缺；进入 Collect 及之后阶段必须绑定设计工件。旧快照不原地升级，恢复时根据实际记录建新修订，不能凭行业标签补造历史问题或验证状态。
+
+加载与接纳时检查：设计 scope_version 与 manifest 一致；question_id＋revision 唯一；parent_question_id、框架 question_refs 和维度 question_refs 均可解析，问题树与维度依赖无环；维度类别 ID 存在；required 项被选中；所有实际任务绑定问题／维度。框架与问题版本变化后重查引用和覆盖分母，保留旧快照与预算。若仅修订假设，不把旧范围批准自动解释为新增对象授权。
+
+每个问题的 supporting_evidence／opposing_evidence 与 claim_refs 指向现有台账，current_conclusion 是对应 Claim 的可读摘要，不成为第二事实来源。支持、反对证据引用都须经过 Validator，操作键须能对账；verification_complete 的 true 不能覆盖未解决关键冲突。报告以已核验 Claim 回答这些问题，问题记录用于组织和追溯而非冒充事实。
 
 ## 时间、修订与实体变更
 

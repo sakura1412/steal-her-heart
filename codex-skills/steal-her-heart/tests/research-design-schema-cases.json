@@ -1,0 +1,1672 @@
+{
+  "notice": "Synthetic structural tests and fixture reference audit, not real research or independent Agent behavior validation.",
+  "cases": [
+    {
+      "case_id": "unverified-question",
+      "schema": "research-question.schema.json",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.0.0",
+        "question_id": "q1",
+        "revision": 1,
+        "supersedes": null,
+        "recorded_at": "2026-11-05T15:00:00+08:00",
+        "scope_version": "s1",
+        "parent_question_id": null,
+        "entity_refs": [
+          {
+            "record_id": "e1",
+            "revision": 1
+          }
+        ],
+        "question": "Does a shared synthetic capability explain customer choice?",
+        "question_kind": "explanatory",
+        "initial_hypothesis": {
+          "text": "The capability may explain choice",
+          "origin": "planner_hypothesis",
+          "scope_conditions": "Synthetic bounded scenario"
+        },
+        "no_initial_hypothesis_reason": null,
+        "alternative_hypotheses": [
+          "Habit or switching costs may explain choice"
+        ],
+        "support_condition": "Independent users give matching choice reasons",
+        "falsification_condition": "Users choose alternatives with the same capability or cite other decisive reasons",
+        "evidence_requirements": [
+          {
+            "need": "Synthetic evidence need",
+            "direction": "support",
+            "source_types": [
+              "primary_record"
+            ],
+            "minimum_independent_groups": 2,
+            "freshness_policy": "research-quality 1.0.0",
+            "acceptance_condition": "Comparable conditions and explicit supporting text"
+          },
+          {
+            "need": "Synthetic evidence need",
+            "direction": "counter",
+            "source_types": [
+              "primary_record"
+            ],
+            "minimum_independent_groups": 2,
+            "freshness_policy": "research-quality 1.0.0",
+            "acceptance_condition": "Comparable conditions and explicit supporting text"
+          }
+        ],
+        "current_conclusion": null,
+        "supporting_evidence": [],
+        "opposing_evidence": [],
+        "claim_refs": [],
+        "confidence": {
+          "level": "unknown",
+          "reason": "No current evidence"
+        },
+        "assessment_status": "unassessed",
+        "verification_status": "unverified",
+        "verification_complete": false,
+        "counter_search": {
+          "status": "planned",
+          "queries_or_checks": [
+            "Compare non-choice reasons"
+          ],
+          "operation_keys": [],
+          "result_summary": "Not executed"
+        },
+        "gaps": [
+          "Need sources"
+        ],
+        "next_action": "Collect support and counter evidence"
+      }
+    },
+    {
+      "case_id": "multi-category-framework",
+      "schema": "research-framework.schema.json",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.0.0",
+        "framework_id": "f1",
+        "revision": 1,
+        "previous_revision": null,
+        "scope_version": "s1",
+        "objective": "Explain user choice, synthetic exercise",
+        "entity_refs": [
+          {
+            "record_id": "e1",
+            "revision": 1
+          }
+        ],
+        "business_categories": [
+          {
+            "category_id": "c1",
+            "label": "Online instruction",
+            "business_traits": [
+              "Synthetic business attribute"
+            ],
+            "applicable_part": "One part of a mixed offering",
+            "entity_refs": [
+              {
+                "record_id": "e1",
+                "revision": 1
+              }
+            ],
+            "basis": "Unverified planning hypothesis",
+            "evidence_refs": [],
+            "status": "tentative"
+          },
+          {
+            "category_id": "c2",
+            "label": "In-person service",
+            "business_traits": [
+              "Synthetic business attribute"
+            ],
+            "applicable_part": "One part of a mixed offering",
+            "entity_refs": [
+              {
+                "record_id": "e1",
+                "revision": 1
+              }
+            ],
+            "basis": "Unverified planning hypothesis",
+            "evidence_refs": [],
+            "status": "tentative"
+          }
+        ],
+        "classification_limitations": "Tentative synthetic labels, not actual industry facts",
+        "question_refs": [
+          {
+            "question_id": "q1",
+            "revision": 1
+          }
+        ],
+        "dimensions": [
+          {
+            "dimension_id": "d1",
+            "name": "Customer choice mechanism",
+            "question_refs": [
+              {
+                "question_id": "q1",
+                "revision": 1
+              }
+            ],
+            "category_ids": [
+              "c1",
+              "c2"
+            ],
+            "selection_reason": "Directly answers objective",
+            "requirement": "required",
+            "selected": true,
+            "applicability": "Synthetic defined user scenario",
+            "comparison_definition": "Same task, region and period",
+            "evidence_requirements": [
+              {
+                "need": "Synthetic evidence need",
+                "direction": "support",
+                "source_types": [
+                  "primary_record"
+                ],
+                "minimum_independent_groups": 2,
+                "freshness_policy": "research-quality 1.0.0",
+                "acceptance_condition": "Comparable conditions and explicit supporting text"
+              }
+            ],
+            "priority": {
+              "level": "P0",
+              "decision_impact": "May refute central explanation",
+              "expected_uncertainty_reduction": "Separate product capability from habit",
+              "estimated_tool_operations": 4,
+              "rationale": "Core premise before supplementary details"
+            },
+            "depends_on_dimensions": [],
+            "completion_condition": "Supported/refuted/bounded conclusion with counter evidence check"
+          }
+        ],
+        "candidate_methods": [],
+        "change": {
+          "trigger": "Initial design",
+          "evidence_refs": [],
+          "affected_question_refs": [
+            {
+              "question_id": "q1",
+              "revision": 1
+            }
+          ],
+          "added_dimensions": [
+            "d1"
+          ],
+          "modified_dimensions": [],
+          "removed_dimensions": [],
+          "reusable_evidence": [],
+          "claims_to_recheck": [],
+          "scope_authorization_basis": "Synthetic user request"
+        }
+      }
+    },
+    {
+      "case_id": "descriptive-without-invented-hypothesis",
+      "schema": "research-question.schema.json",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.0.0",
+        "question_id": "q1",
+        "revision": 1,
+        "supersedes": null,
+        "recorded_at": "2026-11-05T15:00:00+08:00",
+        "scope_version": "s1",
+        "parent_question_id": null,
+        "entity_refs": [
+          {
+            "record_id": "e1",
+            "revision": 1
+          }
+        ],
+        "question": "Does a shared synthetic capability explain customer choice?",
+        "question_kind": "descriptive",
+        "initial_hypothesis": null,
+        "no_initial_hypothesis_reason": "Descriptive question; no asserted mechanism",
+        "alternative_hypotheses": [
+          "Habit or switching costs may explain choice"
+        ],
+        "support_condition": "Independent users give matching choice reasons",
+        "falsification_condition": null,
+        "evidence_requirements": [
+          {
+            "need": "Synthetic evidence need",
+            "direction": "support",
+            "source_types": [
+              "primary_record"
+            ],
+            "minimum_independent_groups": 2,
+            "freshness_policy": "research-quality 1.0.0",
+            "acceptance_condition": "Comparable conditions and explicit supporting text"
+          },
+          {
+            "need": "Synthetic evidence need",
+            "direction": "counter",
+            "source_types": [
+              "primary_record"
+            ],
+            "minimum_independent_groups": 2,
+            "freshness_policy": "research-quality 1.0.0",
+            "acceptance_condition": "Comparable conditions and explicit supporting text"
+          }
+        ],
+        "current_conclusion": null,
+        "supporting_evidence": [],
+        "opposing_evidence": [],
+        "claim_refs": [],
+        "confidence": {
+          "level": "unknown",
+          "reason": "No current evidence"
+        },
+        "assessment_status": "unassessed",
+        "verification_status": "unverified",
+        "verification_complete": false,
+        "counter_search": {
+          "status": "planned",
+          "queries_or_checks": [
+            "Compare non-choice reasons"
+          ],
+          "operation_keys": [],
+          "result_summary": "Not executed"
+        },
+        "gaps": [
+          "Need sources"
+        ],
+        "next_action": "Collect support and counter evidence"
+      }
+    },
+    {
+      "case_id": "refuted-is-assessed-not-true",
+      "schema": "research-question.schema.json",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.0.0",
+        "question_id": "q1",
+        "revision": 1,
+        "supersedes": null,
+        "recorded_at": "2026-11-05T15:00:00+08:00",
+        "scope_version": "s1",
+        "parent_question_id": null,
+        "entity_refs": [
+          {
+            "record_id": "e1",
+            "revision": 1
+          }
+        ],
+        "question": "Does a shared synthetic capability explain customer choice?",
+        "question_kind": "explanatory",
+        "initial_hypothesis": {
+          "text": "The capability may explain choice",
+          "origin": "planner_hypothesis",
+          "scope_conditions": "Synthetic bounded scenario"
+        },
+        "no_initial_hypothesis_reason": null,
+        "alternative_hypotheses": [
+          "Habit or switching costs may explain choice"
+        ],
+        "support_condition": "Independent users give matching choice reasons",
+        "falsification_condition": "Users choose alternatives with the same capability or cite other decisive reasons",
+        "evidence_requirements": [
+          {
+            "need": "Synthetic evidence need",
+            "direction": "support",
+            "source_types": [
+              "primary_record"
+            ],
+            "minimum_independent_groups": 2,
+            "freshness_policy": "research-quality 1.0.0",
+            "acceptance_condition": "Comparable conditions and explicit supporting text"
+          },
+          {
+            "need": "Synthetic evidence need",
+            "direction": "counter",
+            "source_types": [
+              "primary_record"
+            ],
+            "minimum_independent_groups": 2,
+            "freshness_policy": "research-quality 1.0.0",
+            "acceptance_condition": "Comparable conditions and explicit supporting text"
+          }
+        ],
+        "current_conclusion": "Synthetic counter evidence refutes initial hypothesis",
+        "supporting_evidence": [],
+        "opposing_evidence": [
+          {
+            "record_id": "counter1",
+            "revision": 1
+          }
+        ],
+        "claim_refs": [
+          {
+            "record_id": "claim1",
+            "revision": 1
+          }
+        ],
+        "confidence": {
+          "level": "unknown",
+          "reason": "No current evidence"
+        },
+        "assessment_status": "assessed",
+        "verification_status": "refuted",
+        "verification_complete": true,
+        "counter_search": {
+          "status": "planned",
+          "queries_or_checks": [
+            "Compare non-choice reasons"
+          ],
+          "operation_keys": [],
+          "result_summary": "Not executed"
+        },
+        "gaps": [
+          "Need sources"
+        ],
+        "next_action": "Collect support and counter evidence"
+      }
+    },
+    {
+      "case_id": "supported-with-counter-check",
+      "schema": "research-question.schema.json",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.0.0",
+        "question_id": "q1",
+        "revision": 1,
+        "supersedes": null,
+        "recorded_at": "2026-11-05T15:00:00+08:00",
+        "scope_version": "s1",
+        "parent_question_id": null,
+        "entity_refs": [
+          {
+            "record_id": "e1",
+            "revision": 1
+          }
+        ],
+        "question": "Does a shared synthetic capability explain customer choice?",
+        "question_kind": "explanatory",
+        "initial_hypothesis": {
+          "text": "The capability may explain choice",
+          "origin": "planner_hypothesis",
+          "scope_conditions": "Synthetic bounded scenario"
+        },
+        "no_initial_hypothesis_reason": null,
+        "alternative_hypotheses": [
+          "Habit or switching costs may explain choice"
+        ],
+        "support_condition": "Independent users give matching choice reasons",
+        "falsification_condition": "Users choose alternatives with the same capability or cite other decisive reasons",
+        "evidence_requirements": [
+          {
+            "need": "Synthetic evidence need",
+            "direction": "support",
+            "source_types": [
+              "primary_record"
+            ],
+            "minimum_independent_groups": 2,
+            "freshness_policy": "research-quality 1.0.0",
+            "acceptance_condition": "Comparable conditions and explicit supporting text"
+          },
+          {
+            "need": "Synthetic evidence need",
+            "direction": "counter",
+            "source_types": [
+              "primary_record"
+            ],
+            "minimum_independent_groups": 2,
+            "freshness_policy": "research-quality 1.0.0",
+            "acceptance_condition": "Comparable conditions and explicit supporting text"
+          }
+        ],
+        "current_conclusion": "Synthetic bounded support",
+        "supporting_evidence": [
+          {
+            "record_id": "support1",
+            "revision": 1
+          }
+        ],
+        "opposing_evidence": [],
+        "claim_refs": [
+          {
+            "record_id": "claim1",
+            "revision": 1
+          }
+        ],
+        "confidence": {
+          "level": "unknown",
+          "reason": "No current evidence"
+        },
+        "assessment_status": "assessed",
+        "verification_status": "supported",
+        "verification_complete": true,
+        "counter_search": {
+          "status": "completed",
+          "queries_or_checks": [
+            "Searched alternate explanations"
+          ],
+          "operation_keys": [
+            "op-counter1"
+          ],
+          "result_summary": "Counter check recorded in synthetic fixture"
+        },
+        "gaps": [
+          "Need sources"
+        ],
+        "next_action": "Collect support and counter evidence"
+      }
+    },
+    {
+      "case_id": "reject-supported-before-counter-check",
+      "schema": "research-question.schema.json",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.0.0",
+        "question_id": "q1",
+        "revision": 1,
+        "supersedes": null,
+        "recorded_at": "2026-11-05T15:00:00+08:00",
+        "scope_version": "s1",
+        "parent_question_id": null,
+        "entity_refs": [
+          {
+            "record_id": "e1",
+            "revision": 1
+          }
+        ],
+        "question": "Does a shared synthetic capability explain customer choice?",
+        "question_kind": "explanatory",
+        "initial_hypothesis": {
+          "text": "The capability may explain choice",
+          "origin": "planner_hypothesis",
+          "scope_conditions": "Synthetic bounded scenario"
+        },
+        "no_initial_hypothesis_reason": null,
+        "alternative_hypotheses": [
+          "Habit or switching costs may explain choice"
+        ],
+        "support_condition": "Independent users give matching choice reasons",
+        "falsification_condition": "Users choose alternatives with the same capability or cite other decisive reasons",
+        "evidence_requirements": [
+          {
+            "need": "Synthetic evidence need",
+            "direction": "support",
+            "source_types": [
+              "primary_record"
+            ],
+            "minimum_independent_groups": 2,
+            "freshness_policy": "research-quality 1.0.0",
+            "acceptance_condition": "Comparable conditions and explicit supporting text"
+          },
+          {
+            "need": "Synthetic evidence need",
+            "direction": "counter",
+            "source_types": [
+              "primary_record"
+            ],
+            "minimum_independent_groups": 2,
+            "freshness_policy": "research-quality 1.0.0",
+            "acceptance_condition": "Comparable conditions and explicit supporting text"
+          }
+        ],
+        "current_conclusion": "Synthetic bounded support",
+        "supporting_evidence": [
+          {
+            "record_id": "support1",
+            "revision": 1
+          }
+        ],
+        "opposing_evidence": [],
+        "claim_refs": [
+          {
+            "record_id": "claim1",
+            "revision": 1
+          }
+        ],
+        "confidence": {
+          "level": "unknown",
+          "reason": "No current evidence"
+        },
+        "assessment_status": "assessed",
+        "verification_status": "supported",
+        "verification_complete": true,
+        "counter_search": {
+          "status": "planned",
+          "queries_or_checks": [
+            "Searched alternate explanations"
+          ],
+          "operation_keys": [
+            "op-counter1"
+          ],
+          "result_summary": "Counter check recorded in synthetic fixture"
+        },
+        "gaps": [
+          "Need sources"
+        ],
+        "next_action": "Collect support and counter evidence"
+      }
+    },
+    {
+      "case_id": "reject-unsupported-support-status",
+      "schema": "research-question.schema.json",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.0.0",
+        "question_id": "q1",
+        "revision": 1,
+        "supersedes": null,
+        "recorded_at": "2026-11-05T15:00:00+08:00",
+        "scope_version": "s1",
+        "parent_question_id": null,
+        "entity_refs": [
+          {
+            "record_id": "e1",
+            "revision": 1
+          }
+        ],
+        "question": "Does a shared synthetic capability explain customer choice?",
+        "question_kind": "explanatory",
+        "initial_hypothesis": {
+          "text": "The capability may explain choice",
+          "origin": "planner_hypothesis",
+          "scope_conditions": "Synthetic bounded scenario"
+        },
+        "no_initial_hypothesis_reason": null,
+        "alternative_hypotheses": [
+          "Habit or switching costs may explain choice"
+        ],
+        "support_condition": "Independent users give matching choice reasons",
+        "falsification_condition": "Users choose alternatives with the same capability or cite other decisive reasons",
+        "evidence_requirements": [
+          {
+            "need": "Synthetic evidence need",
+            "direction": "support",
+            "source_types": [
+              "primary_record"
+            ],
+            "minimum_independent_groups": 2,
+            "freshness_policy": "research-quality 1.0.0",
+            "acceptance_condition": "Comparable conditions and explicit supporting text"
+          },
+          {
+            "need": "Synthetic evidence need",
+            "direction": "counter",
+            "source_types": [
+              "primary_record"
+            ],
+            "minimum_independent_groups": 2,
+            "freshness_policy": "research-quality 1.0.0",
+            "acceptance_condition": "Comparable conditions and explicit supporting text"
+          }
+        ],
+        "current_conclusion": "Synthetic bounded support",
+        "supporting_evidence": [],
+        "opposing_evidence": [],
+        "claim_refs": [
+          {
+            "record_id": "claim1",
+            "revision": 1
+          }
+        ],
+        "confidence": {
+          "level": "unknown",
+          "reason": "No current evidence"
+        },
+        "assessment_status": "assessed",
+        "verification_status": "supported",
+        "verification_complete": true,
+        "counter_search": {
+          "status": "completed",
+          "queries_or_checks": [
+            "Searched alternate explanations"
+          ],
+          "operation_keys": [
+            "op-counter1"
+          ],
+          "result_summary": "Counter check recorded in synthetic fixture"
+        },
+        "gaps": [
+          "Need sources"
+        ],
+        "next_action": "Collect support and counter evidence"
+      }
+    },
+    {
+      "case_id": "reject-budget-exhausted-as-verified",
+      "schema": "research-question.schema.json",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.0.0",
+        "question_id": "q1",
+        "revision": 1,
+        "supersedes": null,
+        "recorded_at": "2026-11-05T15:00:00+08:00",
+        "scope_version": "s1",
+        "parent_question_id": null,
+        "entity_refs": [
+          {
+            "record_id": "e1",
+            "revision": 1
+          }
+        ],
+        "question": "Does a shared synthetic capability explain customer choice?",
+        "question_kind": "explanatory",
+        "initial_hypothesis": {
+          "text": "The capability may explain choice",
+          "origin": "planner_hypothesis",
+          "scope_conditions": "Synthetic bounded scenario"
+        },
+        "no_initial_hypothesis_reason": null,
+        "alternative_hypotheses": [
+          "Habit or switching costs may explain choice"
+        ],
+        "support_condition": "Independent users give matching choice reasons",
+        "falsification_condition": "Users choose alternatives with the same capability or cite other decisive reasons",
+        "evidence_requirements": [
+          {
+            "need": "Synthetic evidence need",
+            "direction": "support",
+            "source_types": [
+              "primary_record"
+            ],
+            "minimum_independent_groups": 2,
+            "freshness_policy": "research-quality 1.0.0",
+            "acceptance_condition": "Comparable conditions and explicit supporting text"
+          },
+          {
+            "need": "Synthetic evidence need",
+            "direction": "counter",
+            "source_types": [
+              "primary_record"
+            ],
+            "minimum_independent_groups": 2,
+            "freshness_policy": "research-quality 1.0.0",
+            "acceptance_condition": "Comparable conditions and explicit supporting text"
+          }
+        ],
+        "current_conclusion": null,
+        "supporting_evidence": [],
+        "opposing_evidence": [],
+        "claim_refs": [],
+        "confidence": {
+          "level": "unknown",
+          "reason": "No current evidence"
+        },
+        "assessment_status": "unassessed",
+        "verification_status": "inconclusive",
+        "verification_complete": true,
+        "counter_search": {
+          "status": "planned",
+          "queries_or_checks": [
+            "Compare non-choice reasons"
+          ],
+          "operation_keys": [],
+          "result_summary": "Not executed"
+        },
+        "gaps": [
+          "Need sources"
+        ],
+        "next_action": "Collect support and counter evidence"
+      }
+    },
+    {
+      "case_id": "reject-null-hypothesis-without-reason",
+      "schema": "research-question.schema.json",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.0.0",
+        "question_id": "q1",
+        "revision": 1,
+        "supersedes": null,
+        "recorded_at": "2026-11-05T15:00:00+08:00",
+        "scope_version": "s1",
+        "parent_question_id": null,
+        "entity_refs": [
+          {
+            "record_id": "e1",
+            "revision": 1
+          }
+        ],
+        "question": "Does a shared synthetic capability explain customer choice?",
+        "question_kind": "explanatory",
+        "initial_hypothesis": null,
+        "no_initial_hypothesis_reason": null,
+        "alternative_hypotheses": [
+          "Habit or switching costs may explain choice"
+        ],
+        "support_condition": "Independent users give matching choice reasons",
+        "falsification_condition": "Users choose alternatives with the same capability or cite other decisive reasons",
+        "evidence_requirements": [
+          {
+            "need": "Synthetic evidence need",
+            "direction": "support",
+            "source_types": [
+              "primary_record"
+            ],
+            "minimum_independent_groups": 2,
+            "freshness_policy": "research-quality 1.0.0",
+            "acceptance_condition": "Comparable conditions and explicit supporting text"
+          },
+          {
+            "need": "Synthetic evidence need",
+            "direction": "counter",
+            "source_types": [
+              "primary_record"
+            ],
+            "minimum_independent_groups": 2,
+            "freshness_policy": "research-quality 1.0.0",
+            "acceptance_condition": "Comparable conditions and explicit supporting text"
+          }
+        ],
+        "current_conclusion": null,
+        "supporting_evidence": [],
+        "opposing_evidence": [],
+        "claim_refs": [],
+        "confidence": {
+          "level": "unknown",
+          "reason": "No current evidence"
+        },
+        "assessment_status": "unassessed",
+        "verification_status": "unverified",
+        "verification_complete": false,
+        "counter_search": {
+          "status": "planned",
+          "queries_or_checks": [
+            "Compare non-choice reasons"
+          ],
+          "operation_keys": [],
+          "result_summary": "Not executed"
+        },
+        "gaps": [
+          "Need sources"
+        ],
+        "next_action": "Collect support and counter evidence"
+      }
+    },
+    {
+      "case_id": "reject-dimension-without-question",
+      "schema": "research-framework.schema.json",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.0.0",
+        "framework_id": "f1",
+        "revision": 1,
+        "previous_revision": null,
+        "scope_version": "s1",
+        "objective": "Explain user choice, synthetic exercise",
+        "entity_refs": [
+          {
+            "record_id": "e1",
+            "revision": 1
+          }
+        ],
+        "business_categories": [
+          {
+            "category_id": "c1",
+            "label": "Online instruction",
+            "business_traits": [
+              "Synthetic business attribute"
+            ],
+            "applicable_part": "One part of a mixed offering",
+            "entity_refs": [
+              {
+                "record_id": "e1",
+                "revision": 1
+              }
+            ],
+            "basis": "Unverified planning hypothesis",
+            "evidence_refs": [],
+            "status": "tentative"
+          },
+          {
+            "category_id": "c2",
+            "label": "In-person service",
+            "business_traits": [
+              "Synthetic business attribute"
+            ],
+            "applicable_part": "One part of a mixed offering",
+            "entity_refs": [
+              {
+                "record_id": "e1",
+                "revision": 1
+              }
+            ],
+            "basis": "Unverified planning hypothesis",
+            "evidence_refs": [],
+            "status": "tentative"
+          }
+        ],
+        "classification_limitations": "Tentative synthetic labels, not actual industry facts",
+        "question_refs": [
+          {
+            "question_id": "q1",
+            "revision": 1
+          }
+        ],
+        "dimensions": [
+          {
+            "dimension_id": "d1",
+            "name": "Customer choice mechanism",
+            "question_refs": [],
+            "category_ids": [
+              "c1",
+              "c2"
+            ],
+            "selection_reason": "Directly answers objective",
+            "requirement": "required",
+            "selected": true,
+            "applicability": "Synthetic defined user scenario",
+            "comparison_definition": "Same task, region and period",
+            "evidence_requirements": [
+              {
+                "need": "Synthetic evidence need",
+                "direction": "support",
+                "source_types": [
+                  "primary_record"
+                ],
+                "minimum_independent_groups": 2,
+                "freshness_policy": "research-quality 1.0.0",
+                "acceptance_condition": "Comparable conditions and explicit supporting text"
+              }
+            ],
+            "priority": {
+              "level": "P0",
+              "decision_impact": "May refute central explanation",
+              "expected_uncertainty_reduction": "Separate product capability from habit",
+              "estimated_tool_operations": 4,
+              "rationale": "Core premise before supplementary details"
+            },
+            "depends_on_dimensions": [],
+            "completion_condition": "Supported/refuted/bounded conclusion with counter evidence check"
+          }
+        ],
+        "candidate_methods": [],
+        "change": {
+          "trigger": "Initial design",
+          "evidence_refs": [],
+          "affected_question_refs": [
+            {
+              "question_id": "q1",
+              "revision": 1
+            }
+          ],
+          "added_dimensions": [
+            "d1"
+          ],
+          "modified_dimensions": [],
+          "removed_dimensions": [],
+          "reusable_evidence": [],
+          "claims_to_recheck": [],
+          "scope_authorization_basis": "Synthetic user request"
+        }
+      }
+    },
+    {
+      "case_id": "reject-no-required-dimension",
+      "schema": "research-framework.schema.json",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.0.0",
+        "framework_id": "f1",
+        "revision": 1,
+        "previous_revision": null,
+        "scope_version": "s1",
+        "objective": "Explain user choice, synthetic exercise",
+        "entity_refs": [
+          {
+            "record_id": "e1",
+            "revision": 1
+          }
+        ],
+        "business_categories": [
+          {
+            "category_id": "c1",
+            "label": "Online instruction",
+            "business_traits": [
+              "Synthetic business attribute"
+            ],
+            "applicable_part": "One part of a mixed offering",
+            "entity_refs": [
+              {
+                "record_id": "e1",
+                "revision": 1
+              }
+            ],
+            "basis": "Unverified planning hypothesis",
+            "evidence_refs": [],
+            "status": "tentative"
+          },
+          {
+            "category_id": "c2",
+            "label": "In-person service",
+            "business_traits": [
+              "Synthetic business attribute"
+            ],
+            "applicable_part": "One part of a mixed offering",
+            "entity_refs": [
+              {
+                "record_id": "e1",
+                "revision": 1
+              }
+            ],
+            "basis": "Unverified planning hypothesis",
+            "evidence_refs": [],
+            "status": "tentative"
+          }
+        ],
+        "classification_limitations": "Tentative synthetic labels, not actual industry facts",
+        "question_refs": [
+          {
+            "question_id": "q1",
+            "revision": 1
+          }
+        ],
+        "dimensions": [
+          {
+            "dimension_id": "d1",
+            "name": "Customer choice mechanism",
+            "question_refs": [
+              {
+                "question_id": "q1",
+                "revision": 1
+              }
+            ],
+            "category_ids": [
+              "c1",
+              "c2"
+            ],
+            "selection_reason": "Directly answers objective",
+            "requirement": "optional",
+            "selected": true,
+            "applicability": "Synthetic defined user scenario",
+            "comparison_definition": "Same task, region and period",
+            "evidence_requirements": [
+              {
+                "need": "Synthetic evidence need",
+                "direction": "support",
+                "source_types": [
+                  "primary_record"
+                ],
+                "minimum_independent_groups": 2,
+                "freshness_policy": "research-quality 1.0.0",
+                "acceptance_condition": "Comparable conditions and explicit supporting text"
+              }
+            ],
+            "priority": {
+              "level": "P0",
+              "decision_impact": "May refute central explanation",
+              "expected_uncertainty_reduction": "Separate product capability from habit",
+              "estimated_tool_operations": 4,
+              "rationale": "Core premise before supplementary details"
+            },
+            "depends_on_dimensions": [],
+            "completion_condition": "Supported/refuted/bounded conclusion with counter evidence check"
+          }
+        ],
+        "candidate_methods": [],
+        "change": {
+          "trigger": "Initial design",
+          "evidence_refs": [],
+          "affected_question_refs": [
+            {
+              "question_id": "q1",
+              "revision": 1
+            }
+          ],
+          "added_dimensions": [
+            "d1"
+          ],
+          "modified_dimensions": [],
+          "removed_dimensions": [],
+          "reusable_evidence": [],
+          "claims_to_recheck": [],
+          "scope_authorization_basis": "Synthetic user request"
+        }
+      }
+    },
+    {
+      "case_id": "reject-deselected-required-dimension",
+      "schema": "research-framework.schema.json",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.0.0",
+        "framework_id": "f1",
+        "revision": 1,
+        "previous_revision": null,
+        "scope_version": "s1",
+        "objective": "Explain user choice, synthetic exercise",
+        "entity_refs": [
+          {
+            "record_id": "e1",
+            "revision": 1
+          }
+        ],
+        "business_categories": [
+          {
+            "category_id": "c1",
+            "label": "Online instruction",
+            "business_traits": [
+              "Synthetic business attribute"
+            ],
+            "applicable_part": "One part of a mixed offering",
+            "entity_refs": [
+              {
+                "record_id": "e1",
+                "revision": 1
+              }
+            ],
+            "basis": "Unverified planning hypothesis",
+            "evidence_refs": [],
+            "status": "tentative"
+          },
+          {
+            "category_id": "c2",
+            "label": "In-person service",
+            "business_traits": [
+              "Synthetic business attribute"
+            ],
+            "applicable_part": "One part of a mixed offering",
+            "entity_refs": [
+              {
+                "record_id": "e1",
+                "revision": 1
+              }
+            ],
+            "basis": "Unverified planning hypothesis",
+            "evidence_refs": [],
+            "status": "tentative"
+          }
+        ],
+        "classification_limitations": "Tentative synthetic labels, not actual industry facts",
+        "question_refs": [
+          {
+            "question_id": "q1",
+            "revision": 1
+          }
+        ],
+        "dimensions": [
+          {
+            "dimension_id": "d1",
+            "name": "Customer choice mechanism",
+            "question_refs": [
+              {
+                "question_id": "q1",
+                "revision": 1
+              }
+            ],
+            "category_ids": [
+              "c1",
+              "c2"
+            ],
+            "selection_reason": "Directly answers objective",
+            "requirement": "required",
+            "selected": false,
+            "applicability": "Synthetic defined user scenario",
+            "comparison_definition": "Same task, region and period",
+            "evidence_requirements": [
+              {
+                "need": "Synthetic evidence need",
+                "direction": "support",
+                "source_types": [
+                  "primary_record"
+                ],
+                "minimum_independent_groups": 2,
+                "freshness_policy": "research-quality 1.0.0",
+                "acceptance_condition": "Comparable conditions and explicit supporting text"
+              }
+            ],
+            "priority": {
+              "level": "P0",
+              "decision_impact": "May refute central explanation",
+              "expected_uncertainty_reduction": "Separate product capability from habit",
+              "estimated_tool_operations": 4,
+              "rationale": "Core premise before supplementary details"
+            },
+            "depends_on_dimensions": [],
+            "completion_condition": "Supported/refuted/bounded conclusion with counter evidence check"
+          }
+        ],
+        "candidate_methods": [],
+        "change": {
+          "trigger": "Initial design",
+          "evidence_refs": [],
+          "affected_question_refs": [
+            {
+              "question_id": "q1",
+              "revision": 1
+            }
+          ],
+          "added_dimensions": [
+            "d1"
+          ],
+          "modified_dimensions": [],
+          "removed_dimensions": [],
+          "reusable_evidence": [],
+          "claims_to_recheck": [],
+          "scope_authorization_basis": "Synthetic user request"
+        }
+      }
+    },
+    {
+      "case_id": "reject-supported-category-without-evidence",
+      "schema": "research-framework.schema.json",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.0.0",
+        "framework_id": "f1",
+        "revision": 1,
+        "previous_revision": null,
+        "scope_version": "s1",
+        "objective": "Explain user choice, synthetic exercise",
+        "entity_refs": [
+          {
+            "record_id": "e1",
+            "revision": 1
+          }
+        ],
+        "business_categories": [
+          {
+            "category_id": "c1",
+            "label": "Online instruction",
+            "business_traits": [
+              "Synthetic business attribute"
+            ],
+            "applicable_part": "One part of a mixed offering",
+            "entity_refs": [
+              {
+                "record_id": "e1",
+                "revision": 1
+              }
+            ],
+            "basis": "Unverified planning hypothesis",
+            "evidence_refs": [],
+            "status": "supported"
+          },
+          {
+            "category_id": "c2",
+            "label": "In-person service",
+            "business_traits": [
+              "Synthetic business attribute"
+            ],
+            "applicable_part": "One part of a mixed offering",
+            "entity_refs": [
+              {
+                "record_id": "e1",
+                "revision": 1
+              }
+            ],
+            "basis": "Unverified planning hypothesis",
+            "evidence_refs": [],
+            "status": "tentative"
+          }
+        ],
+        "classification_limitations": "Tentative synthetic labels, not actual industry facts",
+        "question_refs": [
+          {
+            "question_id": "q1",
+            "revision": 1
+          }
+        ],
+        "dimensions": [
+          {
+            "dimension_id": "d1",
+            "name": "Customer choice mechanism",
+            "question_refs": [
+              {
+                "question_id": "q1",
+                "revision": 1
+              }
+            ],
+            "category_ids": [
+              "c1",
+              "c2"
+            ],
+            "selection_reason": "Directly answers objective",
+            "requirement": "required",
+            "selected": true,
+            "applicability": "Synthetic defined user scenario",
+            "comparison_definition": "Same task, region and period",
+            "evidence_requirements": [
+              {
+                "need": "Synthetic evidence need",
+                "direction": "support",
+                "source_types": [
+                  "primary_record"
+                ],
+                "minimum_independent_groups": 2,
+                "freshness_policy": "research-quality 1.0.0",
+                "acceptance_condition": "Comparable conditions and explicit supporting text"
+              }
+            ],
+            "priority": {
+              "level": "P0",
+              "decision_impact": "May refute central explanation",
+              "expected_uncertainty_reduction": "Separate product capability from habit",
+              "estimated_tool_operations": 4,
+              "rationale": "Core premise before supplementary details"
+            },
+            "depends_on_dimensions": [],
+            "completion_condition": "Supported/refuted/bounded conclusion with counter evidence check"
+          }
+        ],
+        "candidate_methods": [],
+        "change": {
+          "trigger": "Initial design",
+          "evidence_refs": [],
+          "affected_question_refs": [
+            {
+              "question_id": "q1",
+              "revision": 1
+            }
+          ],
+          "added_dimensions": [
+            "d1"
+          ],
+          "modified_dimensions": [],
+          "removed_dimensions": [],
+          "reusable_evidence": [],
+          "claims_to_recheck": [],
+          "scope_authorization_basis": "Synthetic user request"
+        }
+      }
+    },
+    {
+      "case_id": "checkpoint-design-binding",
+      "schema": "research-manifest.schema.json",
+      "valid": true,
+      "instance": {
+        "schema_version": "1.3.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "researching",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "pending",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Not started"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "Collect",
+          "status": "active",
+          "report_qa": "pending",
+          "delivery_status": "not_started",
+          "issues": [],
+          "last_transition": {
+            "from": "Plan",
+            "to": "Collect",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        },
+        "research_design": {
+          "scope_version": "s1",
+          "framework": {
+            "path": "framework.json",
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "framework_id": "f1",
+            "revision": 1
+          },
+          "questions": {
+            "path": "questions.jsonl",
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 1
+          }
+        }
+      }
+    },
+    {
+      "case_id": "reject-collection-without-design",
+      "schema": "research-manifest.schema.json",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.3.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "researching",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "pending",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Not started"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "Collect",
+          "status": "active",
+          "report_qa": "pending",
+          "delivery_status": "not_started",
+          "issues": [],
+          "last_transition": {
+            "from": "Plan",
+            "to": "Collect",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        }
+      }
+    },
+    {
+      "case_id": "reject-old-version-with-new-design",
+      "schema": "research-manifest.schema.json",
+      "valid": false,
+      "instance": {
+        "schema_version": "1.2.0",
+        "snapshot_id": "test-snapshot",
+        "parent_snapshot": null,
+        "created_at": "2026-11-05T12:00:00+08:00",
+        "scope_version": "test-scope",
+        "original_request": "Synthetic test",
+        "research_objective": "Schema verification only",
+        "scope_summary": "No live research",
+        "phase": "researching",
+        "preferences": {
+          "audiences": [
+            {
+              "value": "通用读者",
+              "basis": "default",
+              "reason": "Noninteractive fixture"
+            }
+          ],
+          "report_detail": {
+            "value": "一般",
+            "basis": "default",
+            "reason": "Noninteractive fixture"
+          },
+          "interaction_mode": "noninteractive",
+          "preference_timeout_seconds": 0,
+          "asked_at": null,
+          "deadline_at": null,
+          "output_format": "pdf",
+          "ppt_requested": "not_requested_noninteractive"
+        },
+        "quality_policy_version": "1.0.0",
+        "mode": "Standard",
+        "budget": {
+          "limits": {
+            "research_operations": 40,
+            "document_versions": 20,
+            "supplement_rounds": 2,
+            "report_repair_rounds": 2,
+            "global_rework_rounds": 4
+          },
+          "used": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          },
+          "reserved": {
+            "research_operations": 0,
+            "document_versions": 0,
+            "supplement_rounds": 0,
+            "report_repair_rounds": 0,
+            "global_rework_rounds": 0
+          }
+        },
+        "qa": {
+          "status": "pending",
+          "required_total": 0,
+          "required_covered": 0,
+          "coverage_ratio": null,
+          "open_critical_conflicts": 0,
+          "reason": "Not started"
+        },
+        "next_actions": [
+          "Validate fixture"
+        ],
+        "ledger_files": {
+          "sources.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "entities.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "relationships.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "evidence.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "claims.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "conflicts.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "coverage.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "tasks.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          },
+          "events.jsonl": {
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 0
+          }
+        },
+        "workflow": {
+          "state": "Collect",
+          "status": "active",
+          "report_qa": "pending",
+          "delivery_status": "not_started",
+          "issues": [],
+          "last_transition": {
+            "from": "Plan",
+            "to": "Collect",
+            "reason": "Synthetic workflow fixture",
+            "scope_version": "test-scope",
+            "occurred_at": "2026-11-05T12:00:00+08:00"
+          }
+        },
+        "research_design": {
+          "scope_version": "s1",
+          "framework": {
+            "path": "framework.json",
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "framework_id": "f1",
+            "revision": 1
+          },
+          "questions": {
+            "path": "questions.jsonl",
+            "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "record_count": 1
+          }
+        }
+      }
+    }
+  ]
+}

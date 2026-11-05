@@ -5,7 +5,8 @@
       "enum": [
         "1.0.0",
         "1.1.0",
-        "1.2.0"
+        "1.2.0",
+        "1.3.0"
       ]
     },
     "snapshot_id": {
@@ -889,6 +890,70 @@
         "last_transition"
       ],
       "additionalProperties": false
+    },
+    "research_design": {
+      "type": "object",
+      "properties": {
+        "scope_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "framework": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "const": "framework.json"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "framework_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [
+            "path",
+            "sha256",
+            "framework_id",
+            "revision"
+          ],
+          "additionalProperties": false
+        },
+        "questions": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "const": "questions.jsonl"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "record_count": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [
+            "path",
+            "sha256",
+            "record_count"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "scope_version",
+        "framework",
+        "questions"
+      ],
+      "additionalProperties": false
     }
   },
   "required": [
@@ -911,7 +976,7 @@
   ],
   "additionalProperties": false,
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:steal-her-heart:research-manifest:1.2.0",
+  "$id": "urn:steal-her-heart:research-manifest:1.3.0",
   "title": "Immutable research checkpoint manifest",
   "allOf": [
     {
@@ -925,7 +990,8 @@
           "schema_version": {
             "enum": [
               "1.1.0",
-              "1.2.0"
+              "1.2.0",
+              "1.3.0"
             ]
           }
         }
@@ -935,7 +1001,10 @@
       "if": {
         "properties": {
           "schema_version": {
-            "const": "1.2.0"
+            "enum": [
+              "1.2.0",
+              "1.3.0"
+            ]
           }
         },
         "required": [
@@ -960,7 +1029,10 @@
       "then": {
         "properties": {
           "schema_version": {
-            "const": "1.2.0"
+            "enum": [
+              "1.2.0",
+              "1.3.0"
+            ]
           }
         }
       }
@@ -1041,7 +1113,10 @@
       "if": {
         "properties": {
           "schema_version": {
-            "const": "1.2.0"
+            "enum": [
+              "1.2.0",
+              "1.3.0"
+            ]
           },
           "phase": {
             "const": "completed"
@@ -1727,6 +1802,58 @@
             }
           }
         }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "research_design": {}
+        },
+        "required": [
+          "research_design"
+        ]
+      },
+      "then": {
+        "properties": {
+          "schema_version": {
+            "const": "1.3.0"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema_version": {
+            "const": "1.3.0"
+          },
+          "workflow": {
+            "properties": {
+              "state": {
+                "enum": [
+                  "Collect",
+                  "Validate",
+                  "Analyze",
+                  "Report",
+                  "ReportQA",
+                  "Delivered"
+                ]
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        },
+        "required": [
+          "schema_version",
+          "workflow"
+        ]
+      },
+      "then": {
+        "required": [
+          "research_design"
+        ]
       }
     }
   ]

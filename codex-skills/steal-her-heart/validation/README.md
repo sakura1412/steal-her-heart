@@ -15,6 +15,7 @@
 - [方法案例与输出](method-cases-2026-11-05.json)：17 个方法的具体输入、实际整理的输出、边界响应、计算值与局限。全部为合成数据，不进入真实研究台账。
 - [目录和工具检查结果](registry-and-tools-2026-11-05.json)：记录实例数量、当前宿主实际调用范围与缺口。
 - [台账结构正反例](../schemas/validation-cases.json)：需启用 date-time 检查；合成来源与占位哈希不能当真实证据。
+- [研究设计正反例](../tests/research-design-schema-cases.json)：6 个正例与 10 个反例，验证多类别框架、问题关联、验证状态和新检查点绑定；合成材料，不是独立研究行为评估。
 - [状态组合正反例](../tests/workflow-schema-cases.json)：检查点契约 1.2.0 的 10 个正例和 11 个反例已用 JSON Schema 校验器执行；不等于真实状态迁移或文件交付验证。
 - [五个正反示范](../references/worked-examples.md)：用于执行参考，不代替独立模型行为测试。
 

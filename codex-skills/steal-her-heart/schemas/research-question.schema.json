@@ -1,0 +1,574 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "question_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "supersedes": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "question_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "revision": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [
+            "question_id",
+            "revision"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scope_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "parent_question_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "entity_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "record_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "record_id",
+          "revision"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "question": {
+      "type": "string",
+      "minLength": 1
+    },
+    "question_kind": {
+      "enum": [
+        "descriptive",
+        "explanatory",
+        "comparative",
+        "causal"
+      ]
+    },
+    "initial_hypothesis": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "minLength": 1
+            },
+            "origin": {
+              "enum": [
+                "user",
+                "planner_hypothesis",
+                "background_knowledge"
+              ]
+            },
+            "scope_conditions": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "text",
+            "origin",
+            "scope_conditions"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "no_initial_hypothesis_reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "alternative_hypotheses": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "support_condition": {
+      "type": "string",
+      "minLength": 1
+    },
+    "falsification_condition": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "evidence_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "need": {
+            "type": "string",
+            "minLength": 1
+          },
+          "direction": {
+            "enum": [
+              "support",
+              "counter",
+              "context",
+              "comparison_baseline"
+            ]
+          },
+          "source_types": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "minimum_independent_groups": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "freshness_policy": {
+            "type": "string",
+            "minLength": 1
+          },
+          "acceptance_condition": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "need",
+          "direction",
+          "source_types",
+          "minimum_independent_groups",
+          "freshness_policy",
+          "acceptance_condition"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "current_conclusion": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "supporting_evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "record_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "record_id",
+          "revision"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "opposing_evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "record_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "record_id",
+          "revision"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "claim_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "record_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "record_id",
+          "revision"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "confidence": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "enum": [
+            "high",
+            "medium",
+            "low",
+            "unknown"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "level",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "assessment_status": {
+      "enum": [
+        "unassessed",
+        "evaluating",
+        "assessed"
+      ]
+    },
+    "verification_status": {
+      "enum": [
+        "unverified",
+        "supported",
+        "refuted",
+        "mixed",
+        "inconclusive",
+        "not_applicable"
+      ]
+    },
+    "verification_complete": {
+      "type": "boolean"
+    },
+    "counter_search": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "not_started",
+            "planned",
+            "completed",
+            "blocked"
+          ]
+        },
+        "queries_or_checks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "operation_keys": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "result_summary": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "status",
+        "queries_or_checks",
+        "operation_keys",
+        "result_summary"
+      ],
+      "additionalProperties": false
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "next_action": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "schema_version",
+    "question_id",
+    "revision",
+    "supersedes",
+    "recorded_at",
+    "scope_version",
+    "parent_question_id",
+    "entity_refs",
+    "question",
+    "question_kind",
+    "initial_hypothesis",
+    "no_initial_hypothesis_reason",
+    "alternative_hypotheses",
+    "support_condition",
+    "falsification_condition",
+    "evidence_requirements",
+    "current_conclusion",
+    "supporting_evidence",
+    "opposing_evidence",
+    "claim_refs",
+    "confidence",
+    "assessment_status",
+    "verification_status",
+    "verification_complete",
+    "counter_search",
+    "gaps",
+    "next_action"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:steal-her-heart:research-question:1.0.0",
+  "title": "Versioned question and hypothesis record",
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "initial_hypothesis": {
+            "type": "null"
+          }
+        },
+        "required": [
+          "initial_hypothesis"
+        ]
+      },
+      "then": {
+        "properties": {
+          "no_initial_hypothesis_reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "question_kind": {
+            "enum": [
+              "explanatory",
+              "comparative",
+              "causal"
+            ]
+          }
+        },
+        "required": [
+          "question_kind"
+        ]
+      },
+      "then": {
+        "properties": {
+          "falsification_condition": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verification_status": {
+            "enum": [
+              "unverified",
+              "inconclusive"
+            ]
+          }
+        },
+        "required": [
+          "verification_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "verification_complete": {
+            "const": false
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verification_status": {
+            "enum": [
+              "supported",
+              "refuted",
+              "mixed",
+              "not_applicable"
+            ]
+          }
+        },
+        "required": [
+          "verification_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "verification_complete": {
+            "const": true
+          },
+          "assessment_status": {
+            "const": "assessed"
+          },
+          "current_conclusion": {
+            "type": "string",
+            "minLength": 1
+          },
+          "claim_refs": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verification_status": {
+            "enum": [
+              "supported",
+              "mixed",
+              "not_applicable"
+            ]
+          }
+        },
+        "required": [
+          "verification_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "supporting_evidence": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verification_status": {
+            "enum": [
+              "refuted",
+              "mixed"
+            ]
+          }
+        },
+        "required": [
+          "verification_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "opposing_evidence": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verification_status": {
+            "enum": [
+              "supported",
+              "mixed"
+            ]
+          }
+        },
+        "required": [
+          "verification_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "counter_search": {
+            "properties": {
+              "status": {
+                "const": "completed"
+              },
+              "queries_or_checks": {
+                "minItems": 1
+              },
+              "operation_keys": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

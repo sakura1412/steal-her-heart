@@ -7,7 +7,7 @@
 | 状态 | 允许动作 | 退出条件 | 守卫 |
 |---|---|---|---|
 | Interview | 按交互单源识别主题、采用显式或默认偏好；对象明确后可轻量消歧、扫描 | 主题可识别；audiences 和 report_detail 有真实值及取值依据 | 偏好缺省不阻塞；缺对象不能捏造目标；初扫材料仍是候选，计入预算 |
-| Plan | 消歧实体、设计 dimensions、候选方法、独立任务和预算 | 至少 1 个 required 问题／维度；scope_version、实体边界和预算写入检查点 | 身份未决材料隔离；行业包及背景知识不能冒充本次证据 |
+| Plan | 消歧实体、调用问题／假设与研究框架职责，设计 dimensions、候选方法、独立任务和预算 | 至少 1 个 required 维度且关联问题；问题／框架、scope_version、实体边界和预算写入检查点 | 身份未决材料隔离；行业包及背景知识不能冒充本次证据 |
 | Collect | 执行本轮有授权且有预算的 task，保存 raw 引用和候选 Evidence | 本轮 planned tasks 均终止，或未执行项有明确 blocked／取消原因且预算已对账 | 采集成功不等于核验；失败不当无结果；访问限制按连接器规则停止 |
 | Validate | 查支持度、时效、独立性、冲突及覆盖，写 gaps 和补研决策 | 所有必需单元已检查；每个 blocking gap 都有补研／受限停止／需输入的具体决定 | 完成检查不等于充分；不能为了通过而删 required；来源与预算按质量策略 |
 | Analyze | Planner 按已核验数据选方法并验输入；涉及比较先过 Comparison，再执行方法、写 Claims | 每个被选方法 completed／limited／blocked／skipped 有原因；新结论逐条核查并引用证据 | 被阻塞方法不产出确定结论；无我方背景不编我方赢输策略 |
@@ -57,8 +57,8 @@
 
 ## 台账字段与兼容
 
-新任务使用 manifest 契约 `1.2.0` 的 `workflow` 对象，记录上述 state／status／report_qa／delivery_status、issues 和最近迁移（from、to、reason、scope_version、发生时间）。跨阶段迁移另追加 event，使用 `event_type=checkpoint`、唯一 operation_key 和前后台账引用，不改变既有事件类型来伪造迁移执行。
+新任务使用 manifest 契约 `1.3.0`，沿用 1.2.0 引入的 `workflow` 对象，并绑定 [研究设计工件](research-ledger.md#问题与框架绑定)，记录上述 state／status／report_qa／delivery_status、issues 和最近迁移（from、to、reason、scope_version、发生时间）。跨阶段迁移另追加 event，使用 `event_type=checkpoint`、唯一 operation_key 和前后台账引用，不改变既有事件类型来伪造迁移执行。
 
 为兼容旧读取方，phase 使用既有枚举：Interview／Plan→understanding，Collect→researching（补研时 supplementing），Validate→validating，Analyze→analyzing，Report／ReportQA／Delivered 未完成→reporting；blocked／cancelled／failed／completed 由 workflow.status 覆盖 phase。waiting_input 保留所在阶段映射并明确待输入原因。
 
-1.0.0／1.1.0 旧快照仍可读；没有 workflow 字段时不得仅凭旧 reporting 推断已经通过 ReportQA。恢复时查看实际台账和文件检查记录，在新 1.2.0 修订补齐状态，依据不足则 blocked。Schema 仅检查结构与可表达的组合约束；它不能证明原文支持、真实迁移或文件检查已发生。
+1.0.0／1.1.0／1.2.0 旧快照仍可读；没有 workflow 字段时不得仅凭旧 reporting 推断已经通过 ReportQA。恢复时查看实际台账和文件检查记录，在新 1.3.0 修订补齐状态与设计引用，依据不足则 blocked。Schema 仅检查结构与可表达的组合约束；它不能证明原文支持、真实迁移或文件检查已发生。
