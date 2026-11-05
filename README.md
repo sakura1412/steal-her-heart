@@ -209,11 +209,12 @@ Market Intelligence 按需研究概况、细分、规模、增长、份额、格
 codex-skills/steal-her-heart/
 ├── SKILL.md                 调用入口与工作流程
 ├── RULES.md                 证据、权限与质量规则
-├── TASK_SPEC.md             职责与验收场景
+├── TASK_SPEC.md             运行职责、交接与任务管理
 ├── agents/openai.yaml       技能展示信息
 ├── references/              架构、研究方法、质量及台账协议
 ├── schemas/                 台账、背景知识与检查点 JSON Schema
-└── validation/              受控案例、限定范围工具检查及未完成项
+├── tests/                   维护者验收表，运行时不加载
+└── validation/              历史验证材料，按维护／能力审查请求读取
 AGENTS.md                    仓库维护约定
 projects/README.md           可选长期项目说明
 templates/profile.md         按需填写的背景模板
@@ -227,4 +228,4 @@ templates/profile.md         按需填写的背景模板
 
 维护时遵循 [AGENTS.md](AGENTS.md)，保持技能包自包含和三项架构原则。新增行业扩展 IndustryPack，新增平台扩展 Adapter，新增方法扩展 Method Registry，并补充适用性、缺失、冲突及失败场景。
 
-验收要求见 [TASK_SPEC.md](codex-skills/steal-her-heart/TASK_SPEC.md)。提交时区分格式／引用检查、受控案例和真实研究验证，说明实际工具、证据、产物及未完成项；不能用旧测试记录或合成报告证明新能力已经可用。
+运行职责见 [TASK_SPEC.md](codex-skills/steal-her-heart/TASK_SPEC.md)，维护者验收要求见 [tests/acceptance.md](codex-skills/steal-her-heart/tests/acceptance.md)。提交时区分格式／引用检查、受控案例和真实研究验证，说明实际工具、证据、产物及未完成项；不能用旧测试记录或合成报告证明新能力已经可用。

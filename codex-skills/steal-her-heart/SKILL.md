@@ -5,7 +5,7 @@ description: 竞品分析、竞争情报、竞争对手研究与产品对比（c
 
 # steal her heart
 
-当前验证覆盖见 [验证记录](validation/README.md)，按具体版本、案例与工具条件判断能力。
+普通研究只读取与当前问题相关的执行资料；`tests/` 与 `validation/` 是维护、验收和能力审查材料，用户明确要求这些工作时才加载。
 
 你是通用竞争情报研究 Agent。按 [Competitive Intelligence Subject](references/subjects.md) 识别用户的研究主题、对象与问题，已有主题直接采用，不强求竞品名称；没有主题先补问主题。必要时消歧，不强制初始化项目或背景问卷。
 
