@@ -4,28 +4,7 @@
 
 可以研究产品、企业、品牌、服务，也可以比较价格、渠道和市场格局。Agent 根据你的问题设计研究维度，查找资料、核验证据、分析差异，最终交付 PDF。无需先创建项目或填写我方产品问卷。
 
-[开始使用](#开始使用) · [实际报告 Demo](#实际报告-demo) · [更多用法](#更多可以直接复制的用法) · [常见问题](#常见问题)
-
-## 实际报告 Demo
-
-**Codex 与 Claude Code：面向所有人的详细对比**
-
-这是一份实际生成的报告，展示从双产品研究到 PDF 交付的效果。内容包括使用入口、工作流程、模型与上下文、扩展能力、价格、安全与企业接入，以及不同读者的选择建议和试点方案。
-
-[**打开 11 页 PDF 案例**](examples/codex-vs-claude-code/report.pdf) · [**直接下载 PDF**](https://raw.githubusercontent.com/sakura1412/steal-her-heart/main/examples/codex-vs-claude-code/report.pdf)
-
-[![Codex 与 Claude Code 报告首页预览](examples/codex-vs-claude-code/preview.png)](examples/codex-vs-claude-code/report.pdf)
-
-报告日期为 **2026-11-05**，面向通用读者，采用详细版。公开展示版已隐藏来源链接、引用编号和原文定位附录，保留结论、日期及研究限制。本次报告明确记录了 16/20 项覆盖和未完成的实测问题，展示的是一次具体任务的产出。
-
-想生成类似报告，可以复制下面的提示词。这是使用示例，不是原始对话的逐字记录；重新研究会使用当次资料，内容和页数可能不同。
-
-```text
-$steal-her-heart 比较 OpenAI Codex 与 Anthropic Claude Code。
-面向通用读者，生成详细版 PDF。
-重点比较使用入口、工作流程、扩展能力、价格和企业接入，
-说明不同用户怎么选择、还需要做哪些实际测试。
-```
+[开始使用](#开始使用) · [更多用法](#更多可以直接复制的用法) · [实际报告 Demo](#实际报告-demo) · [常见问题](#常见问题)
 
 ## 开始使用
 
@@ -118,6 +97,27 @@ Agent 会说明当前理解的对象和范围，先做实体消歧与轻量扫�
 | 更新旧报告 | `更新上次报告中的价格和近期变化，保留旧版本，列出哪些结论发生了变化。` |
 
 报告详略可选简单、一般、详细；“快速了解”与“深入研究”控制研究投入，和报告篇幅分别处理。角色可以自定义。行业、对象和问题不同，研究维度也随之变化。
+
+## 实际报告 Demo
+
+**Codex 与 Claude Code：面向所有人的详细对比**
+
+这是一份实际生成的报告，展示从双产品研究到 PDF 交付的效果。内容包括使用入口、工作流程、模型与上下文、扩展能力、价格、安全与企业接入，以及不同读者的选择建议和试点方案。
+
+[**打开 11 页 PDF 案例**](examples/codex-vs-claude-code/report.pdf) · [**直接下载 PDF**](https://raw.githubusercontent.com/sakura1412/steal-her-heart/main/examples/codex-vs-claude-code/report.pdf)
+
+[![Codex 与 Claude Code 报告首页预览](examples/codex-vs-claude-code/preview.png)](examples/codex-vs-claude-code/report.pdf)
+
+报告日期为 **2026-11-05**，面向通用读者，采用详细版。公开展示版已隐藏来源链接、引用编号和原文定位附录，保留结论、日期及研究限制。本次报告明确记录了 16/20 项覆盖和未完成的实测问题，展示的是一次具体任务的产出。
+
+想生成类似报告，可以复制下面的提示词。这是使用示例，不是原始对话的逐字记录；重新研究会使用当次资料，内容和页数可能不同。
+
+```text
+$steal-her-heart 比较 OpenAI Codex 与 Anthropic Claude Code。
+面向通用读者，生成详细版 PDF。
+重点比较使用入口、工作流程、扩展能力、价格和企业接入，
+说明不同用户怎么选择、还需要做哪些实际测试。
+```
 
 ## 常见问题
 
