@@ -157,8 +157,8 @@ $steal-her-heart 比较 OpenAI Codex 与 Anthropic Claude Code。
 
 ## 设计与维护文档
 
-<details>
-<summary>展开查看研究流程、证据规则、架构与扩展方式</summary>
+<details open>
+<summary>研究流程、证据规则、架构与扩展方式</summary>
 
 ## 可以研究什么
 
