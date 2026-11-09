@@ -2,6 +2,8 @@
 
 本文件是汇报角色、报告详略和文件交付的单源。适用于首次分析报告与新报告请求；简短事实追问沿用当前偏好，不反复启动问卷。
 
+编制草稿和执行 Report QA 时，按[八类报告产物](report-artifacts.md)交付并核对本次选定的图、表与建议。详略决定呈现篇幅，用户明确要求的成果保留在交付清单中。
+
 ## 一次可选提问，不阻塞研究
 
 先判断对象或研究主题是否已给。未给时只问对象，并在同一条消息附上偏好默认值：
@@ -30,6 +32,8 @@
 记录 `audiences`、`report_detail`、各自取值依据（explicit_user／task_config／default）、`interaction_mode`、`preference_timeout_seconds`、提问与实际截止时间、默认原因、`output_format`（默认 PDF）及 `ppt_requested`。没有实际计时不得伪造时间；持久化格式见 [研究台账](research-ledger.md)。
 
 ## 三种报告类型
+
+综合报告采用[标准目录：十二章与证据附录](report-outline.md)。依照下表调整展开程度；用户指定章节或专项成果时，按其决策问题组织。
 
 | 类型 | 内容组织 | 展开程度 |
 |---|---|---|

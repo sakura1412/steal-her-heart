@@ -1,4 +1,4 @@
-# Instruction catalog for Codex; no executable package manager or installed packs.
+# Instruction catalog for Codex; no executable package manager.
 registry_version: 1
 pack_contract_version: 1
 status: instruction_catalog
@@ -48,4 +48,26 @@ marketplace:
   automatic_install: false
   automatic_publish: false
   automatic_update: false
-entries: []
+entries:
+- pack_id: product_types
+  namespace: shh.product_types
+  version: 1.0.0
+  contract_version: 1
+  provenance: 用户提供七类产品方向，仓库维护者整理研究问题与取证示例
+  usage_terms: 用于本技能内的规划提示与报告设计
+  applicability: 产品、版本或具体服务的竞争分析；根据实际业务属性和决策目标选条目，地区、时期及使用端由任务限定
+  resources:
+    industry_profile: packs/product-types.md#适用范围
+    dimension_schema: packs/product-types.md#候选问题与取证
+    metric_dictionary: packs/product-types.md#指标口径
+    source_recommendation: packs/product-types.md#候选问题与取证
+    analysis_method: packs/product-types.md#方法与交付
+    report_template: packs/product-types.md#方法与交付
+  dependencies: []
+  compatibility:
+    contract_version: 1
+    methods: [customer_journey@1.0.0, feature_matrix@1.0.0, price_analysis@1.0.0]
+    tools: 按任务检查来源是否可读及是否获准操作
+  validation_records:
+  - {layer: structure, date: '2026-11-09', result: passed, scope: 六部分资源与锚点、七种属性标识、方法版本及包字段}
+  lifecycle_status: draft

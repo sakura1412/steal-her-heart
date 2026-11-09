@@ -2,11 +2,21 @@
 
 **在 Codex 中输入一个产品名，获得一份有依据的竞品分析报告。**
 
-可以研究产品、企业、品牌、服务，也可以比较价格、渠道和市场格局。Agent 根据你的问题设计研究维度，查找资料、核验证据、分析差异，最终交付 PDF。无需先创建项目或填写我方产品问卷。
+这套竞品分析方法从一个决定开始：你想选择供应商、调整定价，还是决定下一项产品投入？给出产品名也能开始。Agent 按业务特征选择维度，把研究时间优先用在可能改变选择的差异上。每项竞争判断都能回查原始材料，最终 PDF 说明建议采取什么行动、依据是什么、还需验证什么。
 
 [开始使用](#开始使用) · [更多用法](#更多可以直接复制的用法) · [实际报告 Demo](#实际报告-demo) · [常见问题](#常见问题)
 
+一份综合报告回答五个问题：**市场上有什么？竞品解决什么问题？竞品是怎么解决问题的？竞品做得怎么样？我们应该怎么做？** 你可以只问其中一个。若要据此决定自己的产品下一步做什么，附上目标用户和当前约束，报告就能把竞品的差异转成可执行、可验证的建议。
+
 ## 开始使用
+
+**从六层看竞争。** 市场层看客户有哪些选择，战略层看各家服务谁、靠什么获利，产品层看实际交付什么，体验层看用户经历了什么，能力层看交付靠哪些条件，决策层把差异转成可执行的产品竞争策略。[六大分析层与交付示例](codex-skills/steal-her-heart/references/dimensions.md#六大分析层)
+
+只关心售后体验时，可以直接问：“比较两家的报修流程、人工介入和故障恢复，用实际案例核对服务承诺。”需要全面评审时，也可以明确要求逐项分析全部 [12 个核心维度](codex-skills/steal-her-heart/references/core-dimensions.md)。
+
+也可以直接指定交付物，例如：“比较两家的夜间报修，画一张从报修到恢复的流程图，列出必须人工交接的节点，再用客户反馈说明哪里最容易卡住。”更多选项见[八类报告产物与示例用途](codex-skills/steal-her-heart/references/report-artifacts.md)。
+
+想先看成稿会怎样组织，可以浏览[竞品分析报告标准目录](codex-skills/steal-her-heart/references/report-outline.md)。执行摘要先给结论，正文展开比较，最后把竞争机会落实为建议，并在附录提供核验材料。
 
 ### 第一步：安装到 Codex
 
@@ -110,15 +120,15 @@ Agent 会说明当前理解的对象和范围，先做实体消歧与轻量扫�
 
 ## 实际报告 Demo
 
-**Codex 与 Claude Code：五种场景下的选择与取舍**
+**Codex 与 Claude Code：六种工作场景下的优势与限制**
 
-如果只是想免费试一个小项目，和必须从 Android 手机上接回办公室里的开发会话，答案会不同。这份报告先用一张横向表比较两款产品，再分别讨论个人订阅、本地会话接续、云端任务、CI 代码检查和企业云采购。每个场景都给出选择理由、要接受的限制，以及一个可以亲手验证的任务。
+团队已经在 `AGENTS.md` 里写了审阅规则，想让 GitHub 只提醒严重缺陷，可以先试 Codex。值班工程师必须从 Android 或浏览器接回办公室的本地会话，可以先试 Claude Code。若唯一要求是合上电脑后任务继续，两家都有云端路径，下一步该验证谁能跑通团队自己的依赖和测试。
 
-[**阅读 7 页 PDF 案例**](examples/codex-vs-claude-code/report.pdf) · [**直接下载 PDF**](https://raw.githubusercontent.com/sakura1412/steal-her-heart/main/examples/codex-vs-claude-code/report.pdf)
+[**阅读 8 页 PDF 案例**](examples/codex-vs-claude-code/report.pdf) · [**直接下载 PDF**](https://raw.githubusercontent.com/sakura1412/steal-her-heart/main/examples/codex-vs-claude-code/report.pdf)
 
-[![五种选型场景下的 Codex 与 Claude Code 横向对比](examples/codex-vs-claude-code/preview.png)](examples/codex-vs-claude-code/report.pdf)
+[![Codex 与 Claude Code 在个人试用、GitHub 审阅、移动值班、云任务、CI 和企业云采购中的选型对照](examples/codex-vs-claude-code/preview.png)](examples/codex-vs-claude-code/report.pdf)
 
-本版于 **2026-11-09** 重新核对双方官方文档。结论用于判断哪种工作方式更适合先试，代码质量、速度和实际任务成本留给同仓库试点验证。公开展示版省略来源清单与原文定位。
+首页是六个场景的横向对照，后续每页给出双方的工作方式、选它要接受的限制和一个可执行的验证动作。末页提供同仓库试点方案。本版于 **2026-11-09** 重新核对双方产品说明，实际代码质量、速度与单位任务成本仍待同条件实测。
 
 在 Codex 中生成类似对比，可以输入：
 
@@ -158,8 +168,8 @@ $steal-her-heart 比较 Codex 和 Claude Code，给通用读者一份详细 PDF�
 |---|---|
 | 技能安装、研究交互与报告规范 | 已提供；本页附实际 PDF 案例 |
 | 问题拆解、动态维度、实体管理、可比性与市场研究 | 已提供执行契约，具体结果逐任务核查 |
-| 17 个分析方法 | 有合成受控案例与边界评审，不等同于独立真实业务验证 |
-| 连接器与行业包实例 | 注册实例数均为 0；实际采集使用宿主可用工具，不能据此宣称全平台接通 |
+| 21 个分析方法 | 已按合成案例检查适用条件及边界，真实业务成效仍待独立验证 |
+| 连接器与行业包实例 | 内置 1 个[产品类型研究重点包](codex-skills/steal-her-heart/references/packs/product-types.md)，含七种可组合视角，已做结构检查。连接器注册实例为 0，实际采集依赖宿主工具 |
 | 证据与报告质量 | 保留来源、时间、条件、冲突和缺口；结构检查不代替事实核验 |
 
 详细状态见 [验证记录](codex-skills/steal-her-heart/validation/README.md)。
@@ -296,7 +306,7 @@ Market Intelligence 按需研究概况、细分、规模、增长、份额、格
 
 **数据源体系**覆盖企业官方、应用与软件、电商与零售、社交与内容、新闻媒体、研究知识、公共数据、评价社区八类来源。连接模式包括 Public Web、Official API、Authorized Account 和 User Upload。搜索、正文抓取、浏览器、文档解析或专用连接器由当前 Codex 环境提供，不绕过登录、付费、地域和访问限制。
 
-**方法目录**包含 SWOT、PESTLE、五力模型、Benchmarking、Feature Matrix、Price Analysis、Positioning Map、Value Chain Analysis、Business Model Canvas、Customer Journey、Market Segmentation、Trend Analysis、Capability Gap Analysis、Competitive Response Analysis，以及 TAM／SAM／SOM 三项规模方法。方法不是每次研究的必跑清单。
+**分析方法按研究问题选择。** 常用方法包括 SWOT、PEST、波特五力、用户旅程地图、功能对比矩阵和 GAP 分析。需要分析产品组合、需求优先级、投入顺序或商业模式时，可分别选用波士顿矩阵、Kano、RICE 或商业模式画布。见[方法选择指南](codex-skills/steal-her-heart/references/analysis-methods.md#从研究问题选方法)。
 
 详细契约：[行业包](codex-skills/steal-her-heart/references/industry-packs.md) · [连接器](codex-skills/steal-her-heart/references/connectors.md) · [分析方法](codex-skills/steal-her-heart/references/analysis-methods.md)。
 
@@ -315,11 +325,13 @@ Market Intelligence 按需研究概况、细分、规模、增长、份额、格
 
 ## 执行示范与来源判断
 
+例如，你问“竞品的自动审批值得我们借鉴吗？”，报告会分开写规则能处理哪些申请、哪些效率收益还只是推测，以及如何用自己的审批记录决定是否试点。只有厂商手册时，实际节省了多少时间会保留为未知。见[分析原则与自动审批示例](codex-skills/steal-her-heart/RULES.md#专业分析的五项原则)。
+
 [五个正反示范](codex-skills/steal-her-heart/references/worked-examples.md) 展示价格冲突、缺分母的份额请求、工具失败、缺失值比较及缺对象时的处理。示范均为教学材料，不是实际产品事实。
 
 来源等级、置信理由和允许使用的“背景知识”见 [来源质量规则](codex-skills/steal-her-heart/references/source-quality.md)。一般术语和方法解释可标为背景知识；当前竞品事实仍需本次证据，背景知识不计入事实覆盖。评论研究按 [采样与口碑规范](codex-skills/steal-her-heart/references/review-method.md) 记录窗口、样本、重复／疑似操纵信号和评分口径，不用跨平台星级直接排名。
 
-[验证记录](codex-skills/steal-her-heart/validation/README.md) 分别列结构检查、受控案例、真实工具调用和未完成项。方法案例不是独立评估，空的连接器／行业包目录不记为“全部通过”。
+[验证记录](codex-skills/steal-her-heart/validation/README.md) 分别列结构检查、受控案例、真实工具调用和未完成项。方法的合成案例、行业包的结构校验和连接器的实际可用性分别记录。
 
 ## 文件与成果
 

@@ -629,3 +629,66 @@ methods:
     case_id: som_analysis
     independent: false
     live_research: false
+- method_id: pest
+  version: 1.0.0
+  display_name: PEST
+  purpose: 判断宏观变化通过什么机制影响指定行业
+  triggers: [行业环境分析或明确要求政治、经济、社会、技术四维分析]
+  required_inputs: [market_scope, time_window, macro_evidence]
+  optional_inputs: [scenario_assumptions]
+  execution_rules:
+  - 按政治、经济、社会和技术四类检查材料，写出事件、受影响群体、作用路径及反证条件
+  - 区分已发生、已宣布与预测，记录地区和时间；需要独立研究法律或环境因素时考虑 pestle
+  output: [factor_evidence_table, impact_paths, uncertainties]
+  failure_handling: [关键因素缺材料则标缺口，仅对可支持的路径给出有限判断]
+  completion_criteria: [已回应指定环境问题，每项影响判断能回溯材料、范围及条件]
+  validation_status: controlled_case_reviewed_not_live_validated
+  validation_records: [{date: '2026-11-09', kind: manual_controlled_case, result: reviewed_with_limits, artifact: ../validation/method-cases-2026-11-09.md, case_id: pest, independent: false, live_research: false}]
+- method_id: bcg_matrix
+  version: 1.0.0
+  display_name: 波士顿矩阵（BCG）
+  purpose: 比较同一组合内业务单元的市场增长和相对市场份额
+  triggers: [产品组合资源配置]
+  required_inputs: [portfolio_units, defined_markets, market_growth_rates, relative_share_inputs, quadrant_thresholds, evidence_records]
+  optional_inputs: [cash_flow, investment_constraints]
+  execution_rules:
+  - 每个业务单元界定自己的细分市场，以该市场增长率为纵轴，以本单元份额除以同市场最大其他竞争者份额为横轴
+  - 记录期间、数据口径、阈值和等于阈值时的归类规则，复算坐标并检查临界值；企业自身销售增长率不能替代市场增长率
+  - 解释象限对资源分配的启示；提出投资或退出建议前另核现金流、协同和约束
+  output: [portfolio_quadrants, axis_calculations, allocation_questions, limitations]
+  failure_handling: [缺同口径份额、有效分母或增长率时将对应单元列为待定位]
+  completion_criteria: [每个已定位单元的市场、坐标、阈值和分类均可复核]
+  validation_status: controlled_case_reviewed_not_live_validated
+  validation_records: [{date: '2026-11-09', kind: manual_controlled_case, result: reviewed_with_limits, artifact: ../validation/method-cases-2026-11-09.md, case_id: bcg_matrix, independent: false, live_research: false}]
+- method_id: kano
+  version: 1.0.0
+  display_name: Kano 模型
+  purpose: 判断各客群对某项需求得到满足和未得到满足的反应
+  triggers: [需要区分基本需求、期望需求和魅力需求]
+  required_inputs: [feature_definitions, customer_segments, paired_survey_responses, evaluation_table, evidence_records]
+  optional_inputs: [segment_weights]
+  execution_rules:
+  - 按同一受访者、同一功能配对正反向题，按明确的 Kano 评价表编码必备、期望、魅力、无差异、反向与可疑回答
+  - 按客群报告样本数、各类分布、缺失及可疑对数；并列或分群结果不一致时保留分歧
+  - 将分类用作优先级判断的一项输入，并结合业务目标和成本解释下一步
+  output: [segment_category_counts, need_types, prioritization_implications, limitations]
+  failure_handling: [只有投诉或单向评分时仅形成待测需求和问卷题目，缺配对数据则阻止正式分类]
+  completion_criteria: [分类可回查成对回答、编码表、分组口径及有效样本数]
+  validation_status: controlled_case_reviewed_not_live_validated
+  validation_records: [{date: '2026-11-09', kind: manual_controlled_case, result: reviewed_with_limits, artifact: ../validation/method-cases-2026-11-09.md, case_id: kano, independent: false, live_research: false}]
+- method_id: rice
+  version: 1.0.0
+  display_name: RICE
+  purpose: 在共同目标和时间窗内比较功能或机会项的投入优先级
+  triggers: [产品规划需要权衡影响面、影响程度、信心和投入]
+  required_inputs: [candidate_initiatives, reach_period, reach_estimates, impact_scale, confidence_basis, effort_person_months, evidence_records]
+  optional_inputs: [dependencies, sensitivity_ranges]
+  execution_rules:
+  - 统一 Reach 的时间窗和去重单位、Impact 的目标及尺度，Confidence 按 0 至 1 计，Effort 用大于零的人月
+  - 用计算工具复算 Reach × Impact × Confidence ÷ Effort，注明估值依据与变化范围
+  - 检查排序随输入变化的敏感性，另列强制依赖及约束，解释分数顺序与实施顺序的关系
+  output: [input_assumptions, reproducible_scores, conditional_priority_order, dependencies]
+  failure_handling: [缺关键输入、投入为零或单位不一致时暂停该项评分，列出待估参数]
+  completion_criteria: [各可比项可复算，排序适用条件与不确定性明确]
+  validation_status: controlled_case_reviewed_not_live_validated
+  validation_records: [{date: '2026-11-09', kind: manual_controlled_case, result: reviewed_with_limits, artifact: ../validation/method-cases-2026-11-09.md, case_id: rice, independent: false, live_research: false}]
