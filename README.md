@@ -110,23 +110,22 @@ Agent 会说明当前理解的对象和范围，先做实体消歧与轻量扫�
 
 ## 实际报告 Demo
 
-**Codex 与 Claude Code：面向所有人的详细对比**
+**Codex 与 Claude Code：五种场景下的选择与取舍**
 
-这是一份实际生成的报告，展示从双产品研究到 PDF 交付的效果。内容包括使用入口、工作流程、模型与上下文、扩展能力、价格、安全与企业接入，以及不同读者的选择建议和试点方案。
+如果只是想免费试一个小项目，和必须从 Android 手机上接回办公室里的开发会话，答案会不同。这份报告先用一张横向表比较两款产品，再分别讨论个人订阅、本地会话接续、云端任务、CI 代码检查和企业云采购。每个场景都给出选择理由、要接受的限制，以及一个可以亲手验证的任务。
 
-[**打开 11 页 PDF 案例**](examples/codex-vs-claude-code/report.pdf) · [**直接下载 PDF**](https://raw.githubusercontent.com/sakura1412/steal-her-heart/main/examples/codex-vs-claude-code/report.pdf)
+[**阅读 7 页 PDF 案例**](examples/codex-vs-claude-code/report.pdf) · [**直接下载 PDF**](https://raw.githubusercontent.com/sakura1412/steal-her-heart/main/examples/codex-vs-claude-code/report.pdf)
 
-[![Codex 与 Claude Code 报告首页预览](examples/codex-vs-claude-code/preview.png)](examples/codex-vs-claude-code/report.pdf)
+[![五种选型场景下的 Codex 与 Claude Code 横向对比](examples/codex-vs-claude-code/preview.png)](examples/codex-vs-claude-code/report.pdf)
 
-报告日期为 **2026-11-05**，面向通用读者，采用详细版。公开展示版已隐藏来源链接、引用编号和原文定位附录，保留结论、日期及研究限制。本次报告明确记录了 16/20 项覆盖和未完成的实测问题，展示的是一次具体任务的产出。
+本版于 **2026-11-09** 重新核对双方官方文档。结论用于判断哪种工作方式更适合先试，代码质量、速度和实际任务成本留给同仓库试点验证。公开展示版省略来源清单与原文定位。
 
-想生成类似报告，可以复制下面的提示词。这是使用示例，不是原始对话的逐字记录；重新研究会使用当次资料，内容和页数可能不同。
+在 Codex 中生成类似对比，可以输入：
 
 ```text
-$steal-her-heart 比较 OpenAI Codex 与 Anthropic Claude Code。
-面向通用读者，生成详细版 PDF。
-重点比较使用入口、工作流程、扩展能力、价格和企业接入，
-说明不同用户怎么选择、还需要做哪些实际测试。
+$steal-her-heart 比较 Codex 和 Claude Code，给通用读者一份详细 PDF。
+按场景写明哪一方有优势、相对另一方差在哪里、选它要接受什么限制。
+两者都能满足的需求也请指出，并给出我能自己验证的办法。
 ```
 
 ## 常见问题
