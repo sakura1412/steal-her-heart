@@ -120,15 +120,17 @@ Agent 会说明当前理解的对象和范围，先做实体消歧与轻量扫�
 
 ## 实际报告 Demo
 
-**Codex 与 Claude Code：六种工作场景下的优势与限制**
+**Codex 与 Claude Code：开发团队该先试哪一个？**
 
-团队已经在 `AGENTS.md` 里写了审阅规则，想让 GitHub 只提醒严重缺陷，可以先试 Codex。值班工程师必须从 Android 或浏览器接回办公室的本地会话，可以先试 Claude Code。若唯一要求是合上电脑后任务继续，两家都有云端路径，下一步该验证谁能跑通团队自己的依赖和测试。
+团队已经把审阅规则写在代码仓库里，希望每次合并前先看到可能引起故障的问题，可以先试 Codex，较轻的问题留给其他检查。值班工程师只有安卓手机，却要继续排查办公室电脑上的故障，可以先试 Claude Code：手机发指令、看结果，开发机要保持开机联网。
+
+如果需要合盖后继续跑任务，两家都有云端路径。报告进一步比较两种容易忽略的限制：Claude Code 终端能新建云会话、把云会话接回本机，已有的终端会话无法直接推上云；Claude 的托管 GitHub 审阅面向符合条件的组织，按用量另行计费。
 
 [**阅读 8 页 PDF 案例**](examples/codex-vs-claude-code/report.pdf) · [**直接下载 PDF**](https://raw.githubusercontent.com/sakura1412/steal-her-heart/main/examples/codex-vs-claude-code/report.pdf)
 
 [![Codex 与 Claude Code 在个人试用、GitHub 审阅、移动值班、云任务、CI 和企业云采购中的选型对照](examples/codex-vs-claude-code/preview.png)](examples/codex-vs-claude-code/report.pdf)
 
-首页是六个场景的横向对照，后续每页给出双方的工作方式、选它要接受的限制和一个可执行的验证动作。末页提供同仓库试点方案。本版于 **2026-11-09** 重新核对双方产品说明，实际代码质量、速度与单位任务成本仍待同条件实测。
+首页对照个人试用、GitHub 审阅、移动值班、云任务、CI 检查和企业采购。每个场景写明先试谁、理由、代价和验证办法，末页给出同仓库试点方案。本版于 **2026-11-10** 重新核对 13 份官方资料。代码质量、速度和每个合格任务的成本仍待同条件实测。
 
 在 Codex 中生成类似对比，可以输入：
 
