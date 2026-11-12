@@ -1,0 +1,117 @@
+{
+  "schema_version": "quick-1",
+  "mode": "Quick",
+  "snapshot_id": "rental-quick-v1",
+  "objective": "判断首周租用成本",
+  "required_units": [
+    "甲乙首周同条件总价"
+  ],
+  "quality": "sufficient",
+  "gaps": [],
+  "sources": [
+    {
+      "id": "SA",
+      "url": "urn:demo:rental-quick:quote:A",
+      "collected_at": "2026-11-10T10:20:00+08:00",
+      "source_type": "synthetic_quote",
+      "independence_group": "模拟发出方A",
+      "snapshot_path": "raw/A.txt",
+      "snapshot_sha256": "e07aaa0c0137bc67b65a530c7e705d48a21295407fde7b568ec9c509a350b91c"
+    },
+    {
+      "id": "SB",
+      "url": "urn:demo:rental-quick:quote:B",
+      "collected_at": "2026-11-10T10:20:00+08:00",
+      "source_type": "synthetic_quote",
+      "independence_group": "模拟发出方B",
+      "snapshot_path": "raw/B.txt",
+      "snapshot_sha256": "d4ae412d3190b8cac10eca06ff3fb8291c460de686aed7bc39ced2ce7e9f6a4e"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EA",
+      "source_id": "SA",
+      "subject": "A",
+      "dimension": "同条件租赁总价",
+      "conditions": "虚构的同地区、同规格设备，首周租期；税费与配送条件相同。",
+      "original_excerpt": "虚构的同地区、同规格设备，首周租期；税费与配送条件相同。\n甲报价：同规格设备，每日 100 元，按实际天数结算。",
+      "locator": "raw/A.txt, lines 1-2",
+      "verification_status": "verified",
+      "confidence_basis": "仅逐字核对教学材料，无外部市场效力。"
+    },
+    {
+      "id": "EB",
+      "source_id": "SB",
+      "subject": "B",
+      "dimension": "同条件租赁总价",
+      "conditions": "虚构的同地区、同规格设备，首周租期；税费与配送条件相同。",
+      "original_excerpt": "虚构的同地区、同规格设备，首周租期；税费与配送条件相同。\n乙报价：同规格设备，每周 500 元；不足一周按整周结算。",
+      "locator": "raw/B.txt, lines 1-2",
+      "verification_status": "verified",
+      "confidence_basis": "仅逐字核对教学材料，无外部市场效力。"
+    }
+  ],
+  "claims": [
+    {
+      "id": "break-even",
+      "text": "首周内甲和乙在第 5 天持平，各为 500 元。",
+      "supporting_ids": [
+        "EA",
+        "EB"
+      ],
+      "status": "supported"
+    },
+    {
+      "id": "two-days",
+      "text": "用 2 天，甲 200 元，乙 500 元，甲少付 300 元。",
+      "supporting_ids": [
+        "EA",
+        "EB"
+      ],
+      "status": "supported"
+    },
+    {
+      "id": "seven-days",
+      "text": "用 7 天，甲 700 元，乙 500 元，乙少付 200 元。",
+      "supporting_ids": [
+        "EA",
+        "EB"
+      ],
+      "status": "supported"
+    },
+    {
+      "id": "early",
+      "text": "首周内甲每少租一天少付 100 元，乙在第六和第七天仍收 500 元。",
+      "supporting_ids": [
+        "EA",
+        "EB"
+      ],
+      "status": "supported"
+    },
+    {
+      "id": "terms",
+      "text": "两份报价针对同规格、同地区设备，税费配送条件相同。甲按实际天数，乙按整周计。",
+      "supporting_ids": [
+        "EA",
+        "EB"
+      ],
+      "status": "supported"
+    }
+  ],
+  "events": [
+    {
+      "key": "read-fixtures",
+      "counts": {
+        "document_versions": 2
+      }
+    }
+  ],
+  "used": {
+    "research_operations": 0,
+    "document_versions": 2,
+    "supplement_rounds": 0,
+    "report_repair_rounds": 0,
+    "global_rework_rounds": 0
+  }
+}

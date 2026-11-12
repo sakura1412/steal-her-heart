@@ -3,7 +3,7 @@
   "notice": "Synthetic structure tests; not proof of live state transitions or file export.",
   "cases": [
     {
-      "case_id": "active-Interview",
+      "case_id": "active-Intake",
       "valid": true,
       "instance": {
         "schema_version": "1.2.0",
@@ -110,14 +110,14 @@
           }
         },
         "workflow": {
-          "state": "Interview",
+          "state": "Intake",
           "status": "active",
           "report_qa": "pending",
           "delivery_status": "not_started",
           "issues": [],
           "last_transition": {
             "from": null,
-            "to": "Interview",
+            "to": "Intake",
             "reason": "Synthetic workflow fixture",
             "scope_version": "test-scope",
             "occurred_at": "2026-11-05T12:00:00+08:00"
@@ -239,7 +239,7 @@
           "delivery_status": "not_started",
           "issues": [],
           "last_transition": {
-            "from": "Interview",
+            "from": "Intake",
             "to": "Plan",
             "reason": "Synthetic workflow fixture",
             "scope_version": "test-scope",
@@ -2440,7 +2440,7 @@
           }
         },
         "workflow": {
-          "state": "Interview",
+          "state": "Intake",
           "status": "active",
           "report_qa": "pending",
           "delivery_status": "not_started",

@@ -545,6 +545,7 @@
       "properties": {
         "state": {
           "enum": [
+            "Intake",
             "Interview",
             "Plan",
             "Collect",
@@ -592,6 +593,7 @@
               },
               "owner": {
                 "enum": [
+                  "Intake",
                   "Interview",
                   "Plan",
                   "Collect",
@@ -625,6 +627,7 @@
             "from": {
               "enum": [
                 null,
+                "Intake",
                 "Interview",
                 "Plan",
                 "Collect",
@@ -637,6 +640,7 @@
             },
             "to": {
               "enum": [
+                "Intake",
                 "Interview",
                 "Plan",
                 "Collect",
@@ -684,6 +688,7 @@
                 "properties": {
                   "to": {
                     "enum": [
+                      "Intake",
                       "Interview",
                       "Plan",
                       "Analyze",
@@ -697,7 +702,7 @@
               "if": {
                 "properties": {
                   "from": {
-                    "const": "Interview"
+                    "enum": ["Intake", "Interview"]
                   }
                 },
                 "required": [
@@ -708,6 +713,7 @@
                 "properties": {
                   "to": {
                     "enum": [
+                      "Intake",
                       "Interview",
                       "Plan"
                     ]
@@ -1223,7 +1229,7 @@
           "workflow": {
             "properties": {
               "state": {
-                "const": "Interview"
+                "enum": ["Intake", "Interview"]
               },
               "status": {
                 "enum": [
@@ -1258,7 +1264,7 @@
           "workflow": {
             "properties": {
               "state": {
-                "const": "Interview"
+                "enum": ["Intake", "Interview"]
               }
             },
             "required": [
@@ -1277,7 +1283,7 @@
               "last_transition": {
                 "properties": {
                   "to": {
-                    "const": "Interview"
+                    "enum": ["Intake", "Interview"]
                   }
                 }
               }

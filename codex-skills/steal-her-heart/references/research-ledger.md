@@ -1,6 +1,6 @@
 # 研究台账、上下文与恢复
 
-检查点契约版本 `1.3.0`（读取兼容 1.0.0／1.1.0／1.2.0，旧快照不原地迁移）；记录契约仍为 1.1.0。新任务通过 [workflow](workflow.md) 字段区分阶段与交付状态，使用 JSON Schema 2020-12：[逐条记录 Schema](../schemas/ledger-record.schema.json)、[检查点 Schema](../schemas/research-manifest.schema.json)。这定义 Codex 使用实际文件工具维护的工件，不代表已经部署数据库、迁移器或后台任务服务。JSON Schema 检查结构；下述引用、时效、预算及语义检查仍须实际执行。
+检查点契约版本 `1.3.0`（读取兼容 1.0.0／1.1.0／1.2.0，旧快照不原地迁移）；研究记录契约为 1.1.0，新报告映射为 1.2.0。新任务通过 [workflow](workflow.md) 字段区分阶段与交付状态，使用 JSON Schema 2020-12：[逐条记录 Schema](../schemas/ledger-record.schema.json)、[检查点 Schema](../schemas/research-manifest.schema.json)。这定义 Codex 使用实际文件工具维护的工件，不代表已经部署数据库、迁移器或后台任务服务。JSON Schema 检查结构；下述引用、时效、预算及语义检查仍须实际执行。
 
 ## 版本目录命名
 
@@ -9,6 +9,8 @@
 `manifest.snapshot_id` 取该版本目录名，`parent_snapshot` 指前一完整检查点 ID 或 null。恢复在新目录写检查点，旧目录只读；相同事实快照的格式重排可在 reports 下使用 `report-rNNN.pdf/pptx` 并追加报告记录。
 
 ## 目录和权威数据
+
+这是完整台账格式。符合轻量条件的 Quick 任务可直接使用[精简台账](#quick-精简台账)。
 
 ```text
 research/<safe-subject-id>/<revision>/
@@ -52,7 +54,7 @@ JSONL 每行一个 UTF-8 JSON 对象；空文件表示尚无记录。统一外�
 
 ## 问题与框架绑定
 
-新任务在 Plan 维护 [framework.json](../schemas/research-framework.schema.json) 和逐行符合 [问题 Schema](../schemas/research-question.schema.json) 的 questions.jsonl；两者不是 Evidence。manifest 1.3.0 用 `research_design` 记录实际文件哈希、框架身份／版本、问题记录数及 scope_version。Interview 和尚在设计中的 Plan 可暂缺；进入 Collect 及之后阶段必须绑定设计工件。旧快照不原地升级，恢复时根据实际记录建新修订，不能凭行业标签补造历史问题或验证状态。
+采用完整台账的任务在 Plan 维护 [framework.json](../schemas/research-framework.schema.json) 和逐行符合 [问题 Schema](../schemas/research-question.schema.json) 的 questions.jsonl；两者不是 Evidence。manifest 1.3.0 用 `research_design` 记录实际文件哈希、框架身份／版本、问题记录数及 scope_version。Intake 和尚在设计中的 Plan 可暂缺；进入 Collect 及之后阶段必须绑定设计工件。旧快照不原地升级，恢复时根据实际记录建新修订，不能凭行业标签补造历史问题或验证状态。
 
 加载与接纳时检查：设计 scope_version 与 manifest 一致；question_id＋revision 唯一；parent_question_id、框架 question_refs 和维度 question_refs 均可解析，问题树与维度依赖无环；维度类别 ID 存在；required 项被选中；所有实际任务绑定问题／维度。框架与问题版本变化后重查引用和覆盖分母，保留旧快照与预算。若仅修订假设，不把旧范围批准自动解释为新增对象授权。
 
@@ -96,4 +98,22 @@ manifest 保存原始问题、目的、范围版本、当前阶段、偏好及�
 
 先对每条 JSONL 及 manifest 做 Schema 检查，再检查：ID＋revision 唯一；supersedes 链无环且同 ID 递增；引用存在且类型匹配；来源副本一致；文件类型匹配；日期／区间合法；来源独立性和支持语义成立；coverage 的 covered 引用合格 Claim；预算与事件一致；snapshot 哈希正确。支持状态 Claim 至少有一条支持证据，关键判断满足两个独立来源组，不能由空数组通过语义守卫。
 
-最后核报告正文和映射双向完整性、文件哈希、输入版本一致性；JSON 可解析不等于论证成立。当前仓库交付的是格式和执行协议，不声称这些跨记录守卫已有独立程序实现。新增／修改 Schema 需补结构正反例及对应语义验收记录。仓库提供 [结构正反例](../schemas/validation-cases.json)，全部为明确标记的合成测试数据，不可当作真实研究材料；运行时逐例按指定 Schema 校验，并启用 date-time 格式检查。
+最后核报告正文和映射双向完整性、文件哈希、输入版本一致性；JSON 可解析不等于论证成立。交付前由包内脚本检查可机械判定的完整性；原文支持度、时效与报告正文映射的完备性仍由 Validator 和 Reporter 核验。新增／修改 Schema 需补结构正反例及对应语义验收记录。仓库提供 [结构正反例](../schemas/validation-cases.json)，全部为明确标记的合成测试数据，不可当作真实研究材料；运行时逐例按指定 Schema 校验，并启用 date-time 格式检查。
+
+## Quick 精简台账
+
+单轮、无历史修订且不需要复杂实体关系的 Quick 研究可以在同一版本目录写一个 [quick.json](../schemas/quick-run.schema.json)，代替 manifest、框架与分散的 JSONL。保留目标、必选单元、质量结论、缺口、来源、带条件及定位的原文、支持结论的证据 ID、预算事件和累计用量。没有外部操作的类别只在累计值填零，单次事件只填实际消耗。自定更低上限时写 limits；未填时采用 Quick 上限。仅在所有已启动操作都已结算后锁定。Quick 的证据要求、来源独立性、时效检查和补研上限与质量策略一致。
+
+sources、evidence、claims 的 id 和 events 的 key 在该快照内唯一，引用版本固定为 1。来源无可保存原件时保留可访问的原始 URL；有原件时成对保存 snapshot_path 和 snapshot_sha256。公开教学资料可用标明为合成的 URN 关联随附原件。每个必选单元核查所需结论，未满足时在 gaps 记录已查范围、缺口及下一步。存在多方冲突、分段恢复、范围变更或需要逐单元审计时，使用完整台账并继承已耗预算。两种输入格式互斥。报告映射仍写 reports/reports.jsonl，绑定实际 quick.json 字节的 SHA-256。PDF 与 PPT 各自从该快照生成。
+
+## 交付前校验
+
+Reporter 先逐段对照最终文件与映射，包括摘要、表格行与图形中的事实和判断；每处登记结论 ID，并确保 Claim 有核验证据。导出、渲染并登记实际哈希后，Agent 在技能目录使用具备[校验依赖](../scripts/requirements.txt)的 Python 解释器执行：
+
+```sh
+python3 scripts/validate_run.py "$RUN_DIR" --artifact reports/report.pdf
+```
+
+路径取当前版本的实际产物。没有 --artifact 时检查所有报告 ID 的最新修订。脚本只读文件，按 Schema、带版本引用、报告到已核验证据的链、哈希、事件累计与档位上限判定。退出码 0 表示所选文件通过，非零时根据诊断修复并重验。依赖缺失时在 Agent 的工具环境安装 `python3 -m pip install -r scripts/requirements.txt` 或换用具备依赖的解释器；工具仍不可用须说明文件校验未完成。用户仍在 Codex 对话中调用技能。
+
+新报告记录使用 schema_version 1.2.0。每个 paragraphs 条目的 text_ranges 是一个或多个 `[页号, 首行, 末行]`，从 1 开始、包含末行。用[文本读取器](../scripts/report_text.py)的 pages(path, format) 获取实际文件中的非空行。PDF 依 pypdf 提取顺序，PPTX 依幻灯片顺序和页内文本节点，Markdown 视为一页。标题、页码、条件、图注也登记。每一可提取行恰好归入一个映射条目；空白文本页、未登记或重复登记均拦截。外部图片、图表内部和文字的事实／判断分类仍须对照渲染结果核查。旧版报告可用 --legacy-map 审计既有引用和文件，结果标为 LEGACY AUDIT；对外重新交付时应建立新版映射。

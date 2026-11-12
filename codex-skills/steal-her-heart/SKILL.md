@@ -27,10 +27,10 @@ description: 竞品分析、竞争情报、竞争对手研究与产品对比（c
 
 ## 理解与规划
 
-- 复用已知信息，仅澄清影响身份、范围或事实解释的缺口。规划时用[六大分析层](references/dimensions.md#六大分析层)从读者的决定反推取证重点。
+- 复用已知信息，仅澄清影响身份、范围或事实解释的缺口。规划时用[六大分析层](references/dimensions.md#六大分析层)从读者的决定反推取证重点，正式采集前完成[范围与预算预估](references/research-quality.md#规划阶段的预算预估)。
 - 综合分析按[竞品分析的五个核心问题](references/questions-hypotheses.md#竞品分析的五个核心问题)组织问题与报告，专项请求按决策需要裁剪。先拆解目标、支持条件和证伪条件，再由 [Research Framework Agent](references/dimensions.md) 按实体属性生成动态维度、证据要求与优先级。
 - 对象的业务属性会影响研究重点或需要行业专业方法时，查阅 [IndustryPack 规则](references/industry-packs.md) 与 [注册目录](references/industry-pack-registry.yaml)。六部分内容只提供候选知识与方法，按本次目标筛选、核兼容与依赖，记录精确版本和定制差异；无包继续动态规划，不套固定清单、不将包内事实当本次证据。
-- 简述本次主题、对象与范围后继续。单对象不自动扩大为市场研究；明确市场／行业任务按 [Market Intelligence](references/market-intelligence.md) 定义边界并开展。主动发现候选供用户选择；已明确授权的研究范围不重复泛泛确认。
+- 简述本次主题、对象与范围后继续。单对象不自动扩大为市场研究；明确市场／行业任务按 [Market Intelligence](references/market-intelligence.md) 定义边界并开展。单产品轻扫发现竞品时发起[产品选择](references/report-delivery.md#选择比较产品)。用户点名或选定对照产品后，按[比较角度选择](references/report-delivery.md#选择比较角度)支持多选与全部选中，收到角度后立即让用户[从全部 12 个核心比较维度中多选或全选研究重点](references/report-delivery.md#从研究重点选择具体内容)，提交内容后继续分析。
 - 按显式或默认角色读取 [读者与交付](references/audiences.md)，将关注点转为分析问题，而非仅在最后更换语气。
 
 ## 取证与质量循环
@@ -54,4 +54,4 @@ description: 竞品分析、竞争情报、竞争对手研究与产品对比（c
 
 追问复用当前对象与资料，变化先判断影响：只改呈现则重排；改变问题但事实足够则重分析；缺新事实才补证。当前事实须本次工具核查，读取旧快照不冒充来源更新；保留原获取日期、本次核查日期与旧报告版本。“生成周报”只表示本次内容窗口，不创建持续任务。
 
-按 [报告交付规则](references/report-delivery.md) 默认将已核验报告导出 PDF，保存到 `research/<安全对象标识>/<版本>/`，不覆盖旧成果，只链接实际生成并检查的文件。询问是否加做 PPT；导出受阻明确报告未完成，不以聊天正文冒充文件交付。用户明确选择长期项目时，再读 [项目说明](references/projects.md)；默认不创建项目。
+按 [报告交付规则](references/report-delivery.md) 默认将已核验报告导出 PDF，保存到 `research/<安全对象标识>/<版本>/`，不覆盖旧成果，对每个要交付的文件执行[交付前校验](references/research-ledger.md#交付前校验)，退出码为 0 后链接对应文件。询问是否加做 PPT；导出受阻明确报告未完成，不以聊天正文冒充文件交付。用户明确选择长期项目时，再读 [项目说明](references/projects.md)；默认不创建项目。

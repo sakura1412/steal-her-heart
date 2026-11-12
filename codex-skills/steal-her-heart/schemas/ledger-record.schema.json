@@ -1437,7 +1437,8 @@
         "schema_version": {
           "enum": [
             "1.0.0",
-            "1.1.0"
+            "1.1.0",
+            "1.2.0"
           ]
         },
         "record_type": {
@@ -1533,6 +1534,19 @@
                     "items": {
                       "type": "string",
                       "minLength": 1
+                    }
+                  },
+                  "text_ranges": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "type": "array",
+                      "minItems": 3,
+                      "maxItems": 3,
+                      "items": {
+                        "type": "integer",
+                        "minimum": 1
+                      }
                     }
                   }
                 },
@@ -1721,7 +1735,34 @@
           "then": {
             "properties": {
               "schema_version": {
-                "const": "1.1.0"
+                "enum": [
+                  "1.1.0",
+                  "1.2.0"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "schema_version": {
+                "const": "1.2.0"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "properties": {
+                  "paragraphs": {
+                    "items": {
+                      "required": [
+                        "text_ranges"
+                      ]
+                    }
+                  }
+                }
               }
             }
           }

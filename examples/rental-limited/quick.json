@@ -1,0 +1,151 @@
+{
+  "schema_version": "quick-1",
+  "mode": "Quick",
+  "snapshot_id": "rental-limited-v1",
+  "objective": "判断首周租用成本、三家排名和市场份额",
+  "required_units": [
+    "甲乙首周同条件总价",
+    "丙的同条件总价",
+    "三家在指定市场的份额"
+  ],
+  "quality": "limited",
+  "gaps": [
+    "丙缺同条件含税书面报价。",
+    "三家均缺同地区同期成交额及市场成交总额。"
+  ],
+  "sources": [
+    {
+      "id": "SA",
+      "url": "urn:demo:rental-limited:quote:A",
+      "collected_at": "2026-11-10T10:20:00+08:00",
+      "source_type": "synthetic_quote",
+      "independence_group": "模拟发出方A",
+      "snapshot_path": "raw/A.txt",
+      "snapshot_sha256": "e07aaa0c0137bc67b65a530c7e705d48a21295407fde7b568ec9c509a350b91c"
+    },
+    {
+      "id": "SB",
+      "url": "urn:demo:rental-limited:quote:B",
+      "collected_at": "2026-11-10T10:20:00+08:00",
+      "source_type": "synthetic_quote",
+      "independence_group": "模拟发出方B",
+      "snapshot_path": "raw/B.txt",
+      "snapshot_sha256": "d4ae412d3190b8cac10eca06ff3fb8291c460de686aed7bc39ced2ce7e9f6a4e"
+    },
+    {
+      "id": "SC",
+      "url": "urn:demo:rental-limited:quote:C",
+      "collected_at": "2026-11-10T10:20:00+08:00",
+      "source_type": "synthetic_quote",
+      "independence_group": "模拟发出方C",
+      "snapshot_path": "raw/C.txt",
+      "snapshot_sha256": "6e7ac69a65d86df719e06c5e8719a561dac5e933aa8c238233efc2ddaf5048d2"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "EA",
+      "source_id": "SA",
+      "subject": "A",
+      "dimension": "同条件租赁总价",
+      "conditions": "虚构的同地区、同规格设备，首周租期；税费与配送条件相同。",
+      "original_excerpt": "虚构的同地区、同规格设备，首周租期；税费与配送条件相同。\n甲报价：同规格设备，每日 100 元，按实际天数结算。",
+      "locator": "raw/A.txt, lines 1-2",
+      "verification_status": "verified",
+      "confidence_basis": "仅逐字核对教学材料，无外部市场效力。"
+    },
+    {
+      "id": "EB",
+      "source_id": "SB",
+      "subject": "B",
+      "dimension": "同条件租赁总价",
+      "conditions": "虚构的同地区、同规格设备，首周租期；税费与配送条件相同。",
+      "original_excerpt": "虚构的同地区、同规格设备，首周租期；税费与配送条件相同。\n乙报价：同规格设备，每周 500 元；不足一周按整周结算。",
+      "locator": "raw/B.txt, lines 1-2",
+      "verification_status": "verified",
+      "confidence_basis": "仅逐字核对教学材料，无外部市场效力。"
+    },
+    {
+      "id": "EC",
+      "source_id": "SC",
+      "subject": "C",
+      "dimension": "同条件租赁总价",
+      "conditions": "虚构的同地区、同规格设备，首周租期；税费与配送条件相同。",
+      "original_excerpt": "虚构的同地区、同规格设备，首周租期；税费与配送条件相同。\n丙询价说明：同规格设备须逐单询价，本材料未列成交价。",
+      "locator": "raw/C.txt, lines 1-2",
+      "verification_status": "verified",
+      "confidence_basis": "仅逐字核对教学材料，无外部市场效力。"
+    }
+  ],
+  "claims": [
+    {
+      "id": "break-even",
+      "text": "首周内甲和乙在第 5 天持平，各为 500 元。",
+      "supporting_ids": [
+        "EA",
+        "EB"
+      ],
+      "status": "supported"
+    },
+    {
+      "id": "two-days",
+      "text": "用 2 天，甲 200 元，乙 500 元，甲少付 300 元。",
+      "supporting_ids": [
+        "EA",
+        "EB"
+      ],
+      "status": "supported"
+    },
+    {
+      "id": "seven-days",
+      "text": "用 7 天，甲 700 元，乙 500 元，乙少付 200 元。",
+      "supporting_ids": [
+        "EA",
+        "EB"
+      ],
+      "status": "supported"
+    },
+    {
+      "id": "no-price",
+      "text": "丙给出询价方式，同条件总价未知。",
+      "supporting_ids": [
+        "EC"
+      ],
+      "status": "supported"
+    },
+    {
+      "id": "terms",
+      "text": "两份报价针对同规格、同地区设备，税费配送条件相同。甲按实际天数，乙按整周计。",
+      "supporting_ids": [
+        "EA",
+        "EB"
+      ],
+      "status": "supported"
+    },
+    {
+      "id": "missing-denominator",
+      "text": "本例三份材料仅有报价或询价说明，缺少用于计算市场份额的交易额与总体分母。",
+      "supporting_ids": [
+        "EA",
+        "EB",
+        "EC"
+      ],
+      "status": "supported"
+    }
+  ],
+  "events": [
+    {
+      "key": "read-fixtures",
+      "counts": {
+        "document_versions": 3
+      }
+    }
+  ],
+  "used": {
+    "research_operations": 0,
+    "document_versions": 3,
+    "supplement_rounds": 0,
+    "report_repair_rounds": 0,
+    "global_rework_rounds": 0
+  }
+}

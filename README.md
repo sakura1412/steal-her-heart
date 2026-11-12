@@ -6,17 +6,11 @@
 
 [开始使用](#开始使用) · [更多用法](#更多可以直接复制的用法) · [实际报告 Demo](#实际报告-demo) · [常见问题](#常见问题)
 
-一份综合报告回答五个问题：**市场上有什么？竞品解决什么问题？竞品是怎么解决问题的？竞品做得怎么样？我们应该怎么做？** 你可以只问其中一个。若要据此决定自己的产品下一步做什么，附上目标用户和当前约束，报告就能把竞品的差异转成可执行、可验证的建议。
+一份综合报告回答五个问题：**市场上有什么？竞品解决什么问题？竞品是怎么解决问题的？竞品做得怎么样？我们应该怎么做？** 你可以只问其中一个。没有我方背景时，第五问给出待验证选项、各自的适用条件，以及下一步怎样判断。例如，“若夜间恢复是采购门槛，先抽查同地区夜间工单，再决定是否入围”。要判断我方为何赢单、是否值得投入某项能力，还需我方客户、资源或实际赢输记录。
 
 ## 开始使用
 
-**从六层看竞争。** 市场层看客户有哪些选择，战略层看各家服务谁、靠什么获利，产品层看实际交付什么，体验层看用户经历了什么，能力层看交付靠哪些条件，决策层把差异转成可执行的产品竞争策略。[六大分析层与交付示例](codex-skills/steal-her-heart/references/dimensions.md#六大分析层)
-
-只关心售后体验时，可以直接问：“比较两家的报修流程、人工介入和故障恢复，用实际案例核对服务承诺。”需要全面评审时，也可以明确要求逐项分析全部 [12 个核心维度](codex-skills/steal-her-heart/references/core-dimensions.md)。
-
-也可以直接指定交付物，例如：“比较两家的夜间报修，画一张从报修到恢复的流程图，列出必须人工交接的节点，再用客户反馈说明哪里最容易卡住。”更多选项见[八类报告产物与示例用途](codex-skills/steal-her-heart/references/report-artifacts.md)。
-
-想先看成稿会怎样组织，可以浏览[竞品分析报告标准目录](codex-skills/steal-her-heart/references/report-outline.md)。执行摘要先给结论，正文展开比较，最后把竞争机会落实为建议，并在附录提供核验材料。
+**六层、十二维度、八类产物是一份可选菜单。** 六层帮助找研究角度，十二维度帮助选要核查的问题，八类产物帮助选读者拿到什么。比如要决定“哪家能在夜间恢复服务”，可以只从体验层和能力层入手，核查报修流程与履约记录，交付一张流程对照图和一份待验证清单。你也可以明确指定要逐项研究的维度。 [六大分析层](codex-skills/steal-her-heart/references/dimensions.md#六大分析层) · [12 个核心维度](codex-skills/steal-her-heart/references/core-dimensions.md) · [八类报告产物](codex-skills/steal-her-heart/references/report-artifacts.md) · [综合报告目录示例](codex-skills/steal-her-heart/references/report-outline.md)
 
 ### 第一步：安装到 Codex
 
@@ -64,15 +58,21 @@ $steal-her-heart 比较戴森和追觅在中国市场的家用洗地机。
 重点看同价位产品的功能、渠道和售后，给产品经理看，生成一般版 PDF。
 ```
 
-### 第三步：看初步发现，按需补充重点
+### 第三步：选竞品、选角度、选研究重点
 
-Agent 会说明当前理解的对象和范围，先做实体消歧与轻量扫描，再组织取证和分析。未指定偏好时使用**通用读者＋一般版**；可选偏好提示不阻塞研究。你可以随时回复：
+只给一个产品名时，Agent 会核对产品身份，并可选地询问这份报告要支持什么决定。读者和详略默认采用通用读者、一般版。你也可以在第一条消息里直接给出比较名单和目标，例如：
 
 ```text
-给管理层看，做简单版，重点回答值不值得进一步投入。
+$steal-her-heart 比较 Notion 和 Obsidian，帮我决定小团队用哪个做知识库。
 ```
 
-已给出的信息不会重复询问；遇到同名歧义、研究目标缺失，或需要扩大到新对象时，才补问具体事项。完整交互规则统一维护在 [报告交互与交付](codex-skills/steal-her-heart/references/report-delivery.md)。
+| 在对话中看到什么 | 你可以怎么选 |
+|---|---|
+| **① 选竞品** · 只输入一个产品名时，Agent 在找到相关竞品后列出候选及入选理由。 | 选一个或多个候选，也可以选「只分析原产品」。像上例一样点名两款产品，就直接使用这份名单。 |
+| **② 选比较角度** · Agent 按产品和决策目标给出可多选的角度。 | 例如收到「1 团队协作」「2 迁移成本」「3 长期费用」时，回复 `1、2` 或选「全部选中」。这里的编号以当轮选项为准。 |
+| **③ 选本次研究重点** · Agent 按固定编号完整列出 12 个核心比较维度。 | 回复 `04、07、10`，选择产品功能、商业模式与定价、竞争优势与劣势；也可以点「全部选中（12 项）」。 |
+
+在支持多选的界面直接勾选；只有单选按钮时，在输入框一次回复多个编号。**第三步提交后直接开始分析**，沿用你已选的产品和角度。如果预计超出研究预算，Agent 会先给出缩小范围或提高研究档位的选项。[查看 12 个维度及各自研究的内容](codex-skills/steal-her-heart/references/core-dimensions.md)
 
 ### 第四步：打开 PDF，继续追问
 
@@ -114,6 +114,7 @@ Agent 会说明当前理解的对象和范围，先做实体消歧与轻量扫�
 | 使用场景 | 甲 · 按天 | 乙 · 整周起付 | 丙 · 询价 | 选择依据 |
 |---|---:|---:|---|---|
 | 临时用 2 天 | 200 元 | 500 元 | 总价待核实 | 甲比乙少付 300 元，短租能按实际天数付费。 |
+| 连续用 5 天 | 500 元 | 500 元 | 总价待核实 | 两家报价持平。 |
 | 连续用 7 天 | 700 元 | 500 元 | 总价待核实 | 乙比甲少付 200 元，适合已确定用满一周的团队。 |
 
 同一份报价会随使用场景得出不同结论。丙的竞争力需要拿到相同条件的报价后才能判断。
@@ -140,6 +141,13 @@ $steal-her-heart 比较 Codex 和 Claude Code，给通用读者一份详细 PDF�
 两者都能满足的需求也请指出，并给出我能自己验证的办法。
 ```
 
+**两个可直接阅读的教学案例**（虚构报价，仅用于演示判断过程）
+
+| 报告 | 打开后能看到什么 |
+|---|---|
+| [设备短租 · 简单版 PDF](examples/rental-quick/report.pdf) | 两页看清第 5 天为什么持平，以及租期提前结束时如何选择。 |
+| [供应商入围 · 受限版 PDF](examples/rental-limited/report.pdf) | 已核实的报价可以对照；丙缺同条件总价，三家不排总榜。缺同口径市场成交总额，份额留空，并列出下一步索取的材料。 |
+
 ## 常见问题
 
 **需要编程、配置 API Key 或运行 Python 命令吗？**
@@ -148,7 +156,7 @@ $steal-her-heart 比较 Codex 和 Claude Code，给通用读者一份详细 PDF�
 
 **为什么只输入名字后还会被提问？**
 
-名称可能对应不同公司或产品，需要先确认身份。读者和详略有默认值，可以直接说“按默认继续”；不需要先填写我方产品、项目名或完整问卷。
+对象明确时，关于决策、读者和详略的提示可以跳过，研究会继续。名称有歧义时先核对对象；做多产品比较时，产品和角度只询问尚未确定的部分。
 
 **为什么报告有“未找到”或“无法访问”？**
 
@@ -162,204 +170,11 @@ $steal-her-heart 比较 Codex 和 Claude Code，给通用读者一份详细 PDF�
 
 不会。业务资料与研究产物默认保存在工作目录，不自动公开。本页 Demo 是经用户明确授权公开的案例副本。
 
-## 能力与验证范围
-
-本仓库提供自包含的 Codex 技能包：入口、研究规则、任务职责、方法目录与扩展契约。实际研究质量取决于本次可用工具、访问权限及证据。
-
-| 内容 | 当前状态 |
-|---|---|
-| 技能安装、研究交互与报告规范 | 已提供；本页附实际 PDF 案例 |
-| 问题拆解、动态维度、实体管理、可比性与市场研究 | 已提供执行契约，具体结果逐任务核查 |
-| 21 个分析方法 | 已按合成案例检查适用条件及边界，真实业务成效仍待独立验证 |
-| 连接器与行业包实例 | 内置 1 个[产品类型研究重点包](codex-skills/steal-her-heart/references/packs/product-types.md)，含七种可组合视角，已做结构检查。连接器注册实例为 0，实际采集依赖宿主工具 |
-| 证据与报告质量 | 保留来源、时间、条件、冲突和缺口；结构检查不代替事实核验 |
-
-详细状态见 [验证记录](codex-skills/steal-her-heart/validation/README.md)。
-
 ## 设计与维护文档
 
-<details open>
-<summary>研究流程、证据规则、架构与扩展方式</summary>
+研究设计、投入估算、充分性判断和扩展入口见[维护指南](docs/design.md)。行业、平台与方法各自的扩展边界见[三项架构原则](codex-skills/steal-her-heart/references/architecture.md)。
 
-## 可以研究什么
-
-核心对象称为 **Competitive Intelligence Subject**。它可以是一个现实对象，也可以是围绕对象或市场提出的决策问题。
-
-| 任务类型 | 研究重点 |
-|---|---|
-| Product Intelligence | 产品价值、能力与适用边界 |
-| Company Intelligence | 企业业务与竞争优势 |
-| Brand Intelligence | 品牌定位与竞争关系 |
-| Service Intelligence | 服务内容、交付与体验 |
-| Technology Intelligence | 技术路线、能力和约束 |
-| Pricing Intelligence | 价格、收费结构与策略 |
-| Channel Intelligence | 销售、分发路径与覆盖 |
-| Market Intelligence | 市场结构、规模、格局与机会 |
-| Industry Intelligence | 行业环境、产业链与变化 |
-| Customer Intelligence | 客户选择与需求变化 |
-
-这些类型可以组合，共享同一套研究流程和事实资料，不拆成十个独立 Agent。单个产品分析不会自动扩大成全市场研究。详见 [研究对象与任务路由](codex-skills/steal-her-heart/references/subjects.md)。
-
-## 研究如何进行
-
-八阶段为 Interview → Plan → Collect → Validate → Analyze → Report → ReportQA → Delivered，守卫与有界回退见 [状态迁移单源](codex-skills/steal-her-heart/references/workflow.md)。Interview 的交互仍由报告交互单源定义；Delivered 是交付阶段，实际文件检查通过才标任务完成。
-
-```mermaid
-flowchart TD
-    A[明确主题、实体与范围] --> B[动态生成问题和研究框架]
-    B --> C[通过 Adapter 获取实际资料]
-    C --> D[核验证据、覆盖与缺口]
-    D -->|有剩余额度且预计能补缺| C
-    D -->|覆盖100%且来源时效冲突合格| E[Planner 选择分析方法]
-    D -->|额度耗尽或无进展| L[仅交付已核实部分与缺口]
-    E --> F[需要比较时检查可比组与口径]
-    F --> G[分析、计算与新结论核查]
-    G --> H[报告质量检查]
-    H -->|通过| I[交付结果与来源]
-    H -->|不通过且剩余返工额度| J[按根因修正并重新检查]
-    J --> H
-    H -->|耗尽或同根因持续失败| L
-```
-
-研究框架根据对象的实际属性、行业背景和用户目标生成，维度分必选、推荐与可选。Agent 要说明为什么研究这些问题；不能因为某个模板里有一项，就要求每个对象都填写。
-
-采集完成不等于证据充分，排好表格也不等于分析完成。输出可以是事实画像、对比矩阵、市场研究、销售一页纸或即时简报；具体内容取决于问题与已核实材料。
-
-## 围绕问题设计研究
-
-Planner 内部包含两项明确职责，仍共用同一个通用研究引擎：
-
-| 职责 | 负责的工作 | 落盘产物 |
-|---|---|---|
-| Research Question & Hypothesis Agent | 拆解问题，提出可证伪假设与替代解释，定义支持／反证要求，记录当前结论、置信依据和验证状态 | `questions.jsonl` |
-| Research Framework Agent | 识别可重叠的业务属性，按问题设计维度、证据条件与研究优先级，根据采集结果修订框架 | `framework.json`；需要时输出可读的 `dimensions.md` |
-
-业务类别是开放多标签，一个对象可同时涉及软件、服务、内容或实体交付；标签不触发固定行业字段表。必选性表示必须回答什么，P0／P1／P2 表示先做什么，二者分开记录。所有维度必须关联具体问题，框架调整保留原因、反证、受影响结论与旧版本。
-
-例如“分析 Notion 的竞争优势”可拆成用户是谁、为什么选择、差异是否可替代、是否可持续、什么会推翻优势判断等问题；这些只是待验证问题，不是对 Notion 的事实断言。假设被推翻也可以是完成的验证，预算耗尽或找不到反证则不能算验证成功。
-
-详细执行规则见 [问题与假设](codex-skills/steal-her-heart/references/questions-hypotheses.md) 和 [动态研究框架](codex-skills/steal-her-heart/references/dimensions.md)。数据契约与受控结构检查不等于已部署独立 Agent 服务或完成真实研究验收。
-
-## 怎样判定“证据充分”
-
-必选维度按“对象 × 必需维度 × 实际市场／使用端条件”逐格核查，**适用必选单元覆盖率须达到 100%**。未采集、未找到、受限或只有推测不算覆盖；不适用须有依据。覆盖达标还须关键结论、时效、比较口径和冲突检查通过。
-
-关键分析结论至少需要 **两个独立来源组**支持；同一新闻稿的转载不算多个独立来源。官方价格等明确归因的一手披露可用一个原始来源，但不能据此直接证明“最便宜”或“效果最好”。默认当前价格窗口为 24 小时、评分为 7 天、现行功能／版本为 30 天；成立时间等稳定历史事实保留事件日期，本次核原始记录，不能用获取日期刷新事实。
-
-| 全任务上限 | Quick | Standard（默认） | Deep |
-|---|---:|---:|---:|
-| 外部研究操作 | 12 | 40 | 100 |
-| 读取的文档版本 | 6 | 20 | 50 |
-| 补研轮次 | 1 | 2 | 3 |
-| 报告修正轮次 | 1 | 2 | 3 |
-| 跨步骤返工累计 | 2 | 4 | 6 |
-
-这些是项目默认上限，包含轻量扫描、失败、重试和子任务；不是必须用满或保证能完成的数量。达到任一适用上限、一轮补研无进展或同根因修正持续失败时停止。结果区分“充分”“受限”“不足”，只交付能够支撑的结论及具体缺口。完整计算口径、事实时效表和终止条件见 [研究质量策略](codex-skills/steal-her-heart/references/research-quality.md)。
-
-## 长任务如何保存与复用
-
-研究以 `manifest.json` 检查点和 JSONL 台账持久化：来源、实体与时间关系、证据、结论、冲突、覆盖率、任务及预算事件都有明确格式。每条重要报告内容可追到 **Claim → Evidence → 原文片段、URL 与获取时间**，反向也能定位受影响的报告位置。
-
-PDF 与 PPT **分别从同一版台账生成**，不互相转写。输入快照和文件记录保留哈希；修订不覆盖旧版本。长任务按 ID 分批加载有关记录，恢复先核文件完整性、任务结果与预算，避免重采或重复执行。详见 [台账与恢复协议](codex-skills/steal-her-heart/references/research-ledger.md)、[记录 Schema](codex-skills/steal-her-heart/schemas/ledger-record.schema.json) 和 [检查点 Schema](codex-skills/steal-her-heart/schemas/research-manifest.schema.json)。
-
-这些是 Codex 必须执行并留痕的规则与数据契约；仓库未提供独立数据库、自动限流器或跨记录语义校验服务。结构校验通过不代表真实研究、来源核验或恢复行为已经通过验收。
-
-## 三项最高级架构原则
-
-1. **核心引擎永远不绑定行业。** 行业知识通过 IndustryPack 扩展，核心 Prompt 不写死行业字段、流程和专业方法。
-2. **数据采集永远不绑定平台。** 平台数据通过 Connector Adapter 接入，Research 不直接依赖网站结构或专有字段。
-3. **分析方法永远不绑定研究流程。** Research QA 后，由 Planner 根据目的、实际数据和决策问题选择方法，不固定执行 SWOT 或其他模型。
-
-前期可以提出候选方法以规划取证，最终方法选择仍取决于实际证据。扩展不得改变用户范围、工具权限或证据要求。见 [最高级架构规范](codex-skills/steal-her-heart/references/architecture.md)。
-
-## 四个避免误判的设计
-
-### 分清实体，不只记录一个竞品名
-
-公司、品牌、产品、版本、服务、SKU、平台、组织、人物、市场、行业和渠道分别识别。同名、别名与多语言名称先消歧，所有权、运营、供应、合作与竞争关系保留证据和有效时间。
-
-同一产品在不同市场、版本或渠道的价格分别记录；品牌数据不自动归给旗下全部产品。合并、拆分或纠错保留历史，并重新核查受影响结论。见 [实体管理](codex-skills/steal-her-heart/references/entities.md)。
-
-### 先确定可比对象，再给排名
-
-Comparison Engine 将 **Comparable Group（可比对象组）** 作为直接比较的前置条件。核对目标客户、产品定位、市场区域、配置／服务范围、计价周期，以及实体层级和使用端。
-
-月付、年付、用量费、按件和按项目报价，需要明确共同情景与实际条款才可换算。年费月均摊不等于允许月付；未知不能填零，不适用项不评分，不对每个对象单独删掉缺项后制造可比总分。不符合条件的对象可以作为市场参考，但不能直接参与排名。见 [Comparison Engine](codex-skills/steal-her-heart/references/comparison.md)。
-
-### 市场数据必须说明是谁给出的、怎么算的
-
-Market Intelligence 按需研究概况、细分、规模、增长、份额、格局、进入壁垒、产业链、区域差异和新兴竞争者。
-
-市场数字分别标为**官方披露、第三方估算、Agent 推算、无法核实**。没有同口径总体分母，不输出市场份额；样本内占比不是全市场份额。TAM／SAM／SOM 必须交代输入、方案、期限、公式和假设，不能凭空取一个百分比。见 [市场研究规则](codex-skills/steal-her-heart/references/market-intelligence.md)。
-
-### 读者改变分析重点，不改变事实
-
-产品经理看能力差距与机会，销售领导看竞争场景与价格条件，一线销售看可使用的回应与边界，运营看渠道和增长假设。角色可自定义，不强制输出四份报告。
-
-各视图共用事实版本；新问题用已有证据能回答就重新分析，需要新事实才补证。没有我方背景时，不编“我们的优势”或赢输策略。见 [读者与交付](codex-skills/steal-her-heart/references/audiences.md)。
-
-## 扩展方式
-
-| 扩展 | 负责什么 | 管理与边界 |
-|---|---|---|
-| **IndustryPack** | 行业定义、候选维度、指标字典、来源推荐、分析方法与报告模板 | 版本、校验、兼容、依赖和定制；按任务选择，不自动套清单 |
-| **Data Source Connector Registry** | 来源类别、连接模式、能力声明与实际工具绑定 | 可调用、获授权和实际验证分开；保留原文、标准化过程及失败状态 |
-| **Analysis Method Registry** | 方法的触发问题、输入、执行规则、输出与完成条件 | 按证据选择；专业变体有版本与命名空间，不改核心流程 |
-
-**数据源体系**覆盖企业官方、应用与软件、电商与零售、社交与内容、新闻媒体、研究知识、公共数据、评价社区八类来源。连接模式包括 Public Web、Official API、Authorized Account 和 User Upload。搜索、正文抓取、浏览器、文档解析或专用连接器由当前 Codex 环境提供，不绕过登录、付费、地域和访问限制。
-
-**分析方法按研究问题选择。** 常用方法包括 SWOT、PEST、波特五力、用户旅程地图、功能对比矩阵和 GAP 分析。需要分析产品组合、需求优先级、投入顺序或商业模式时，可分别选用波士顿矩阵、Kano、RICE 或商业模式画布。见[方法选择指南](codex-skills/steal-her-heart/references/analysis-methods.md#从研究问题选方法)。
-
-详细契约：[行业包](codex-skills/steal-her-heart/references/industry-packs.md) · [连接器](codex-skills/steal-her-heart/references/connectors.md) · [分析方法](codex-skills/steal-her-heart/references/analysis-methods.md)。
-
-## 八条证据铁律
-
-1. 每条事实来自本次实际工具核查，附来源链接和获取日期，禁止记忆冒充当前事实。
-2. 区分官方宣称、第三方、用户反馈和分析判断。
-3. 价格、版本、评分标明地区、版本、时间及必要条件。
-4. 「未采集」「查找后未找到」「不适用」分别记录。
-5. 冲突不得静默消除，处理依据和未决部分明确呈现。
-6. 无我方背景时，不编我方优势或赢输建议。
-7. Web、App、小程序、桌面、线下在本次范围内分别取证、分别标注。
-8. 工具失败或无法访问时，只输出已核实部分，并明确列出缺口。
-
-完整规则见 [RULES.md](codex-skills/steal-her-heart/RULES.md)。报告还要检查维度覆盖、重复、前后矛盾、时效、数字依据、目的回应和措辞强度；未解决的必需缺口不能包装成完整报告。
-
-## 执行示范与来源判断
-
-例如，你问“竞品的自动审批值得我们借鉴吗？”，报告会分开写规则能处理哪些申请、哪些效率收益还只是推测，以及如何用自己的审批记录决定是否试点。只有厂商手册时，实际节省了多少时间会保留为未知。见[分析原则与自动审批示例](codex-skills/steal-her-heart/RULES.md#专业分析的五项原则)。
-
-[五个正反示范](codex-skills/steal-her-heart/references/worked-examples.md) 展示价格冲突、缺分母的份额请求、工具失败、缺失值比较及缺对象时的处理。示范均为教学材料，不是实际产品事实。
-
-来源等级、置信理由和允许使用的“背景知识”见 [来源质量规则](codex-skills/steal-her-heart/references/source-quality.md)。一般术语和方法解释可标为背景知识；当前竞品事实仍需本次证据，背景知识不计入事实覆盖。评论研究按 [采样与口碑规范](codex-skills/steal-her-heart/references/review-method.md) 记录窗口、样本、重复／疑似操纵信号和评分口径，不用跨平台星级直接排名。
-
-[验证记录](codex-skills/steal-her-heart/validation/README.md) 分别列结构检查、受控案例、真实工具调用和未完成项。方法的合成案例、行业包的结构校验和连接器的实际可用性分别记录。
-
-## 文件与成果
-
-```text
-codex-skills/steal-her-heart/
-├── SKILL.md                 调用入口与工作流程
-├── RULES.md                 证据、权限与质量规则
-├── TASK_SPEC.md             运行职责、交接与任务管理
-├── agents/openai.yaml       技能展示信息
-├── references/              架构、研究方法、质量及台账协议
-├── schemas/                 台账、背景知识与检查点 JSON Schema
-├── tests/                   维护者验收表，运行时不加载
-└── validation/              历史验证材料，按维护／能力审查请求读取
-AGENTS.md                    仓库维护约定
-projects/README.md           可选长期项目说明
-templates/profile.md         按需填写的背景模板
-```
-
-默认生成 PDF，在 Codex 对话中提供摘要和文件链接，并询问是否加做 PPT。研究成果写入 `research/<安全标识>/<版本>/`；用户明确选择长期项目时，再使用 `projects/` 保存背景、范围和版本。已有业务资料不自动覆盖，业务项目与研究成果不默认提交到仓库。
-
-长期项目流程见 [项目说明](codex-skills/steal-her-heart/references/projects.md)。研究请求不自动授权发布、发送、付费或定时监测。
-
-## 参与维护
-
-维护时遵循 [AGENTS.md](AGENTS.md)，保持技能包自包含和三项架构原则。新增行业扩展 IndustryPack，新增平台扩展 Adapter，新增方法扩展 Method Registry，并补充适用性、缺失、冲突及失败场景。
-
-运行职责见 [TASK_SPEC.md](codex-skills/steal-her-heart/TASK_SPEC.md)，维护者验收要求见 [tests/acceptance.md](codex-skills/steal-her-heart/tests/acceptance.md)。提交时区分格式／引用检查、受控案例和真实研究验证，说明实际工具、证据、产物及未完成项；不能用旧测试记录或合成报告证明新能力已经可用。
-
-</details>
+- [证据规则](codex-skills/steal-her-heart/RULES.md) · [实体识别](codex-skills/steal-her-heart/references/entities.md) · [可比组](codex-skills/steal-her-heart/references/comparison.md) · [份额分母](codex-skills/steal-her-heart/references/market-intelligence.md) · [读者视角](codex-skills/steal-her-heart/references/audiences.md)
+- Agent 在文件交付前运行本地校验，核对实际文件的正文映射、证据引用、文件哈希和预算。Quick 可采用单文件精简台账。原文是否支持结论由研究 QA 负责。[交付校验与依赖](codex-skills/steal-her-heart/references/research-ledger.md#交付前校验)
+- 自动抓取遵守站点 ToS、robots.txt 与授权范围；涉及人物时按目的和适用法律（PIPL／GDPR）控制采集与披露。[站点准入](codex-skills/steal-her-heart/references/connectors.md#站点条款与抓取范围) · [个人信息边界](codex-skills/steal-her-heart/references/entities.md#人物实体与个人信息)
+- 方法的受控案例、行业包的结构检查及宿主工具的实际验证分别记录。[验证状态](codex-skills/steal-her-heart/validation/README.md) · [维护验收](codex-skills/steal-her-heart/tests/acceptance.md)
