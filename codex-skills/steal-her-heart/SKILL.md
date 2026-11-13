@@ -54,4 +54,4 @@ description: 竞品分析、竞争情报、竞争对手研究与产品对比（c
 
 追问复用当前对象与资料，变化先判断影响：只改呈现则重排；改变问题但事实足够则重分析；缺新事实才补证。当前事实须本次工具核查，读取旧快照不冒充来源更新；保留原获取日期、本次核查日期与旧报告版本。“生成周报”只表示本次内容窗口，不创建持续任务。
 
-按 [报告交付规则](references/report-delivery.md) 默认将已核验报告导出 PDF，保存到 `research/<安全对象标识>/<版本>/`，不覆盖旧成果，对每个要交付的文件执行[交付前校验](references/research-ledger.md#交付前校验)，退出码为 0 后链接对应文件。询问是否加做 PPT；导出受阻明确报告未完成，不以聊天正文冒充文件交付。用户明确选择长期项目时，再读 [项目说明](references/projects.md)；默认不创建项目。
+按 [报告交付规则](references/report-delivery.md) 使用包内 [PDF](modules/pdf/SKILL.md) 和 [PowerPoint](modules/pptx/SKILL.md) 模块，默认将已核验报告导出 PDF，保存到 `research/<安全对象标识>/<版本>/`，不覆盖旧成果，对每个要交付的文件执行[交付前校验](references/research-ledger.md#交付前校验)，退出码为 0 后链接对应文件。询问是否加做 PPT；导出受阻明确报告未完成，不以聊天正文冒充文件交付。用户明确选择长期项目时，再读 [项目说明](references/projects.md)；默认不创建项目。

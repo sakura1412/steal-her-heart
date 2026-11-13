@@ -2,3 +2,5 @@ jsonschema>=4.18,<5
 rfc3339-validator>=0.1.4,<1
 rfc3986-validator>=0.1.1,<1
 pypdf>=6,<7
+reportlab>=4,<5
+python-pptx>=1,<2

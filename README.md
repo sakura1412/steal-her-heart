@@ -76,6 +76,8 @@ $steal-her-heart 比较 Notion 和 Obsidian，帮我决定小团队用哪个做�
 
 ### 第四步：打开 PDF，继续追问
 
+安装完整技能包即包含 PDF 和 PowerPoint 导出模块。在对话中说“生成 PDF”或“基于这次研究生成 PPT”即可。Agent 使用本地 Python 库与字体生成文件，执行环境的依赖见[内置导出说明](codex-skills/steal-her-heart/references/report-export.md)。
+
 完成后，Codex 会提供简短结论和 **PDF 文件链接**。研究成果保存在当前工作目录的 `research/<对象标识>/<版本>/` 下，以对话返回的实际路径为准。
 
 你可以在同一对话中继续输入：
